@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 
+
 @layer base {
 
     /*PARA VERIFICAR QUAIS CORES USAR*/
@@ -78,5 +79,19 @@ $color-colors-fixed-white-fixed: #ffffff;*/
         --colorGreyScaleGrey9: 248, 249, 250;
         --colorGreyScaleGrey10: 253, 253, 253;
         --colorColorsFixedWhiteFixed: 255, 255, 255;
+    }
+}
+
+@layer components {
+    .link-default {
+        @apply border self-center px-4 py-2 font-semibold rounded text-center;
+    }
+
+    .link-noboard {
+        @apply p-2 font-semibold rounded;
+    }
+
+    .menu-user {
+        @apply flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2;
     }
 }

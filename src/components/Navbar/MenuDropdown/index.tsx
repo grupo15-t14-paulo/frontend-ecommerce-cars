@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LogoImg from "../Logo/Logo.png";
+import LogoImg from "../../../assets/Logo.png";
 import { Link, useLocation } from "react-router-dom";
 
 export const Menu = () => {
@@ -10,12 +10,12 @@ export const Menu = () => {
 
   const nameUser = "Teste Dinamico";
 
-  const rota = "/dashboard";
   let content;
   //Aqui fica a verificação com contexto quando usuario tiver logado
-  const userSeller = true;
+  const userSeller = false;
+  const user = false;
 
-  switch (rota) {
+  switch (nameRoutes) {
     case "/":
       content = <MenuDefault />;
       break;
@@ -26,7 +26,7 @@ export const Menu = () => {
       content = <MenuDefault />;
       break;
     default:
-      content = userSeller ? <MenuUser /> : <MenuSeller />;
+      content = userSeller ? <MenuSeller /> : <MenuUser />;
       break;
   }
 
@@ -56,7 +56,7 @@ export const Menu = () => {
         <div className={"flex w-40 h-6"}>
           <img src={LogoImg} alt="logo" />
         </div>
-        {userSeller ? (
+        {user || userSeller ? (
           <div className={"flex gap-2 "}>
             <div
               className={
@@ -104,12 +104,12 @@ export const Menu = () => {
           </button>
         )}
         {open && content}
-        {!userSeller && (
+        {!user && (
           <div className={"hidden md:flex gap-4 border-l-2 h-full items-center pl-4"}>
             <Link
               to={"/login"}
               className={
-                "p-2 font-semibold rounded hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed text-center"
+                "link-noboard hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed"
               }
             >
               Fazer Login
@@ -117,7 +117,7 @@ export const Menu = () => {
             <Link
               to={"/register"}
               className={
-                "border  self-center px-4 py-2 font-semibold rounded hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed text-center"
+                "link-default hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed"
               }
             >
               Cadastrar
@@ -137,12 +137,19 @@ export const MenuDefault = () => {
       }
     >
       <div className={"flex container flex-col gap-6 my-2 self-start"}>
-        <Link to={"/login"}>Fazer Login</Link>
+        <Link
+          to={"/login"}
+          className={
+            "link-noboard hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed w-max"
+          }
+        >
+          Fazer Login
+        </Link>
 
         <Link
           to={"/register"}
           className={
-            "border w-5/6 self-center p-2 font-semibold rounded hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed text-center"
+            "link-default hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed w-full"
           }
         >
           Cadastrar
@@ -154,11 +161,7 @@ export const MenuDefault = () => {
 
 export const MenuUser = () => {
   return (
-    <main
-      className={
-        "flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2"
-      }
-    >
+    <main className={"menu-user lg:right-10"}>
       <ul className={"border rounded shadow-lg p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Perfil</button>
