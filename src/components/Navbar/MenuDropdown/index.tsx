@@ -159,15 +159,12 @@ export const MenuUser = () => {
         "flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2"
       }
     >
-      <ul className={"border rounded shadow-lg"}>
+      <ul className={"border rounded shadow-lg p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Perfil</button>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Endereço</button>
-        </li>
-        <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Meus Anúncios</button>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Sair</button>
@@ -181,28 +178,23 @@ export const MenuSeller = () => {
   return (
     <main
       className={
-        "flex absolute left-0 top-24 w-full flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 shadow"
+        "flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2"
       }
     >
-      <ul className={"border-b shadow"}>
-        <li className={"h-10 flex items-center p-2 my-2"}>Carros</li>
-        <li className={"h-10 flex items-center p-2 my-2"}>Motos</li>
-        <li className={"h-10 flex items-center p-2 my-2"}>Leilão</li>
+      <ul className={"border rounded shadow-lg p-1"}>
+        <li className={"h-10 flex items-center p-2 my-2"}>
+          <button>Editar Perfil</button>
+        </li>
+        <li className={"h-10 flex items-center p-2 my-2"}>
+          <button>Editar Endereço</button>
+        </li>
+        <li className={"h-10 flex items-center p-2 my-2"}>
+          <button>Meus Anúncios</button>
+        </li>
+        <li className={"h-10 flex items-center p-2 my-2"}>
+          <button>Sair</button>
+        </li>
       </ul>
-      <div className={"flex flex-col gap-6 my-2"}>
-        <Link to={"/login"} className={"m-2"}>
-          Fazer Login
-        </Link>
-
-        <Link
-          to={"/register"}
-          className={
-            "border w-5/6 self-center p-2 font-semibold rounded hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed"
-          }
-        >
-          Cadastrar
-        </Link>
-      </div>
     </main>
   );
 };
