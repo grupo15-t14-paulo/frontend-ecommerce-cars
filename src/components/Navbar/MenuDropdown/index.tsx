@@ -4,29 +4,50 @@ import { Link, useLocation } from "react-router-dom";
 
 export const Menu = () => {
   const [open, setOpen] = useState(false);
+  const [openUser, setOpenUser] = useState(false);
   const location = useLocation();
   const nameRoutes = location.pathname;
+
+  const nameUser = "Teste Dinamico";
+
+  const rota = "/dashboard";
   let content;
   //Aqui fica a verificação com contexto quando usuario tiver logado
   const userSeller = true;
 
-  switch (nameRoutes) {
+  switch (rota) {
     case "/":
       content = <MenuDefault />;
       break;
     case "/login":
-      content = <MenuloginRegister />;
+      content = <MenuDefault />;
       break;
     case "/register":
-      content = <MenuloginRegister />;
+      content = <MenuDefault />;
       break;
-    case "/dashboard":
+    default:
       content = userSeller ? <MenuUser /> : <MenuSeller />;
       break;
   }
 
   const OpenMenu = () => {
     setOpen(!open);
+  };
+
+  const profileName = (name: string) => {
+    const partName = name.split(" ");
+    const firstWordName = partName[0].charAt(0);
+    const secondWordName = partName[1].charAt(0);
+
+    return `${firstWordName}${secondWordName}`;
+  };
+
+  const profileTitleName = (name: string) => {
+    const partName = name.split(" ");
+    const firstName = partName[0];
+    const secondName = partName[1];
+
+    return `${firstName} ${secondName}`;
   };
 
   return (
@@ -36,7 +57,16 @@ export const Menu = () => {
           <img src={LogoImg} alt="logo" />
         </div>
         {userSeller ? (
-          <button onClick={() => OpenMenu()}>Nome do usuario</button>
+          <div className={"flex gap-2 "}>
+            <div
+              className={
+                "flex items-center justify-center rounded-3xl w-8 h-8 bg-colorRandomRandom10 text-colorColorsFixedWhiteFixed"
+              }
+            >
+              {profileName(nameUser)}
+            </div>
+            <button onClick={() => OpenMenu()}>{profileTitleName(nameUser)}</button>
+          </div>
         ) : (
           <button
             onClick={() => OpenMenu()}
@@ -106,7 +136,7 @@ export const MenuDefault = () => {
         "flex absolute left-0 top-24 w-full flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 shadow animate-fadeIn"
       }
     >
-      <div className={"flex container flex-col gap-6 my-2"}>
+      <div className={"flex container flex-col gap-6 my-2 self-start"}>
         <Link to={"/login"}>Fazer Login</Link>
 
         <Link
@@ -126,28 +156,23 @@ export const MenuUser = () => {
   return (
     <main
       className={
-        "flex absolute left-0 top-24 w-full flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 shadow"
+        "flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2"
       }
     >
-      <ul className={"border-b shadow"}>
-        <li className={"h-10 flex items-center p-2 my-2"}>Carros</li>
-        <li className={"h-10 flex items-center p-2 my-2"}>Motos</li>
-        <li className={"h-10 flex items-center p-2 my-2"}>Leilão</li>
+      <ul className={"border rounded shadow-lg"}>
+        <li className={"h-10 flex items-center p-2 my-2"}>
+          <button>Editar Perfil</button>
+        </li>
+        <li className={"h-10 flex items-center p-2 my-2"}>
+          <button>Editar Endereço</button>
+        </li>
+        <li className={"h-10 flex items-center p-2 my-2"}>
+          <button>Meus Anúncios</button>
+        </li>
+        <li className={"h-10 flex items-center p-2 my-2"}>
+          <button>Sair</button>
+        </li>
       </ul>
-      <div className={"flex flex-col gap-6 my-2"}>
-        <Link to={"/login"} className={"m-2"}>
-          Fazer Login
-        </Link>
-
-        <Link
-          to={"/register"}
-          className={
-            "border w-5/6 self-center p-2 font-semibold rounded hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed"
-          }
-        >
-          Cadastrar
-        </Link>
-      </div>
     </main>
   );
 };
@@ -164,31 +189,6 @@ export const MenuSeller = () => {
         <li className={"h-10 flex items-center p-2 my-2"}>Motos</li>
         <li className={"h-10 flex items-center p-2 my-2"}>Leilão</li>
       </ul>
-      <div className={"flex flex-col gap-6 my-2"}>
-        <Link to={"/login"} className={"m-2"}>
-          Fazer Login
-        </Link>
-
-        <Link
-          to={"/register"}
-          className={
-            "border w-5/6 self-center p-2 font-semibold rounded hover:bg-colorRandomRandom10 hover:text-colorColorsFixedWhiteFixed"
-          }
-        >
-          Cadastrar
-        </Link>
-      </div>
-    </main>
-  );
-};
-
-export const MenuloginRegister = () => {
-  return (
-    <main
-      className={
-        "flex md:hidden absolute left-0 top-24 w-full flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 shadow"
-      }
-    >
       <div className={"flex flex-col gap-6 my-2"}>
         <Link to={"/login"} className={"m-2"}>
           Fazer Login
