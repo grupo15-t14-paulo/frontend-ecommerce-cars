@@ -10,14 +10,10 @@ export const Home = () => {
       <div className={"min-h-screen w-screen mb-60"}>
         <Navbar />
         <Header />
-        <main className={"mt-12 h-screen flex gap-4 container"}>
-          <section className={"w-1/4"}></section>
-          <section className={"w-3/4 max-w-[1100px] h-screen"}>
-            <ul
-              className={
-                "grid h-screen md:grid-cols-2 lg:grid-cols-3 w-full gap-5 overflow-auto justify-center"
-              }
-            >
+        <main className={"mt-12 h-screen flex gap-4 w-full"}>
+          {/* <section className={"w-1/4"}></section> */}
+          <section className={"w-full max-w-[1100px] h-screen container"}>
+            <ul className={"flex md:flex-wrap h-screen w-full gap-5 overflow-auto justify-center"}>
               {carros.map((car) => (
                 <Card
                   id={car.id}

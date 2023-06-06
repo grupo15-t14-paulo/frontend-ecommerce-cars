@@ -3,7 +3,10 @@ import { ICardProps } from "./interface";
 
 export const Card = ({ img, title, description, km, userName, value, year, id }: ICardProps) => {
   return (
-    <li key={id} className={"flex flex-col gap-2 w-312 h-[350px] rounded-sm shadow"}>
+    <li
+      key={id}
+      className={"flex flex-col gap-2 w-312 h-[350px] min-h-card min-w-card rounded-sm shadow"}
+    >
       <section className={"flex w-full h-152 bg-slate-200"}>
         <img src={img} alt="imagem do carro" />
       </section>
