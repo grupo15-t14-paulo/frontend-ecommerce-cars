@@ -1,10 +1,10 @@
 import { useState } from "react";
 import LogoImg from "../../../assets/Logo.png";
 import { Link, useLocation } from "react-router-dom";
+import { profileName, profileTitleName } from "../../../hooks";
 
 export const Menu = () => {
   const [open, setOpen] = useState(false);
-  const [openUser, setOpenUser] = useState(false);
   const location = useLocation();
   const nameRoutes = location.pathname;
 
@@ -34,37 +34,15 @@ export const Menu = () => {
     setOpen(!open);
   };
 
-  const profileName = (name: string) => {
-    const partName = name.split(" ");
-    const firstWordName = partName[0].charAt(0);
-    const secondWordName = partName[1].charAt(0);
-
-    return `${firstWordName}${secondWordName}`;
-  };
-
-  const profileTitleName = (name: string) => {
-    const partName = name.split(" ");
-    const firstName = partName[0];
-    const secondName = partName[1];
-
-    return `${firstName} ${secondName}`;
-  };
-
   return (
-    <div className={"relative flex min-w-full justify-between shadow"}>
+    <div className={"relative flex min-w-full justify-between shadow z-10"}>
       <div className={"container flex justify-between min-w-full h-full items-center"}>
         <div className={"flex w-40 h-6"}>
           <img src={LogoImg} alt="logo" />
         </div>
         {user || userSeller ? (
           <div className={"flex gap-2 "}>
-            <div
-              className={
-                "flex items-center justify-center rounded-3xl w-8 h-8 bg-colorRandomRandom10 text-colorColorsFixedWhiteFixed"
-              }
-            >
-              {profileName(nameUser)}
-            </div>
+            <div className={"name-profile"}>{profileName(nameUser)}</div>
             <button onClick={() => OpenMenu()}>{profileTitleName(nameUser)}</button>
           </div>
         ) : (
@@ -133,7 +111,7 @@ export const MenuDefault = () => {
   return (
     <main
       className={
-        "flex absolute left-0 top-24 w-full flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 shadow animate-fadeIn"
+        "flex absolute left-0 top-20 border-t-2 w-full flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 shadow animate-fadeIn"
       }
     >
       <div className={"flex container flex-col gap-6 my-2 self-start"}>
@@ -161,7 +139,7 @@ export const MenuDefault = () => {
 
 export const MenuUser = () => {
   return (
-    <main className={"menu-user lg:right-10"}>
+    <main className={"menu-user lg:right-10 animate-fadeIn"}>
       <ul className={"border rounded shadow-lg p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Perfil</button>
@@ -181,7 +159,7 @@ export const MenuSeller = () => {
   return (
     <main
       className={
-        "flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2"
+        "flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 animate-fadeIn"
       }
     >
       <ul className={"border rounded shadow-lg p-1"}>
