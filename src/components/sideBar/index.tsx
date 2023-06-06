@@ -1,6 +1,6 @@
 export const SideBar = () =>{
     return (
-        <div className="w-1/4">
+        <div className="w-1/4 h-screen">
             <div>
                 <h2 className="text-black text-2xl font-semibold">
                     Marca
