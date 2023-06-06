@@ -1,13 +1,13 @@
 import { profileName, profileTitleName } from "../../hooks";
 import { ICardProps } from "./interface";
 
-export const Card = ({ img, title, description, km, userName, value, year }: ICardProps) => {
+export const Card = ({ img, title, description, km, userName, value, year, id }: ICardProps) => {
   return (
-    <li className={"flex flex-col gap-2 w-312 h-350 rounded-sm shadow"}>
+    <li key={id} className={"flex flex-col gap-2 w-312 h-[350px] rounded-sm shadow"}>
       <section className={"flex w-full h-152 bg-slate-200"}>
         <img src={img} alt="imagem do carro" />
       </section>
-      <section className={"mt-1 mb-4 flex flex-col gap-4"}>
+      <section className={"mt-1 mb-4 flex flex-col gap-4 p-1"}>
         <h2 className={"mb-1 text-base font-semibold"}>{title}</h2>
         <p className={"text-sm h-10"}>{description}</p>
         <div className={"flex items-center gap-1"}>

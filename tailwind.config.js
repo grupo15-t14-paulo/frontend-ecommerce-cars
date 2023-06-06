@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,11 +13,12 @@ export default {
       padding: {
         DEFAULT: "1rem",
         sm: "2rem",
-        lg: "4rem",
+        lg: "3rem",
         xl: "5rem",
         "2xl": "6rem",
       },
     },
+
     extend: {
       animation: {
         fadeIn: "fadeIn 0.5s ease-in-out",
@@ -35,7 +37,13 @@ export default {
         312: "19.5rem",
         350: "21.875rem",
         152: "9.5rem",
+        627: "39.1875rem",
+        544: "34rem",
       },
+      backgroundImage: {
+        "primary-car-header": "url('/src/assets/carPhoto.png')",
+      },
+
       colors: {
         colorFeedbackAlert1: "rgba(var(--colorFeedbackAlert1), <alpha-value>)",
         colorFeedbackAlert2: "rgba(var(--colorFeedbackAlert2), <alpha-value>)",
