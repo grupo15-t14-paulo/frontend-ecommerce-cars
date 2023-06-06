@@ -98,4 +98,12 @@ $color-colors-fixed-white-fixed: #ffffff;*/
     .name-profile {
         @apply flex items-center justify-center rounded-3xl w-8 h-8 bg-colorRandomRandom10 text-colorColorsFixedWhiteFixed;
     }
+
+    .span-li-sidebar {
+        @apply cursor-pointer text-colorGreyScaleGrey3
+    }
+
+    .li-sideBar{
+        @apply flex flex-col m-3
+    }
 }

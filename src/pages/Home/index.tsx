@@ -2,6 +2,7 @@ import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/footer";
+import { SideBar } from "../../components/sideBar";
 import { carros } from "../../utility";
 
 export const Home = () => {
@@ -10,8 +11,9 @@ export const Home = () => {
       <div className={"min-h-screen w-screen mb-60"}>
         <Navbar />
         <Header />
-        <main className={"mt-12 h-screen"}>
-          <section className={"w-full max-w-[1100px] h-screen"}>
+        <main className={"mt-12 h-screen flex"}>
+          <SideBar/>
+          <section className={"w-3/4 h-screen"}>
             <ul
               className={
                 "grid h-screen md:grid-cols-2 lg:grid-cols-3 w-full gap-5 overflow-auto justify-center"
