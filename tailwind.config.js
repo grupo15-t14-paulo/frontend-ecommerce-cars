@@ -31,6 +31,11 @@ export default {
           },
         },
       },
+      spacing: {
+        312: "19.5rem",
+        350: "21.875rem",
+        152: "9.5rem",
+      },
       colors: {
         colorFeedbackAlert1: "rgba(var(--colorFeedbackAlert1), <alpha-value>)",
         colorFeedbackAlert2: "rgba(var(--colorFeedbackAlert2), <alpha-value>)",

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LogoImg from "../../../assets/Logo.png";
 import { Link, useLocation } from "react-router-dom";
-import { profileName, profileTitleName } from "../../Hooks";
+import { profileName, profileTitleName } from "../../../hooks";
 
 export const Menu = () => {
   const [open, setOpen] = useState(false);
