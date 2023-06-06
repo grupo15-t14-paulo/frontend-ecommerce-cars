@@ -14,8 +14,14 @@ export default {
         DEFAULT: "1rem",
         sm: "2rem",
         lg: "3rem",
-        xl: "5rem",
+        xl: "3rem",
         "2xl": "6rem",
+      },
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
       },
     },
 
@@ -23,6 +29,7 @@ export default {
       animation: {
         fadeIn: "fadeIn 0.5s ease-in-out",
       },
+
       keyframes: {
         fadeIn: {
           "0%": {
