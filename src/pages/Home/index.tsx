@@ -8,7 +8,7 @@ import { carros } from "../../utility";
 export const Home = () => {
   return (
     <>
-      <div className={"h-full min-w-full box-border"}>
+      <div className={"h-full min-w-screen box-border"}>
         <Navbar />
         <Header />
         <main className={"mt-12 min-h-full w-full container flex gap-4 relative box-border"}>
