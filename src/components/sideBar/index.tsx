@@ -3,7 +3,7 @@ export const SideBar = () => {
     <div className="hidden mb-0 lg:block lg:w-1/4 ">
       <div>
         <h2 className="text-black text-2xl font-semibold">Marca</h2>
-        <ul>
+        <ul className="mb-10">
           <li className="li-sideBar">
             <span className="span-li-sidebar">General Motors</span>
             <span className="span-li-sidebar">Fiat</span>
@@ -16,7 +16,7 @@ export const SideBar = () => {
       </div>
       <div>
         <h2 className="text-black">Modelo</h2>
-        <ul>
+        <ul className="mb-10">
           <li className="li-sideBar">
             <span className="span-li-sidebar">Civic</span>
             <span className="span-li-sidebar">Corolla</span>
@@ -31,7 +31,7 @@ export const SideBar = () => {
       </div>
       <div>
         <h2 className="text-black text-2xl font-semibold">Cor</h2>
-        <ul>
+        <ul className="mb-10">
           <li className="li-sideBar">
             <span className="span-li-sidebar">Azul</span>
             <span className="span-li-sidebar">Branca</span>
@@ -44,7 +44,7 @@ export const SideBar = () => {
       </div>
       <div>
         <h2 className="text-black text-2xl font-semibold">Ano</h2>
-        <ul>
+        <ul className="mb-10">
           <li className="li-sideBar">
             <span className="span-li-sidebar">2022</span>
             <span className="span-li-sidebar">2021</span>
@@ -58,7 +58,7 @@ export const SideBar = () => {
       </div>
       <div>
         <h2 className="text-black text-2xl font-semibold">Combustível</h2>
-        <ul>
+        <ul className="mb-10">
           <li className="li-sideBar">
             <span className="span-li-sidebar">Diesel</span>
             <span className="span-li-sidebar">Etanol</span>
@@ -67,31 +67,31 @@ export const SideBar = () => {
           </li>
         </ul>
       </div>
-      <div>
-        <h2 className="text-black text-2xl font-semibold">Km</h2>
-        <div>
+      <div className="mb-10">
+        <h2 className="text-black text-2xl font-semibold mb-5">Km</h2>
+        <div className="m-2 flex gap-5 ">
           <input
-            className="bg-colorGreyScaleGrey5 placeholder:text-colorGreyScaleGrey3"
+            className="input-sidebar placeholder:text-colorGreyScaleGrey3"
             type="text"
             placeholder="Mínima"
           />
           <input
-            className="bg-colorGreyScaleGrey5 placeholder:text-colorGreyScaleGrey3"
+            className="input-sidebar placeholder:text-colorGreyScaleGrey3"
             type="text"
             placeholder="Máxima"
           />
         </div>
       </div>
       <div>
-        <h2 className="text-black text-2xl font-semibold">Preço</h2>
-        <div>
+        <h2 className="text-black text-2xl font-semibold mb-5">Preço</h2>
+        <div className="m-2 flex gap-5 ">
           <input
-            className="bg-colorGreyScaleGrey5 placeholder:text-colorGreyScaleGrey3"
+            className="input-sidebar placeholder:text-colorGreyScaleGrey3"
             type="text"
             placeholder="Mínimo"
           />
           <input
-            className="bg-colorGreyScaleGrey5 placeholder:text-colorGreyScaleGrey3"
+            className="input-sidebar placeholder:text-colorGreyScaleGrey3"
             type="text"
             placeholder="Máximo"
           />

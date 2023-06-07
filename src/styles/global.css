@@ -111,4 +111,8 @@ $color-colors-fixed-white-fixed: #ffffff;*/
         @apply w-11/12 m-auto pr-2 pl-2
     }
 
+    .input-sidebar {
+        @apply bg-colorGreyScaleGrey5 h-12 w-32 text-center sm:w-24
+    }
+
 }

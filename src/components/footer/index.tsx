@@ -22,7 +22,7 @@ export const Footer = () => {
         isMobile ? "gap-5" : ""
       }sm:h-32 bg-colorGreyScaleGrey0 gap-4 py-4 flex box-border ${
         isMobile ? "flex-col gap-0" : "flex-row"
-      } items-center justify-around fixed bottom-0 left-0 w-full`}
+      } items-center justify-around bottom-0 left-0 w-full`}
     >
       <div className="text-2xl sm:text-3xl md:text-4xl">
         <span className="text-colorColorsFixedWhiteFixed">Motors</span>
