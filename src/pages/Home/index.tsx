@@ -1,20 +1,20 @@
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/footer";
+import { Footer } from "../../components/Footer";
 import { SideBar } from "../../components/sideBar";
 import { carros } from "../../utility";
 
 export const Home = () => {
   return (
     <>
-      <div className={"h-full w-screen box-border"}>
+      <div className={"h-full min-w-full box-border"}>
         <Navbar />
         <Header />
-        <main className={"mt-12 min-h-full flex gap-4 container relative"}>
+        <main className={"mt-12 min-h-full w-full container flex gap-4 relative box-border"}>
           <SideBar />
-          <section className={"w-full h-full lg:w-3/4 max-w-[1100px] lg:min-h-max"}>
-            <ul className={"flex lg:flex-wrap w-full gap-10 overflow-auto justify-center"}>
+          <section className={"w-full h-full lg:w-full lg:min-h-max box-border"}>
+            <ul className={"flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end"}>
               {carros.map((car) => (
                 <Card
                   id={car.id}

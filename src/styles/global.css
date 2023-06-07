@@ -103,7 +103,12 @@ $color-colors-fixed-white-fixed: #ffffff;*/
         @apply cursor-pointer text-colorGreyScaleGrey3
     }
 
-    .li-sideBar{
+    .li-sideBar {
         @apply flex flex-col m-3
     }
+
+    .new-container {
+        @apply w-11/12 m-auto pr-2 pl-2
+    }
+
 }
