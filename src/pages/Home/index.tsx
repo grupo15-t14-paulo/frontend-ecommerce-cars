@@ -8,17 +8,13 @@ import { carros } from "../../utility";
 export const Home = () => {
   return (
     <>
-      <div className={"min-h-screen w-screen mb-60"}>
+      <div className={"h-full w-screen box-border"}>
         <Navbar />
         <Header />
-        <main className={"mt-12 h-screen flex gap-4 container"}>
+        <main className={"mt-12 min-h-full flex gap-4 container relative"}>
           <SideBar />
-          <section className={"w-3/4 max-w-[1100px] h-screen"}>
-            <ul
-              className={
-                "grid h-screen md:grid-cols-2 lg:grid-cols-3 w-full gap-5 overflow-auto justify-center"
-              }
-            >
+          <section className={"w-full h-full lg:w-3/4 max-w-[1100px] lg:min-h-max"}>
+            <ul className={"flex lg:flex-wrap w-full gap-10 overflow-auto justify-center"}>
               {carros.map((car) => (
                 <Card
                   id={car.id}
@@ -34,8 +30,17 @@ export const Home = () => {
               ))}
             </ul>
           </section>
+          <div className={"flex absolute -bottom-32 gap-4 right-1/3 font-bold"}>
+            <span className={"text-2xl text-colorGreyScaleGrey3"}>
+              1<span className={"text-colorGreyScaleGrey4"}> de 2</span>
+            </span>
+            <button className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}>
+              Seguinte &gt;
+            </button>
+          </div>
         </main>
       </div>
+      <div className={"mb-80"}></div>
       <Footer />
     </>
   );

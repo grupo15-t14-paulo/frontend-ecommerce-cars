@@ -12,22 +12,22 @@ export default {
       center: true,
       padding: {
         DEFAULT: "1rem",
-        sm: "2rem",
-        lg: "3rem",
-        xl: "3rem",
+        sm: "1rem",
+        lg: "1rem",
+        xl: "1rem",
         "2xl": "6rem",
-      },
-      screens: {
-        sm: "640px",
-        md: "768px",
-        lg: "1024px",
-        xl: "1280px",
       },
     },
 
     extend: {
       animation: {
         fadeIn: "fadeIn 0.5s ease-in-out",
+      },
+      minWidth: {
+        card: "312px",
+      },
+      minHeight: {
+        card: "350px",
       },
 
       keyframes: {
