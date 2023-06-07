@@ -12,8 +12,8 @@ interface Car {
 export const carros: Car[] = [
   {
     id: "1",
-    title: "Carro 1",
-    img: "caminho/para/imagem1.jpg",
+    title: "Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200",
+    img: "/src/assets/carPhoto.png",
     description: "Descrição do Carro 1",
     userName: "Usuário 1",
     km: "100.000 km",
