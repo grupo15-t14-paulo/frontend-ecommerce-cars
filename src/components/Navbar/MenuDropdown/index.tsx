@@ -35,7 +35,7 @@ export const Menu = () => {
   };
 
   return (
-    <div className={"relative flex min-w-full justify-between shadow z-10"}>
+    <div className={"relative flex min-w-full justify-between shadow z-10 container"}>
       <div className={"container flex justify-between min-w-full h-full items-center"}>
         <div className={"flex w-40 h-6"}>
           <img src={LogoImg} alt="logo" />

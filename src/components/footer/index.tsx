@@ -18,7 +18,9 @@ export const Footer = () => {
 
   return (
     <footer
-      className={`${isMobile ? "gap-5" : ""}sm:h-32 bg-colorGreyScaleGrey0 gap-4 py-4 flex ${
+      className={`${
+        isMobile ? "gap-5" : ""
+      }sm:h-32 bg-colorGreyScaleGrey0 gap-4 py-4 flex box-border ${
         isMobile ? "flex-col gap-0" : "flex-row"
       } items-center justify-around fixed bottom-0 left-0 w-full`}
     >
