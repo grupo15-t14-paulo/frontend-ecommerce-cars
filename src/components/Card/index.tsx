@@ -5,7 +5,9 @@ export const Card = ({ img, title, description, km, userName, value, year, id }:
   return (
     <li
       key={id}
-      className={"flex flex-col gap-2 w-312 h-[350px] min-h-card min-w-card rounded-sm shadow"}
+      className={
+        "flex flex-col gap-2 w-312 h-[350px] min-h-card min-w-card rounded-sm drop-shadow-sm box-border"
+      }
     >
       <section className={"flex w-full h-152 bg-slate-200"}>
         <img src={img} alt="imagem do carro" />
