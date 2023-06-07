@@ -11,7 +11,6 @@ export const Menu = () => {
   const nameUser = "Teste Dinamico";
 
   let content;
-  //Aqui fica a verificação com contexto quando usuario tiver logado
   const userSeller = false;
   const user = false;
 
@@ -35,8 +34,8 @@ export const Menu = () => {
   };
 
   return (
-    <div className={"relative flex min-w-full justify-between shadow z-10 container"}>
-      <div className={"container flex justify-between min-w-full h-full items-center"}>
+    <div className={"relative flex min-w-full shadow z-10 container"}>
+      <div className={"container flex justify-between  items-center"}>
         <div className={"flex w-40 h-6"}>
           <img src={LogoImg} alt="logo" />
         </div>
@@ -111,7 +110,7 @@ export const MenuDefault = () => {
   return (
     <main
       className={
-        "flex absolute left-0 top-20 border-t-2 w-full flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 shadow animate-fadeIn"
+        "flex absolute left-0 top-20 border-t-2 w-full flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 shadow animate-fadeIn md:hidden"
       }
     >
       <div className={"flex container flex-col gap-6 my-2 self-start"}>

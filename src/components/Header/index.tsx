@@ -2,12 +2,12 @@ export const Header = () => {
   return (
     <div
       className={
-        "w-screen h-627 md:h-544 bg-primary-car-header bg-contain bg-no-repeat bg-center relative"
+        "w-full h-627 md:h-544 bg-primary-car-header bg-contain bg-no-repeat bg-center relative box-border"
       }
     >
       <div
         className={
-          "w-screen h-full bg-gradient-to-t from-colorGreyScaleGrey0 to-transparent absolute z-0"
+          "w-full h-full bg-gradient-to-t from-colorGreyScaleGrey0 to-transparent absolute box-border z-0"
         }
       />
       <div
