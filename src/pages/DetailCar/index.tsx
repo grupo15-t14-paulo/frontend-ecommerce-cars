@@ -1,11 +1,63 @@
+import { useEffect, useState } from "react";
 import { Footer } from "../../components/Footer";
+import { Navbar } from "../../components/Navbar";
+import { api } from "../../services/index";
+import { ICardProps } from "../../components/Card/interface";
+import { carros } from "../../utility";
 
-export const DetailCar = () => {
+export const DetailCar = (id: string) => {
+  const [car, setCar] = useState<ICardProps>();
+
+  useEffect(() => {
+    const getCar = () => {
+      const response = api.get<ICardProps>(`/dashboard/${id}`);
+
+      setCar(response.data);
+    };
+
+    setCar(carros[0]);
+  }, []);
+
   return (
     <>
       <div className={"h-full min-w-screen box-border"}>
-        <main className={"flex flex-col lg:flex-row gap-4 container w-full h-screen"}>
-          <section className={"w-3/4 bg-gray-300"}>DetailCard</section>
+        <Navbar />
+        <main
+          className={
+            "flex flex-col lg:flex-row gap-4 container w-full h-screen bg-colorBrandBrand1"
+          }
+        >
+          <section className={"w-full lg:w-3/4 mt-10 flex gap-10 flex-col"}>
+            <div
+              className={
+                "h-[350px] min-w-full flex justify-center items-center bg-colorColorsFixedWhiteFixed rounded"
+              }
+            >
+              <img src={car?.img} alt={car?.title} className={"w-72"} />
+            </div>
+            <div
+              className={
+                "h-[326px] min-w-full flex flex-col bg-colorColorsFixedWhiteFixed rounded p-8 gap-8"
+              }
+            >
+              <h2 className={"text-ellipsis text-xl font-bold h-20"}>{car?.title}</h2>
+              <div className={"flex gap-2"}>
+                <span className={"km-year w-max"}>{car?.year}</span>
+                <span className={"km-year w-max"}>{car?.km}</span>
+              </div>
+
+              <span>
+                {car?.value?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+              </span>
+              <button
+                className={
+                  "border w-max bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed hover:bg-colorColorsFixedWhiteFixed hover:text-colorBrandBrand1 px-4 py-2 text-sm rounded"
+                }
+              >
+                Comprar
+              </button>
+            </div>
+          </section>
           <section className={"bg-slate-500 w-1/4"}>Sidebar</section>
         </main>
       </div>

@@ -115,4 +115,8 @@ $color-colors-fixed-white-fixed: #ffffff;*/
         @apply bg-colorGreyScaleGrey5 h-12 w-32 text-center sm:w-24
     }
 
+    .km-year {
+        @apply flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1
+    }
+
 }
