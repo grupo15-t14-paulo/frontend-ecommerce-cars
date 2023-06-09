@@ -24,7 +24,11 @@ export const Home = () => {
         >
           <SideBar />
           <section className={"w-full h-full lg:w-full lg:min-h-max box-border pb-5"}>
-            <ul className={"flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end py-10"}>
+            <ul
+              className={
+                "flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end py-10 lg:py-0"
+              }
+            >
               {carros.map((car) => (
                 <Card
                   id={car.id}
@@ -36,6 +40,8 @@ export const Home = () => {
                   value={car.value}
                   year={car.year}
                   key={car.id}
+                  createdAt={car.createdAt}
+                  fipePrice={car.fipePrice}
                 />
               ))}
             </ul>

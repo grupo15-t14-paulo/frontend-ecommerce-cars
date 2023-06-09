@@ -1,12 +1,13 @@
 import { useState } from "react";
 import LogoImg from "../../../assets/Logo.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { profileName, profileTitleName } from "../../../hooks";
 
 export const Menu = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const nameRoutes = location.pathname;
+  const navigate = useNavigate();
 
   const nameUser = "Teste Dinamico";
 
@@ -36,7 +37,7 @@ export const Menu = () => {
   return (
     <div className={"relative flex min-w-full shadow z-10 container"}>
       <div className={"container flex justify-between  items-center"}>
-        <div className={"flex w-40 h-6"}>
+        <div className={"flex w-40 h-6 cursor-pointer"} onClick={() => navigate("/")}>
           <img src={LogoImg} alt="logo" />
         </div>
         {user || userSeller ? (

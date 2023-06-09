@@ -7,4 +7,6 @@ export interface ICardProps {
   km: string;
   year: string;
   value: number;
+  fipePrice: number;
+  createdAt: string;
 }

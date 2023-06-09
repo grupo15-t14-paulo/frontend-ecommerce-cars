@@ -119,4 +119,7 @@ $color-colors-fixed-white-fixed: #ffffff;*/
         @apply flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1
     }
 
+    .low-price {
+        @apply text-sm h-[30px] w-[15px] flex justify-center items-center text-colorColorsFixedWhiteFixed bg-colorRandomRandom7 rounded-sm absolute right-0 font-normal
+    }
 }
