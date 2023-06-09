@@ -1,7 +1,7 @@
 export interface ICardProps {
   id: string;
   title: string;
-  img: string | null;
+  img: string;
   description: string;
   userName: string;
   km: string;

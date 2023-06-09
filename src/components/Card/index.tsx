@@ -74,7 +74,9 @@ export const Card = ({
         <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
           {year}
         </span>
-        <span className={"absolute right-0 bottom-1"}>R$ {value}</span>
+        <span className={"absolute right-0 bottom-1"}>
+          {value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+        </span>
       </div>
       {verfyDataIsNew(createdAt) && (
         <span
