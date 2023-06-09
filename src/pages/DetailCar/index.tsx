@@ -4,18 +4,22 @@ import { Navbar } from "../../components/Navbar";
 import { api } from "../../services/index";
 import { ICardProps } from "../../components/Card/interface";
 import { carros } from "../../utility";
+import ImgDefault from "../../assets/Cars/default.png";
+import { useParams } from "react-router-dom";
 
-export const DetailCar = (id: string) => {
+export const DetailCar = () => {
   const [car, setCar] = useState<ICardProps>();
+  const { id } = useParams();
 
   useEffect(() => {
-    const getCar = () => {
-      const response = api.get<ICardProps>(`/dashboard/${id}`);
+    // const getCar = () => {
+    //   const response = api.get<ICardProps>(`/dashboard/${id}`);
 
-      setCar(response.data);
-    };
+    //   setCar(response.data);
+    // };
+    const car = carros.filter((car) => car.id == id);
 
-    setCar(carros[0]);
+    setCar(car[0]);
   }, []);
 
   return (
@@ -33,7 +37,11 @@ export const DetailCar = (id: string) => {
                 "h-[350px] min-w-full flex justify-center items-center bg-colorColorsFixedWhiteFixed rounded"
               }
             >
-              <img src={car?.img} alt={car?.title} className={"w-72"} />
+              {car?.img ? (
+                <img src={car?.img} alt={car?.title} className={"w-72"} />
+              ) : (
+                <img src={ImgDefault} alt={car?.title} className={"w-72"} />
+              )}
             </div>
             <div
               className={

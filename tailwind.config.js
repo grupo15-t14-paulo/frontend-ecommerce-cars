@@ -48,7 +48,7 @@ export default {
         544: "34rem",
       },
       backgroundImage: {
-        "primary-car-header": "url('/src/assets/carPhoto.png')",
+        "primary-car-header": "url('/src/assets/Cars/carPhoto.png')",
       },
 
       colors: {
@@ -99,5 +99,6 @@ export default {
       sans: ["Lexend", "sans-serif"],
     },
   },
-  plugins: [],
+  // eslint-disable-next-line no-undef
+  plugins: [require("@tailwindcss/line-clamp")],
 };
