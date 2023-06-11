@@ -39,11 +39,11 @@ export const DetailCar = () => {
           <section className={"w-full lg:w-3/4 mt-10 flex gap-10 flex-col"}>
             <div
               className={
-                "h-[350px]  min-w-full flex justify-center items-center bg-colorColorsFixedWhiteFixed rounded"
+                "h-[350px] min-w-full flex justify-center items-center bg-colorColorsFixedWhiteFixed rounded"
               }
             >
               {car?.img ? (
-                <img src={car?.img} alt={car?.title} className={"w-72"} />
+                <img src={car?.img} alt={car?.title} className={"w-72 lg:w-96"} />
               ) : (
                 <img src={ImgDefault} alt={car?.title} className={"w-72"} />
               )}
