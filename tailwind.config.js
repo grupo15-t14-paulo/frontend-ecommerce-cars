@@ -13,7 +13,7 @@ export default {
       padding: {
         DEFAULT: "1rem",
         sm: "1rem",
-        lg: "1rem",
+        lg: "3rem",
         xl: "1rem",
         "2xl": "1rem",
       },
@@ -100,6 +100,6 @@ export default {
       sans: ["Lexend", "sans-serif"],
     },
   },
-  // eslint-disable-next-line no-undef
-  plugins: [require("@tailwindcss/line-clamp")],
+
+  plugins: [],
 };
