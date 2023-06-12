@@ -12,8 +12,8 @@ export const Menu = () => {
   const nameUser = "Teste Dinamico";
 
   let content;
-  const userSeller = false;
-  const user = false;
+  const userSeller = true;
+  const isLoggedIn = true;
 
   switch (nameRoutes) {
     case "/":
@@ -26,7 +26,11 @@ export const Menu = () => {
       content = <MenuDefault />;
       break;
     default:
-      content = userSeller ? <MenuSeller /> : <MenuUser />;
+      if (isLoggedIn) {
+        content = userSeller ? <MenuSeller /> : <MenuUser />;
+      } else {
+        content = <MenuDefault />;
+      }
       break;
   }
 
@@ -40,7 +44,7 @@ export const Menu = () => {
         <div className={"flex w-40 h-6 cursor-pointer"} onClick={() => navigate("/")}>
           <img src={LogoImg} alt="logo" />
         </div>
-        {user || userSeller ? (
+        {isLoggedIn ? (
           <div className={"flex gap-2 "}>
             <div className={"name-profile"}>{profileName(nameUser)}</div>
             <button onClick={() => OpenMenu()}>{profileTitleName(nameUser)}</button>
@@ -82,7 +86,7 @@ export const Menu = () => {
           </button>
         )}
         {open && content}
-        {!user && (
+        {!isLoggedIn && (
           <div className={"hidden md:flex gap-4 border-l-2 h-full items-center pl-4"}>
             <Link
               to={"/login"}

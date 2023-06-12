@@ -12,7 +12,7 @@ export const carros: ICardProps[] = [
     year: "2010",
     value: 15000,
     fipePrice: 30000,
-    createdAt: "2023-06-09",
+    createdAt: "2023-06-12",
   },
   {
     id: "2",
@@ -25,7 +25,7 @@ export const carros: ICardProps[] = [
     year: "2015",
     value: 25000,
     fipePrice: 30000,
-    createdAt: "2023-06-08",
+    createdAt: "2023-06-12",
   },
   {
     id: "3",
