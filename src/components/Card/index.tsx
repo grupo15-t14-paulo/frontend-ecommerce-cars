@@ -40,7 +40,7 @@ export const Card = ({
     <li
       key={id}
       className={
-        "flex flex-col gap-2 w-312 h-[350px] min-h-card min-w-card rounded-sm drop-shadow-sm box-border cursor-pointer hover:shadow-lg"
+        "flex flex-col gap-2 w-312 h-[350px] min-h-card min-w-card rounded-sm drop-shadow-sm box-border cursor-pointer"
       }
       onClick={() => navigate(`/dashboard/${id}`)}
     >
@@ -50,7 +50,11 @@ export const Card = ({
         }
       >
         {img ? (
-          <img src={img} alt="imagem do carro" className={"w-full h-full object-contain"} />
+          <img
+            src={img}
+            alt="imagem do carro"
+            className={"w-full h-full object-contain hover:border-2 hover:border-colorBrandBrand1"}
+          />
         ) : (
           <img src={ImgDefault} alt="imagem do carro" className={"w-full h-full object-contain"} />
         )}
