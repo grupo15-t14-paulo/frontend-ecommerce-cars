@@ -22,14 +22,18 @@ export const Footer = () => {
         isMobile ? "gap-5" : ""
       }sm:h-32 bg-colorGreyScaleGrey0 gap-4 py-4 flex box-border ${
         isMobile ? "flex-col gap-0" : "flex-row"
-      } items-center mt-44 justify-around bottom-0 left-0 w-full`}
+      } items-center justify-around bottom-0 left-0 w-full`}
     >
       <div className="text-2xl sm:text-3xl md:text-4xl">
         <span className="text-colorColorsFixedWhiteFixed">Motors</span>
         <span className="text-colorColorsFixedWhiteFixed ml-2">shop</span>
       </div>
 
-      <p className={"text-colorColorsFixedWhiteFixed text-sm md:text-sm sm:text-xs my-2 sm:my-0"}>
+      <p
+        className={
+          "text-colorColorsFixedWhiteFixed text-sm md:text-sm sm:text-xs my-2 sm:my-0"
+        }
+      >
         © 2022 - Todos os direitos reservados.
       </p>
 
@@ -41,7 +45,11 @@ export const Footer = () => {
         stroke="currentColor"
         className="cursor-pointer text-white bg-colorGreyScaleGrey1 rounded-full p-2 w-8 h-8 sm:w-10 sm:h-10"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M4.5 15.75l7.5-7.5 7.5 7.5"
+        />
       </svg>
     </footer>
   );
