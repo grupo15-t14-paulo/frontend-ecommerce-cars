@@ -96,7 +96,7 @@ $color-colors-fixed-white-fixed: #ffffff;*/
   }
 
   .name-profile1 {
-    @apply flex items-center justify-center rounded-3xl w-15 h-15 bg-colorRandomRandom10 text-colorColorsFixedWhiteFixed;
+    @apply flex items-center justify-center rounded-3xl w-14 h-14 bg-colorRandomRandom10 text-colorColorsFixedWhiteFixed;
   }
 
   .span-li-sidebar {
