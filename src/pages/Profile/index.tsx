@@ -5,12 +5,9 @@ import { carros } from "../../utility";
 import { SideBarMobile } from "../../components/sideBar/sideBarMobile";
 import { ProfileHeader } from "../../components/ProfileHeader";
 import { ProfileCard } from "../../components/ProfileCard";
-import { CreateAdsModal } from "../../components/CreateAdsModal";
-import { useAds } from "../../hooks/useAds";
 
 export const Profile = () => {
   const [open, setOpen] = useState(false);
-  const { modalIsOpen } = useAds();
 
   return (
     <>
@@ -29,7 +26,6 @@ export const Profile = () => {
               " mt-10 w-full h-full lg:w-full lg:min-h-max box-border pb-5"
             }
           >
-            {modalIsOpen && <CreateAdsModal />}
             <ul
               className={
                 "flex mt-10 lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end  lg:py-0"

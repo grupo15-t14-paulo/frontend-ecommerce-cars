@@ -52,6 +52,9 @@ export default {
       backgroundImage: {
         "primary-car-header": "url('/src/assets/Cars/carPhoto.png')",
       },
+      backgroundColor: {
+        "modal-background": "rgba(0, 0, 0, 0.5)",
+      },
 
       colors: {
         colorFeedbackAlert1: "rgba(var(--colorFeedbackAlert1), <alpha-value>)",
