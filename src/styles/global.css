@@ -2,13 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer base {
+  /*PARA VERIFICAR QUAIS CORES USAR*/
 
-    /*PARA VERIFICAR QUAIS CORES USAR*/
-
-    /*$color-feedback-alert-1: #cd2b31;
+  /*$color-feedback-alert-1: #cd2b31;
 $color-feedback-alert-2: #fdd8d8;
 $color-feedback-alert-3: #ffe5e5;
 $color-feedback-sucess-1: #18794e;
@@ -43,83 +40,86 @@ $color-grey-scale-grey-9: #f8f9fa;
 $color-grey-scale-grey-10: #fdfdfd;
 $color-colors-fixed-white-fixed: #ffffff;*/
 
-
-    :root {
-        --colorFeedbackAlert1: 205, 43, 49;
-        --colorFeedbackAlert2: 253, 216, 216;
-        --colorFeedbackAlert3: 255, 229, 229;
-        --colorFeedbackSucess1: 24, 121, 78;
-        --colorFeedbackSucess2: 204, 235, 215;
-        --colorFeedbackSucess3: 221, 243, 228;
-        --colorRandomRandom1: 227, 77, 140;
-        --colorRandomRandom2: 192, 66, 119;
-        --colorRandomRandom3: 125, 42, 77;
-        --colorRandomRandom4: 112, 0, 255;
-        --colorRandomRandom5: 98, 0, 227;
-        --colorRandomRandom6: 54, 0, 125;
-        --colorRandomRandom7: 52, 153, 116;
-        --colorRandomRandom8: 42, 125, 95;
-        --colorRandomRandom9: 21, 61, 46;
-        --colorRandomRandom10: 97, 0, 255;
-        --colorRandomRandom11: 87, 0, 227;
-        --colorRandomRandom12: 48, 0, 125;
-        --colorBrandBrand1: 69, 41, 230;
-        --colorBrandBrand2: 81, 38, 234;
-        --colorBrandBrand3: 176, 166, 240;
-        --colorBrandBrand4: 237, 234, 253;
-        --colorGreyScaleGrey0: 11, 13, 13;
-        --colorGreyScaleGrey1: 33, 37, 41;
-        --colorGreyScaleGrey2: 73, 80, 87;
-        --colorGreyScaleGrey3: 134, 142, 150;
-        --colorGreyScaleGrey4: 173, 181, 189;
-        --colorGreyScaleGrey5: 206, 212, 218;
-        --colorGreyScaleGrey6: 222, 226, 230;
-        --colorGreyScaleGrey7: 233, 236, 239;
-        --colorGreyScaleGrey8: 241, 243, 245;
-        --colorGreyScaleGrey9: 248, 249, 250;
-        --colorGreyScaleGrey10: 253, 253, 253;
-        --colorColorsFixedWhiteFixed: 255, 255, 255;
-    }
+  :root {
+    --colorFeedbackAlert1: 205, 43, 49;
+    --colorFeedbackAlert2: 253, 216, 216;
+    --colorFeedbackAlert3: 255, 229, 229;
+    --colorFeedbackSucess1: 24, 121, 78;
+    --colorFeedbackSucess2: 204, 235, 215;
+    --colorFeedbackSucess3: 221, 243, 228;
+    --colorRandomRandom1: 227, 77, 140;
+    --colorRandomRandom2: 192, 66, 119;
+    --colorRandomRandom3: 125, 42, 77;
+    --colorRandomRandom4: 112, 0, 255;
+    --colorRandomRandom5: 98, 0, 227;
+    --colorRandomRandom6: 54, 0, 125;
+    --colorRandomRandom7: 52, 153, 116;
+    --colorRandomRandom8: 42, 125, 95;
+    --colorRandomRandom9: 21, 61, 46;
+    --colorRandomRandom10: 97, 0, 255;
+    --colorRandomRandom11: 87, 0, 227;
+    --colorRandomRandom12: 48, 0, 125;
+    --colorBrandBrand1: 69, 41, 230;
+    --colorBrandBrand2: 81, 38, 234;
+    --colorBrandBrand3: 176, 166, 240;
+    --colorBrandBrand4: 237, 234, 253;
+    --colorGreyScaleGrey0: 11, 13, 13;
+    --colorGreyScaleGrey1: 33, 37, 41;
+    --colorGreyScaleGrey2: 73, 80, 87;
+    --colorGreyScaleGrey3: 134, 142, 150;
+    --colorGreyScaleGrey4: 173, 181, 189;
+    --colorGreyScaleGrey5: 206, 212, 218;
+    --colorGreyScaleGrey6: 222, 226, 230;
+    --colorGreyScaleGrey7: 233, 236, 239;
+    --colorGreyScaleGrey8: 241, 243, 245;
+    --colorGreyScaleGrey9: 248, 249, 250;
+    --colorGreyScaleGrey10: 253, 253, 253;
+    --colorColorsFixedWhiteFixed: 255, 255, 255;
+  }
 }
 
 @layer components {
-    .link-default {
-        @apply border self-center px-4 py-2 font-semibold rounded text-center;
-    }
+  .link-default {
+    @apply border self-center px-4 py-2 font-semibold rounded text-center;
+  }
 
-    .link-noboard {
-        @apply p-2 font-semibold rounded;
-    }
+  .link-noboard {
+    @apply p-2 font-semibold rounded;
+  }
 
-    .menu-user {
-        @apply flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2;
-    }
+  .menu-user {
+    @apply flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2;
+  }
 
-    .name-profile {
-        @apply flex items-center justify-center rounded-3xl w-8 h-8 bg-colorRandomRandom10 text-colorColorsFixedWhiteFixed;
-    }
+  .name-profile {
+    @apply flex items-center justify-center rounded-3xl w-8 h-8 bg-colorRandomRandom10 text-colorColorsFixedWhiteFixed;
+  }
 
-    .span-li-sidebar {
-        @apply cursor-pointer text-colorGreyScaleGrey3
-    }
+  .name-profile1 {
+    @apply flex items-center justify-center rounded-3xl w-15 h-15 bg-colorRandomRandom10 text-colorColorsFixedWhiteFixed;
+  }
 
-    .li-sideBar {
-        @apply flex flex-col m-3
-    }
+  .span-li-sidebar {
+    @apply cursor-pointer text-colorGreyScaleGrey3;
+  }
 
-    .new-container {
-        @apply w-11/12 m-auto pr-2 pl-2
-    }
+  .li-sideBar {
+    @apply flex flex-col m-3;
+  }
 
-    .input-sidebar {
-        @apply bg-colorGreyScaleGrey5 h-12 w-32 text-center sm:w-24
-    }
+  .new-container {
+    @apply w-11/12 m-auto pr-2 pl-2;
+  }
 
-    .km-year {
-        @apply flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1
-    }
+  .input-sidebar {
+    @apply bg-colorGreyScaleGrey5 h-12 w-32 text-center sm:w-24;
+  }
 
-    .low-price {
-        @apply text-sm h-[30px] w-[15px] flex justify-center items-center text-colorColorsFixedWhiteFixed bg-colorRandomRandom7 rounded-sm absolute right-0 font-normal
-    }
+  .km-year {
+    @apply flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1;
+  }
+
+  .low-price {
+    @apply text-sm h-[30px] w-[15px] flex justify-center items-center text-colorColorsFixedWhiteFixed bg-colorRandomRandom7 rounded-sm absolute right-0 font-normal;
+  }
 }

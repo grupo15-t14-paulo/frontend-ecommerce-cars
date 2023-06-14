@@ -1,9 +1,12 @@
+import { AdsProvider } from "./providers/ads.provider";
 import { RoutesMain } from "./routes";
 
 export const App = () => {
   return (
     <>
-      <RoutesMain />
+      <AdsProvider>
+        <RoutesMain />
+      </AdsProvider>
     </>
   );
 };
