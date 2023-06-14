@@ -19,16 +19,12 @@ export const Profile = () => {
         <ProfileHeader />
 
         <main
-          className={`mt-10 min-h-full w-full container flex flex-col gap-4 relative box-border lg:flex-row`}
+          className={`mt-[150px] items-center min-h-full container flex-col gap-4 relative box-border flex `}
         >
-          <section
-            className={
-              " mt-10 w-full h-full lg:w-full lg:min-h-max box-border pb-5"
-            }
-          >
+          <section className={"  w-full h-full lg:w-full lg: box-border pb-5"}>
             <ul
               className={
-                "flex mt-10 lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end  lg:py-0"
+                "flex h-[490px] lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end  lg:py-0"
               }
             >
               {carros.map((car) => (
@@ -50,9 +46,7 @@ export const Profile = () => {
           </section>
 
           <div
-            className={
-              "flex absolute -bottom-24 right-20 sm:right-28 md:right-1/3 gap-4  font-bold"
-            }
+            className={"flex mb-10 sm:right-28 md:right-1/3 gap-4  font-bold"}
           >
             <span className={"text-2xl text-colorGreyScaleGrey3"}>
               1<span className={"text-colorGreyScaleGrey4"}> de 2</span>

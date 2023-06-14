@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+import { violet, blackA, mauve, green } from "@radix-ui/colors";
 
 export default {
   content: [
@@ -22,6 +22,8 @@ export default {
     extend: {
       animation: {
         fadeIn: "fadeIn 0.5s ease-in-out",
+        overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
       minWidth: {
         card: "312px",
@@ -38,6 +40,14 @@ export default {
           "100%": {
             opacity: "1",
           },
+        },
+        overlayShow: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        contentShow: {
+          from: { opacity: 0, transform: "translate(-50%, -48%) scale(0.96)" },
+          to: { opacity: 1, transform: "translate(-50%, -50%) scale(1)" },
         },
       },
       spacing: {
@@ -96,6 +106,10 @@ export default {
           "rgba(var(--colorGreyScaleGrey10), <alpha-value>)",
         colorColorsFixedWhiteFixed:
           "rgba(var(--colorColorsFixedWhiteFixed), <alpha-value>)",
+        ...mauve,
+        ...violet,
+        ...green,
+        ...blackA,
       },
     },
 
