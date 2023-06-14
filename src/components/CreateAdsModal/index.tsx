@@ -12,155 +12,139 @@ const DialogDemo: React.FC<Props> = ({ modalIsOpen, handleCloseModal }) => (
         onClick={handleCloseModal}
         className="bg-black bg-opacity-50 data-[state=open]:animate-overlayShow fixed inset-0"
       />
-      <Dialog.Content className="overflow-auto data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-colorGreyScaleGrey10 p-[25px]">
-        <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">
-          Criar anuncio
-        </Dialog.Title>
+      <Dialog.Content className="overflow-auto data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-colorGreyScaleGrey10 p-[25px] z-50 overflow-y-scroll scrollbar box-border">
+        <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">Criar anuncio</Dialog.Title>
         <Dialog.Description className="mt-[10px] mb-5 text-[15px] leading-normal">
           Informações do veículo
         </Dialog.Description>
-        <fieldset className="mb-[15px] flex-col items-center gap-5">
+        <fieldset className="fieldset-default">
           <label
-            className="text-colorGreyScaleGrey10  w-[90px] text-right text-[15px]"
+            className="label-default"
             htmlFor="Marca"
           >
             Marca
           </label>
           <input
-            className=" mt-2  inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none "
+            className=" mt-2  inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
             id="marca"
+            placeholder="Mercedes Benz"
           />
         </fieldset>
-        <fieldset className="mb-[15px] flex-col items-center gap-5">
-          <label className=" w-[90px] text-right text-[15px]" htmlFor="modelo">
+        <fieldset className="fieldset-default">
+          <label className=" label-default" htmlFor="modelo">
             Modelo
           </label>
           <input
-            className="  focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none "
+            className="  focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
             id="modelo"
           />
         </fieldset>
         <div className="flex gap-5">
-          <fieldset className="mb-[15px]  flex-col items-center gap-5">
+          <fieldset className="fieldset-default">
             <label
-              className="text-colorGreyScaleGrey10  w-[90px] text-right text-[15px]"
+              className="label-default"
               htmlFor="ano"
             >
               Ano
             </label>
             <input
-              className=" mt-2  inline-flex h-[35px] w-auto flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none"
+              className="input-normal"
               id="ano"
             />
           </fieldset>
-          <fieldset className="mb-[15px] flex-col items-center gap-5">
-            <label
-              className=" w-[90px] text-right text-[15px]"
-              htmlFor="combustivel"
-            >
+          <fieldset className="fieldset-default">
+            <label className="label-default" htmlFor="combustivel">
               Combustivel
             </label>
             <input
-              className="  focus:inline-flex  mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none"
+              className="input-low"
               id="combustivel"
             />
           </fieldset>
         </div>
         <div className="flex gap-5">
-          <fieldset className="mb-[15px] flex-col items-center gap-5">
+          <fieldset className="fieldset-default">
             <label
-              className="text-colorGreyScaleGrey10  w-[90px] text-right text-[15px]"
+              className="label-default"
               htmlFor="quilometragem"
             >
               Quilometragem
             </label>
             <input
-              className=" mt-2 w-auto  inline-flex h-[35px]  flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none"
+              className="input-normal"
               id="quilometragem"
             />
           </fieldset>
-          <fieldset className="mb-[15px] flex-col items-center gap-5">
-            <label className=" w-[90px] text-right text-[15px]" htmlFor="cor">
+          <fieldset className="fieldset-default">
+            <label className=" label-default" htmlFor="cor">
               Cor
             </label>
             <input
-              className="  focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none"
+              className="input-low"
               id="cor"
             />
           </fieldset>
         </div>
         <div className="flex gap-5">
-          <fieldset className="mb-[15px] flex-col items-center gap-5">
+          <fieldset className="fieldset-default">
             <label
-              className="text-colorGreyScaleGrey10  w-[90px] text-right text-[15px]"
+              className="  label-default"
               htmlFor="tabela fipe"
             >
               Preço tabela FIPE
             </label>
             <input
-              className=" mt-2   inline-flex h-[35px] w-auto  flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none "
+              className="input-normal"
               id="tabela fipe"
             />
           </fieldset>
-          <fieldset className="mb-[15px] flex-col items-center gap-5">
-            <label className=" w-[90px] text-right text-[15px]" htmlFor="preço">
+          <fieldset className="fieldset-default">
+            <label className=" label-default" htmlFor="preço">
               Preço
             </label>
             <input
-              className="  focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none "
+              className="input-low"
               id="preço"
             />
           </fieldset>
         </div>
-        <fieldset className="mb-[15px] flex-col items-center gap-5">
-          <label
-            className=" w-[90px] text-right text-[15px]"
-            htmlFor="descrição"
-          >
+        <fieldset className="fieldset-default">
+          <label className=" label-default" htmlFor="descrição">
             Descrição
           </label>
           <textarea
-            className="  focus:inline-flex mt-2 p-5 w-full h-20 flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none "
+            className="  focus:inline-flex mt-2 p-5 w-full h-20 flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
             id="descrição"
           />
         </fieldset>
-        <fieldset className="mb-[15px] flex-col items-center gap-5">
-          <label
-            className=" w-[90px] text-right text-[15px]"
-            htmlFor="imagem capa"
-          >
+        <fieldset className="fieldset-default">
+          <label className=" label-default" htmlFor="imagem capa">
             Imagem da capa
           </label>
           <input
-            className="  focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none "
+            className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
             id="imagem capa"
           />
         </fieldset>
-        <fieldset className="mb-[15px] flex-col items-center gap-5">
-          <label
-            className=" w-[90px] text-right text-[15px]"
-            htmlFor="imagem 1"
-          >
+        <fieldset className="fieldset-default">
+          <label className="label-default" htmlFor="imagem 1">
             1° Imagem da galeria
           </label>
           <input
-            className="  focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none "
+            className="  focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border"
             id="imagem 1"
           />
         </fieldset>
-        <fieldset className="mb-[15px] flex-col items-center gap-5">
-          <label
-            className=" w-[90px] text-right text-[15px]"
-            htmlFor="imagem 2"
-          >
+        <fieldset className="fieldset-default">
+          <label className="label-default" htmlFor="imagem 2">
             2° imagem da galeria
           </label>
           <input
-            className=" focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey10 border outline-none "
+            className=" focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
             id="imagem 2"
           />
         </fieldset>
-        <button className="inline-flex border bg-#B0A6F0 border-colorBrandBrand2 text-colorBrandBrand2  p-2 rounded-[4px]">
+        <button className="inline-flex border bg-colorBrandBrand4 border-colorBrandBrand2 text-colorBrandBrand2  p-2 rounded-[4px] mt-4 mb-6">
           Adicionar campo para imagem da galeria
         </button>
         <div className="mt-[25px] flex justify-end">
@@ -168,12 +152,12 @@ const DialogDemo: React.FC<Props> = ({ modalIsOpen, handleCloseModal }) => (
             <Dialog.Close asChild>
               <button
                 onClick={handleCloseModal}
-                className=" inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none  focus:outline-none"
+                className="button-cancel"
               >
                 Cancelar
               </button>
             </Dialog.Close>
-            <button className=" inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none  focus:outline-none">
+            <button className="button-default font-normal text-sm focus:outline-none bg-colorBrandBrand3 text-colorColorsFixedWhiteFixed ml-4 px-7">
               Criar anúncio
             </button>
           </div>
