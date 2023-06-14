@@ -41,6 +41,7 @@ export default {
         },
       },
       spacing: {
+        250: "15.1875rem",
         312: "19.5rem",
         350: "21.875rem",
         152: "9.5rem",
@@ -56,9 +57,12 @@ export default {
         colorFeedbackAlert1: "rgba(var(--colorFeedbackAlert1), <alpha-value>)",
         colorFeedbackAlert2: "rgba(var(--colorFeedbackAlert2), <alpha-value>)",
         colorFeedbackAlert3: "rgba(var(--colorFeedbackAlert3), <alpha-value>)",
-        colorFeedbackSucess1: "rgba(var(--colorFeedbackSucess1), <alpha-value>)",
-        colorFeedbackSucess2: "rgba(var(--colorFeedbackSucess2), <alpha-value>)",
-        colorFeedbackSucess3: "rgba(var(--colorFeedbackSucess3), <alpha-value>)",
+        colorFeedbackSucess1:
+          "rgba(var(--colorFeedbackSucess1), <alpha-value>)",
+        colorFeedbackSucess2:
+          "rgba(var(--colorFeedbackSucess2), <alpha-value>)",
+        colorFeedbackSucess3:
+          "rgba(var(--colorFeedbackSucess3), <alpha-value>)",
         colorRandomRandom1: "rgba(var(--colorRandomRandom1), <alpha-value>)",
         colorRandomRandom2: "rgba(var(--colorRandomRandom2), <alpha-value>)",
         colorRandomRandom3: "rgba(var(--colorRandomRandom3), <alpha-value>)",
@@ -85,8 +89,10 @@ export default {
         colorGreyScaleGrey7: "rgba(var(--colorGreyScaleGrey7), <alpha-value>)",
         colorGreyScaleGrey8: "rgba(var(--colorGreyScaleGrey8), <alpha-value>)",
         colorGreyScaleGrey9: "rgba(var(--colorGreyScaleGrey9), <alpha-value>)",
-        colorGreyScaleGrey10: "rgba(var(--colorGreyScaleGrey10), <alpha-value>)",
-        colorColorsFixedWhiteFixed: "rgba(var(--colorColorsFixedWhiteFixed), <alpha-value>)",
+        colorGreyScaleGrey10:
+          "rgba(var(--colorGreyScaleGrey10), <alpha-value>)",
+        colorColorsFixedWhiteFixed:
+          "rgba(var(--colorColorsFixedWhiteFixed), <alpha-value>)",
       },
     },
 

@@ -1,38 +1,42 @@
 import { useState } from "react";
-import { Card } from "../../components/Card";
-import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
-import { SideBar } from "../../components/sideBar";
 import { carros } from "../../utility";
 import { SideBarMobile } from "../../components/sideBar/sideBarMobile";
+import { ProfileHeader } from "../../components/ProfileHeader";
+import { ProfileCard } from "../../components/ProfileCard";
+import { CreateAdsModal } from "../../components/CreateAdsModal";
+import { useAds } from "../../hooks/useAds";
 
-export const Home = () => {
+export const Profile = () => {
   const [open, setOpen] = useState(false);
-
-  const OpenMenu = () => {
-    setOpen(!open);
-  };
+  const { modalIsOpen } = useAds();
 
   return (
     <>
-      <div className={"h-full min-w-screen box-border"}>
+      <div
+        className={"h-full min-w-screen box-border"}
+        style={{ background: "#F1F3F5" }}
+      >
         <Navbar />
-        <Header />
+        <ProfileHeader />
+
         <main
-          className={`mt-12 min-h-full w-full container flex flex-col gap-4 relative box-border lg:flex-row`}
+          className={`mt-10 min-h-full w-full container flex flex-col gap-4 relative box-border lg:flex-row`}
         >
-          <SideBar />
           <section
-            className={"w-full h-full lg:w-full lg:min-h-max box-border pb-5"}
+            className={
+              " mt-10 w-full h-full lg:w-full lg:min-h-max box-border pb-5"
+            }
           >
+            {modalIsOpen && <CreateAdsModal />}
             <ul
               className={
-                "flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end py-10 lg:py-0"
+                "flex mt-10 lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end  lg:py-0"
               }
             >
               {carros.map((car) => (
-                <Card
+                <ProfileCard
                   id={car.id}
                   description={car.description}
                   img={car.img}
@@ -48,12 +52,6 @@ export const Home = () => {
               ))}
             </ul>
           </section>
-          <button
-            className="flex items-center justify-center text-2xl text-colorBrandBrand1 font-bold lg:hidden"
-            onClick={() => OpenMenu()}
-          >
-            Filtros
-          </button>
 
           <div
             className={
