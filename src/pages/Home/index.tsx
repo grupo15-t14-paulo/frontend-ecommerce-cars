@@ -16,7 +16,7 @@ export const Home = () => {
 
   return (
     <>
-      <div className={"h-full min-w-screen box-border"}>
+      <div className={"h-full min-w-screen box-border mb"}>
         <Navbar />
         <Header />
         <main

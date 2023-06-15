@@ -11,12 +11,12 @@ export const Login = () => {
 
         <div
           className={
-            "flex justify-center w-full min-h-[80vh] bg-colorGreyScaleGrey8"
+            "flex justify-center items-center w-full min-h-[80vh] bg-colorGreyScaleGrey8"
           }
         >
           <div
             className={
-              "mt-[52px] lg:mt-32 max-w-[343px] sm:max-w-[412px] w-full min-h-fit rounded px-7 lg:px-12 py-7 bg-colorGreyScaleGrey10"
+              "max-w-[343px] sm:max-w-[412px] w-full min-h-fit rounded px-7 lg:px-12 py-7 bg-colorGreyScaleGrey10"
             }
           >
             <h2 className={"text-2xl font-medium mb-8"}>Login</h2>
