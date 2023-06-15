@@ -1,11 +1,11 @@
 import { profileName } from "../../hooks";
 import { useAds } from "../../hooks/useAds";
-import DialogDemo from "../CreateAdsModal";
+import { CreateAdsModal } from "../CreateAdsModal";
 
 const nameUser = "Samuel Leão";
 
 export const ProfileHeader = () => {
-  const { modalIsOpen, handleOpenModal, handleCloseModal } = useAds();
+  const { modalIsOpen, handleOpenModal } = useAds();
   return (
     <>
       <div className="w-full h-250  items-center md:h-200 bg-colorBrandBrand1 bg-contain bg-no-repeat bg-center relative box-border">
@@ -29,12 +29,8 @@ export const ProfileHeader = () => {
           </div>
         </div>
       </div>
-      <DialogDemo
-        modalIsOpen={modalIsOpen}
-        handleCloseModal={handleCloseModal}
-      />
 
-      {/* {modalIsOpen && <CreateAdsModal />} */}
+      {modalIsOpen && <CreateAdsModal />}
     </>
   );
 };
