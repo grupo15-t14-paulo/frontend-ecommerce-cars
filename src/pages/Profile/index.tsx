@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/footer";
+import { Footer } from "../../components/Footer";
 import { carros } from "../../utility";
 import { SideBarMobile } from "../../components/sideBar/sideBarMobile";
 import { ProfileHeader } from "../../components/ProfileHeader";
@@ -11,7 +11,10 @@ export const Profile = () => {
 
   return (
     <>
-      <div className={"h-full min-w-screen box-border"} style={{ background: "#F1F3F5" }}>
+      <div
+        className={"h-full min-w-screen box-border"}
+        style={{ background: "#F1F3F5" }}
+      >
         <Navbar />
         <ProfileHeader />
 
@@ -42,11 +45,17 @@ export const Profile = () => {
             </ul>
           </section>
 
-          <div className={"flex mb-10 sm:right-28 md:right-1/3 gap-4  font-bold"}>
+          <div
+            className={"flex mb-10 sm:right-28 md:right-1/3 gap-4  font-bold"}
+          >
             <span className={"text-2xl text-colorGreyScaleGrey3"}>
               1<span className={"text-colorGreyScaleGrey4"}> de 2</span>
             </span>
-            <button className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}>
+            <button
+              className={
+                "flex items-center text-2xl text-colorBrandBrand1 font-bold"
+              }
+            >
               Seguinte &gt;
             </button>
           </div>
