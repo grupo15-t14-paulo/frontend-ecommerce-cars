@@ -10,6 +10,8 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerUserFormSchema } from "../../providers/AuthProvider/schemas";
 import { useAuth } from "../../hooks/useAuth";
+import { MaskedInput } from "../../components/MaskedInput";
+import InputMask from "react-input-mask";
 
 export const Register = () => {
   const {
@@ -25,19 +27,21 @@ export const Register = () => {
   const { registerUser, requesting } = useAuth();
 
   const checkCEP = (e: { target: HTMLInputElement }) => {
-    const cep = e.target.value;
+    const cep = e.target.value.replace(/\D/g, "");
 
-    try {
-      fetch(`https://viacep.com.br/ws/${cep}/json/`)
-        .then((res) => res.json())
-        .then((data) => {
-          setValue("state", data.uf);
-          setValue("city", data.localidade);
-          setValue("street", data.logradouro);
-          setFocus("number");
-        });
-    } catch (error) {
-      console.log(error);
+    if (cep != "") {
+      try {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+          .then((res) => res.json())
+          .then((data) => {
+            setValue("state", data.uf);
+            setValue("city", data.localidade);
+            setValue("street", data.logradouro);
+            setFocus("number");
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -113,11 +117,11 @@ export const Register = () => {
                 </span>
               )}
 
-              <Input
-                type="text"
+              <MaskedInput
                 label="CPF"
                 placeholder="000.000.000-00"
                 register={register("cpf")}
+                mask="999.999.999-99"
               />
               {errors.cpf && (
                 <span className={"text-colorFeedbackAlert1 text-sm"}>
@@ -125,11 +129,11 @@ export const Register = () => {
                 </span>
               )}
 
-              <Input
-                type="text"
+              <MaskedInput
                 label="Celular"
                 placeholder="(DDD) 90000-0000"
-                register={register("tel")}
+                register={register("cpf")}
+                mask="(99) 99999-9999"
               />
               {errors.tel && (
                 <span className={"text-colorFeedbackAlert1 text-sm"}>
@@ -137,11 +141,11 @@ export const Register = () => {
                 </span>
               )}
 
-              <Input
-                type="text"
+              <MaskedInput
                 label="Data de nascimento"
                 placeholder="00/00/00"
                 register={register("dateBirth")}
+                mask="99/99/99"
               />
               {errors.dateBirth && (
                 <span className={"text-colorFeedbackAlert1 text-sm"}>
@@ -169,15 +173,15 @@ export const Register = () => {
                   CEP
                 </label>
 
-                <input
+                <InputMask
                   id="CEP"
-                  type="string"
-                  placeholder="00000.000"
+                  mask="99999-999"
+                  {...register("cep")}
+                  onBlur={checkCEP}
+                  placeholder="00000-000"
                   className={
                     "h-12 rounded border-2 border-colorGreyScaleGrey7 focus:outline-none focus:border-colorBrandBrand2 invalid:border-colorFeedbackAlert1 px-4"
                   }
-                  {...register("cep")}
-                  onBlur={checkCEP}
                 />
               </div>
               {errors.cep && (
