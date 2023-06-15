@@ -40,7 +40,7 @@ export const ProfileCard = ({
     <li
       key={id}
       className={
-        "flex mt-10 flex-col gap-2 w-312 h-[400px] min-h-card min-w-card rounded-sm drop-shadow-sm box-border cursor-pointer"
+        "flex mb-10 mt-10 flex-col gap-2 w-312 h-[400px] min-h-card min-w-card rounded-sm drop-shadow-sm box-border cursor-pointer"
       }
     >
       <section
