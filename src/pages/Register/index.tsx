@@ -4,11 +4,12 @@ import { Input } from "../../components/Input";
 import { Navbar } from "../../components/Navbar";
 import {
   tAddress,
-  tCreateUserForm,
+  tRegisterUserForm,
   tUser,
 } from "../../providers/AuthProvider/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createUserFormSchema } from "../../providers/AuthProvider/schemas";
+import { registerUserFormSchema } from "../../providers/AuthProvider/schemas";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Register = () => {
   const {
@@ -17,9 +18,11 @@ export const Register = () => {
     formState: { errors },
     setValue,
     setFocus,
-  } = useForm<tCreateUserForm>({
-    resolver: zodResolver(createUserFormSchema),
+  } = useForm<tRegisterUserForm>({
+    resolver: zodResolver(registerUserFormSchema),
   });
+
+  const { registerUser, requesting } = useAuth();
 
   const checkCEP = (e: { target: HTMLInputElement }) => {
     const cep = e.target.value;
@@ -38,8 +41,8 @@ export const Register = () => {
     }
   };
 
-  const submit: SubmitHandler<tCreateUserForm> = async (
-    data: tCreateUserForm
+  const submit: SubmitHandler<tRegisterUserForm> = async (
+    data: tRegisterUserForm
   ) => {
     data.isSeller = data.isSeller === "true" ? true : false;
 
@@ -64,7 +67,7 @@ export const Register = () => {
       address: address,
     };
 
-    console.log(user);
+    registerUser(user);
   };
 
   return (
@@ -151,6 +154,7 @@ export const Register = () => {
                 label="Descrição"
                 placeholder="Digitar descrição"
                 register={register("description")}
+                isRequired={false}
               />
               {errors.description && (
                 <span className={"text-colorFeedbackAlert1 text-sm"}>
@@ -321,7 +325,7 @@ export const Register = () => {
                   "h-12 rounded py-3 px-7 bg-colorBrandBrand1 hover:bg-colorBrandBrand2 text-base text-colorColorsFixedWhiteFixed font-semibold"
                 }
               >
-                Finalizar Cadastro
+                {requesting ? "Cadastrando..." : "Finalizar cadastro"}
               </button>
             </form>
           </div>
