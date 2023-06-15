@@ -10,13 +10,15 @@ interface adsContextValues {
   handleCloseModal: () => void;
   modalIsOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  marcas: Brand;
-  setMarcaSelecionada: React.Dispatch<React.SetStateAction<string>>;
-  modelos: modelsRequest[];
-  marcaSelecionada: string;
+  brand: Brand;
+  setBrandSelected: React.Dispatch<React.SetStateAction<string>>;
+  models: modelsRequest[];
+  brandSelected: string;
+  imageCount: number;
+  setImageCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-interface modelsRequest {
+export interface modelsRequest {
   id: string;
   name: string;
   fuel: number;
@@ -35,9 +37,10 @@ export const AdsContext = createContext<adsContextValues>(
 
 export const AdsProvider = ({ children }: adsProviderProps) => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [marcas, setMarcas] = useState<Brand>({});
-  const [modelos, setModelos] = useState<modelsRequest[]>([]);
-  const [marcaSelecionada, setMarcaSelecionada] = useState("");
+  const [brand, setBrand] = useState<Brand>({});
+  const [models, setModels] = useState<modelsRequest[]>([]);
+  const [brandSelected, setBrandSelected] = useState("");
+  const [imageCount, setImageCount] = useState(2);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -47,29 +50,27 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
     setIsOpen(false);
   };
   useEffect(() => {
-    const fetchMarcas = async () => {
+    const fetchBrand = async () => {
       try {
         const response = await apiHerokuApp.get("/cars");
-        setMarcas(response.data);
+        setBrand(response.data);
         console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchMarcas();
+    fetchBrand();
   }, []);
 
   useEffect(() => {
     const fetchModelos = async () => {
       try {
-        const response = await apiHerokuApp.get(
-          `/cars?brand=${marcaSelecionada}`
-        );
+        const response = await apiHerokuApp.get(`/cars?brand=${brandSelected}`);
         if (Array.isArray(response.data)) {
-          setModelos(response.data);
+          setModels(response.data);
         } else {
-          setModelos([]);
+          setModels([]);
         }
       } catch (error) {
         console.log(error);
@@ -77,7 +78,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
     };
 
     fetchModelos();
-  }, [marcaSelecionada]);
+  }, [brandSelected]);
+
   return (
     <AdsContext.Provider
       value={{
@@ -85,10 +87,12 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         handleCloseModal,
         modalIsOpen,
         setIsOpen,
-        marcas,
-        setMarcaSelecionada,
-        modelos,
-        marcaSelecionada,
+        brand,
+        setBrandSelected,
+        models,
+        brandSelected,
+        imageCount,
+        setImageCount,
       }}
     >
       {children}
