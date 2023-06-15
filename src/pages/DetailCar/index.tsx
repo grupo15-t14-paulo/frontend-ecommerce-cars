@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Footer } from "../../components/Footer";
+import { Footer } from "../../components/footer";
 import { Navbar } from "../../components/Navbar";
 import { api } from "../../services/index";
 import { ICardProps } from "../../components/Card/interface";

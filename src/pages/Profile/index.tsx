@@ -11,7 +11,7 @@ export const Profile = () => {
 
   return (
     <>
-      <div className={"h-full min-w-screen box-border"} style={{ background: "#F1F3F5" }}>
+      <div className={"h-full min-w-screen box-border bg-colorGreyScaleGrey9"}>
         <Navbar />
         <ProfileHeader />
 

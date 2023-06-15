@@ -12,12 +12,16 @@ export const Menu = () => {
   const nameUser = "Teste Dinamico";
 
   let content;
-  const userSeller = true;
-  const isLoggedIn = true;
+  const userSeller = false;
+  const isLoggedIn = false;
 
   switch (nameRoutes) {
     case "/":
-      content = <MenuDefault />;
+      if (isLoggedIn) {
+        content = userSeller ? <MenuSeller /> : <MenuUser />;
+      } else {
+        content = <MenuDefault />;
+      }
       break;
     case "/login":
       content = <MenuDefault />;
@@ -45,7 +49,7 @@ export const Menu = () => {
           <img src={LogoImg} alt="logo" />
         </div>
         {isLoggedIn ? (
-          <div className={"flex gap-2 "}>
+          <div className={"flex gap-2 items-center"}>
             <div className={"name-profile"}>{profileName(nameUser)}</div>
             <button onClick={() => OpenMenu()}>{profileTitleName(nameUser)}</button>
           </div>
@@ -143,8 +147,8 @@ export const MenuDefault = () => {
 
 export const MenuUser = () => {
   return (
-    <main className={"menu-user lg:right-10 animate-fadeIn"}>
-      <ul className={"border rounded shadow-lg p-1"}>
+    <main className={"menu-user lg:right-10 animate-fadeIn shadow-lg border rounded"}>
+      <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Perfil</button>
         </li>
@@ -163,10 +167,10 @@ export const MenuSeller = () => {
   return (
     <main
       className={
-        "flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 animate-fadeIn"
+        "menu-user rounded animate-fadeIn border shadow-lg lg:right-12"
       }
     >
-      <ul className={"border rounded shadow-lg p-1"}>
+      <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Perfil</button>
         </li>
