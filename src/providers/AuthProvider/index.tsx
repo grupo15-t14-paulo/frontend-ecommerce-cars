@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { tLogin, tReturnUser, tUser } from "./interfaces";
 import { api } from "../../services";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,28 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const [user, setUser] = useState<tReturnUser | null>(null);
   const [requesting, setRequesting] = useState(false);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const token = localStorage.getItem("user-ecommerce-cars:token");
+
+      if (!token) {
+        return;
+      }
+
+      try {
+        api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+        const response = await api.get("users");
+
+        setUser(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loadUser();
+  }, []);
 
   const registerUser = async (data: tUser) => {
     try {
@@ -50,7 +72,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       const userResponse = await api.get("users");
 
       setUser(userResponse.data);
-      console.log(user);
+
       navigate("/");
     } catch (error) {
       console.log(error);
