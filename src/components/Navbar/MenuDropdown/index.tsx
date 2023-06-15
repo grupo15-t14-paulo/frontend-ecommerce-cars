@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LogoImg from "../../../assets/Logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { profileName, profileTitleName } from "../../../hooks";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 export const Menu = () => {
   const [open, setOpen] = useState(false);
@@ -9,16 +10,17 @@ export const Menu = () => {
   const nameRoutes = location.pathname;
   const navigate = useNavigate();
 
-  const nameUser = "Teste Dinamico";
+  const {user} = useContext(AuthContext)
+
+  console.log(user)
+
 
   let content;
-  const userSeller = false;
-  const isLoggedIn = false;
 
   switch (nameRoutes) {
     case "/":
-      if (isLoggedIn) {
-        content = userSeller ? <MenuSeller /> : <MenuUser />;
+      if (user) {
+        content = user.isSeller ? <MenuSeller /> : <MenuUser />;
       } else {
         content = <MenuDefault />;
       }
@@ -30,8 +32,8 @@ export const Menu = () => {
       content = <MenuDefault />;
       break;
     default:
-      if (isLoggedIn) {
-        content = userSeller ? <MenuSeller /> : <MenuUser />;
+      if (user) {
+        content = user.isSeller ? <MenuSeller /> : <MenuUser />;
       } else {
         content = <MenuDefault />;
       }
@@ -48,10 +50,10 @@ export const Menu = () => {
         <div className={"flex w-40 h-6 cursor-pointer"} onClick={() => navigate("/")}>
           <img src={LogoImg} alt="logo" />
         </div>
-        {isLoggedIn ? (
+        {user ? (
           <div className={"flex gap-2 items-center"}>
-            <div className={"name-profile"}>{profileName(nameUser)}</div>
-            <button onClick={() => OpenMenu()}>{profileTitleName(nameUser)}</button>
+            <div className={"name-profile"}>{profileName(user.name)}</div>
+            <button onClick={() => OpenMenu()}>{profileTitleName(user.name)}</button>
           </div>
         ) : (
           <button
@@ -90,7 +92,7 @@ export const Menu = () => {
           </button>
         )}
         {open && content}
-        {!isLoggedIn && (
+        {!user && (
           <div className={"hidden md:flex gap-4 border-l-2 h-full items-center pl-4"}>
             <Link
               to={"/login"}

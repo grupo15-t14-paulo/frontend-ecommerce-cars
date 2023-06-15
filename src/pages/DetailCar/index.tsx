@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Footer } from "../../components/footer";
 import { Navbar } from "../../components/Navbar";
 import { api } from "../../services/index";
 import { ICardProps } from "../../components/Card/interface";
@@ -7,6 +6,7 @@ import { carros } from "../../utility";
 import ImgDefault from "../../assets/Cars/default.png";
 import { useParams } from "react-router-dom";
 import { profileName } from "../../hooks/index";
+import { Footer } from "../../components/Footer";
 
 export const DetailCar = () => {
   const [car, setCar] = useState<ICardProps>();

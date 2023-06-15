@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const [user, setUser] = useState<tReturnUser | null>(null);
   const [requesting, setRequesting] = useState(false);
+  
 
   const registerUser = async (data: tUser) => {
     try {
@@ -58,6 +59,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       setRequesting(false);
     }
   };
+
+  
 
   return (
     <AuthContext.Provider value={{ registerUser, login, user, requesting }}>
