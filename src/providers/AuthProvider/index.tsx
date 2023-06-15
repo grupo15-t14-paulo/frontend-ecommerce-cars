@@ -28,7 +28,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       const token = localStorage.getItem("user-ecommerce-cars:token");
 
       if (!token) {
-        return;
+        setUser(null)
+        return navigate('/login');
       }
 
       try {
@@ -43,7 +44,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     };
 
     loadUser();
-  }, []);
+  }, [user, navigate]);
 
   const registerUser = async (data: tUser) => {
     try {
@@ -82,7 +83,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
-  
+
 
   return (
     <AuthContext.Provider value={{ registerUser, login, user, requesting }}>

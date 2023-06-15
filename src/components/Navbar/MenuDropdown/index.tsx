@@ -12,9 +12,6 @@ export const Menu = () => {
 
   const {user} = useContext(AuthContext)
 
-  console.log(user)
-
-
   let content;
 
   switch (nameRoutes) {
@@ -148,17 +145,22 @@ export const MenuDefault = () => {
 };
 
 export const MenuUser = () => {
+
+  const LogOut = () => {
+    localStorage.clear()
+  }
+
   return (
     <main className={"menu-user lg:right-10 animate-fadeIn shadow-lg border rounded"}>
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Editar Perfil</button>
+        <Link to={"/profile"}>Editar Perfil</Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Editar Endereço</button>
+        <button>Editar endereço</button>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Sair</button>
+          <button onClick={() => LogOut()}>Sair</button>
         </li>
       </ul>
     </main>
@@ -166,6 +168,11 @@ export const MenuUser = () => {
 };
 
 export const MenuSeller = () => {
+
+  const LogOut = () => {
+    localStorage.clear()
+  }
+
   return (
     <main
       className={
@@ -174,7 +181,7 @@ export const MenuSeller = () => {
     >
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Editar Perfil</button>
+        <Link to={"/profile"}>Editar Perfil</Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Endereço</button>
@@ -183,7 +190,7 @@ export const MenuSeller = () => {
           <button>Meus Anúncios</button>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Sair</button>
+        <button onClick={() => LogOut()}>Sair</button>
         </li>
       </ul>
     </main>
