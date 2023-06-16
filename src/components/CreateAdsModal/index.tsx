@@ -184,6 +184,7 @@ export const CreateAdsModal = () => {
               </label>
              
               <input
+                placeholder="Digite o ano"
                 className="input-normal w-full"
                 id="ano"
                 disabled={!brandSelected}
@@ -196,6 +197,7 @@ export const CreateAdsModal = () => {
                 Combustivel
               </label>
               <input
+                placeholder="Selecione o Combustivel"
                 className="input-low w-full"
                 id="combustivel"
                 value={modelSelected?.fuel && getFuelLabel(modelSelected.fuel)}
@@ -208,13 +210,13 @@ export const CreateAdsModal = () => {
               <label className="label-default " htmlFor="quilometragem">
                 Quilometragem
               </label>
-              <input className="input-normal w-full" id="quilometragem" {...register('mileage')}/>
+              <input placeholder="Digite a quilometragem"className="input-normal w-full" id="quilometragem" {...register('mileage')}/>
             </fieldset>
             <fieldset className="fieldset-default">
               <label className=" label-default" htmlFor="cor">
                 Cor
               </label>
-              <input className="input-low w-full" id="cor" {...register('color')}/>
+              <input placeholder="Digite a cor" className="input-low w-full" id="cor" {...register('color')}/>
             </fieldset>
           </div>
           <div className="w-full flex gap-5">
@@ -222,7 +224,7 @@ export const CreateAdsModal = () => {
               <label className="  label-default" htmlFor="tabela fipe">
                 Preço tabela FIPE
               </label>
-              <input className="input-normal w-full" id="tabela fipe" value={ modelSelected?.value && modelSelected?.value.toLocaleString('pt-BR', {
+              <input placeholder="Digite o valor da fipe" className="input-normal w-full" id="tabela fipe" value={ modelSelected?.value && modelSelected?.value.toLocaleString('pt-BR', {
   style: 'currency',
   currency: 'BRL',
 })} {...register('fipePrice')}/>
@@ -231,7 +233,7 @@ export const CreateAdsModal = () => {
               <label className=" label-default" htmlFor="preço">
                 Preço
               </label>
-              <input className="input-low w-full" id="preço" {...register('price')}/>
+              <input placeholder="Digite o valor" className="input-low w-full" id="preço" {...register('price')}/>
             </fieldset>
           </div>
           <fieldset className="fieldset-default">
@@ -239,6 +241,7 @@ export const CreateAdsModal = () => {
               Descrição
             </label>
             <textarea
+              placeholder="Escreva a descrição do veiculo"
               className=" resize-none focus: inline-flex mt-2 p-5 w-full h-20 flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
               id="descrição"
               {...register('description')}
@@ -249,6 +252,7 @@ export const CreateAdsModal = () => {
               Imagem da capa
             </label>
             <input
+              placeholder="Carregar imagem"
               className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
               id="imagem capa"
               type="url"
@@ -260,6 +264,7 @@ export const CreateAdsModal = () => {
               1° Imagem da galeria
             </label>
             <input
+              placeholder="Carregar imagem"
               className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none"
               id="imagem 1"
               type="url"
@@ -271,6 +276,7 @@ export const CreateAdsModal = () => {
               2° imagem da galeria
             </label>
             <input
+              placeholder="Carregar imagem"
               className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
               id="imagem 2"
               {...register(`images.${1}.urlImage`)}
