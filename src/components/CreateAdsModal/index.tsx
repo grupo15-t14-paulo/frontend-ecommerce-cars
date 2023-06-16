@@ -94,7 +94,6 @@ export const CreateAdsModal = () => {
     imageCover: data.imageCover,
     images: data.images.map((image: { urlImage: string; }) => ({ urlImage: image.urlImage }))}
 
-    
     try {
      
       const response = api.post<TRegisterAnnoucementForm>('/cars', newCar)

@@ -132,7 +132,7 @@ export const Register = () => {
               <MaskedInput
                 label="Celular"
                 placeholder="(DDD) 90000-0000"
-                register={register("cpf")}
+                register={register("tel")}
                 mask="(99) 99999-9999"
               />
               {errors.tel && (
