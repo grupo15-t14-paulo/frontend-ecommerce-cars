@@ -44,11 +44,12 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     };
 
     loadUser();
-  }, [user, navigate]);
+  }, []);
 
   const registerUser = async (data: tUser) => {
     try {
       setRequesting(true);
+      console.log(data)
 
       await api.post("users", data);
 

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { returnCarSchema } from "../AdsProvider/interfaces";
 
 export const registerUserFormSchema = z
   .object({
@@ -53,9 +54,11 @@ export const userSchema = z.object({
 export const returnUserSchema = userSchema.extend({
   id: z.string().uuid(),
   address: returnAddressSchema,
+  announcement: z.array(returnCarSchema).optional(),
 });
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string(),
 });
+

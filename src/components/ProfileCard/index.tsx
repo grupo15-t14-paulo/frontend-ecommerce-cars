@@ -13,6 +13,7 @@ export const ProfileCard = ({
   year,
   id,
   fipePrice,
+  imgCover,
   createdAt,
 }: ICardProps) => {
   const navigate = useNavigate();
@@ -48,9 +49,9 @@ export const ProfileCard = ({
           "h-[152px] w-full flex justify-center items-center bg-colorGreyScaleGrey7 rounded-t-sm"
         }
       >
-        {img ? (
+        {imgCover ? (
           <img
-            src={img}
+            src={imgCover}
             alt="imagem do carro"
             className={
               "w-full h-full object-contain hover:border-2 hover:border-colorBrandBrand1"
