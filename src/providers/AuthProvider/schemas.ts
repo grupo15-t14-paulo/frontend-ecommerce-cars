@@ -11,7 +11,7 @@ export const registerUserFormSchema = z
     tel: z.string().min(15),
     dateBirth: z.string(),
     description: z.string().nullable(),
-    isSeller: z.string().or(z.boolean()),
+    isSeller: z.string().or(z.boolean()).nullable(),
     street: z.string().min(1).max(255),
     city: z.string().min(1).max(255),
     cep: z.string().length(9),

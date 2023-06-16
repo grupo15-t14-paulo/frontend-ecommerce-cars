@@ -48,6 +48,7 @@ export const Register = () => {
   const submit: SubmitHandler<tRegisterUserForm> = async (
     data: tRegisterUserForm
   ) => {
+    console.log(data.isSeller);
     data.isSeller = data.isSeller === "true" ? true : false;
 
     const address: tAddress = {
@@ -266,14 +267,13 @@ export const Register = () => {
                     type="radio"
                     id="buyer"
                     value={"false"}
-                    {...register("isSeller")}
-                    checked
                     className={"hidden peer/buyer"}
+                    {...register("isSeller")}
                   />
                   <label
                     htmlFor="buyer"
                     className={
-                      "flex flex-col justify-center items-center h-12 border-2 border-colorGreyScaleGrey4 peer-checked/buyer:border-colorBrandBrand1 cursor-pointer rounded text-base font-semibold text-colorGreyScaleGrey0 peer-checked/buyer:text-colorColorsFixedWhiteFixed peer-checked/buyer:bg-colorBrandBrand1"
+                      "flex flex-col justify-center items-center h-12 w-full border-2 border-colorGreyScaleGrey4 peer-checked/buyer:border-colorBrandBrand1 cursor-pointer rounded text-base font-semibold text-colorGreyScaleGrey0 peer-checked/buyer:text-colorColorsFixedWhiteFixed peer-checked/buyer:bg-colorBrandBrand1"
                     }
                   >
                     Comprador
@@ -285,13 +285,13 @@ export const Register = () => {
                     type="radio"
                     id="advertiser"
                     value={"true"}
-                    {...register("isSeller")}
                     className={"hidden peer/advertiser"}
+                    {...register("isSeller")}
                   />
                   <label
                     htmlFor="advertiser"
                     className={
-                      "flex flex-col justify-center items-center h-12 border-2 border-colorGreyScaleGrey4 peer-checked/advertiser:border-colorBrandBrand1 cursor-pointer rounded text-base font-semibold text-colorGreyScaleGrey0 peer-checked/advertiser:text-colorColorsFixedWhiteFixed peer-checked/advertiser:bg-colorBrandBrand1"
+                      "flex flex-col justify-center items-center h-12 w-full border-2 border-colorGreyScaleGrey4 peer-checked/advertiser:border-colorBrandBrand1 cursor-pointer rounded text-base font-semibold text-colorGreyScaleGrey0 peer-checked/advertiser:text-colorColorsFixedWhiteFixed peer-checked/advertiser:bg-colorBrandBrand1"
                     }
                   >
                     Anunciante
