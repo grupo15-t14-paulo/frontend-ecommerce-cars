@@ -1,35 +1,7 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
-import { apiHerokuApp } from "../services";
+import { createContext, useEffect, useState } from "react";
+import { apiHerokuApp } from "../../services";
+import { adsContextValues, adsProviderProps, Brand, modelsRequest } from "./interfaces";
 
-interface adsProviderProps {
-  children: ReactNode;
-}
-
-interface adsContextValues {
-  handleOpenModal: () => void;
-  handleCloseModal: () => void;
-  modalIsOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  brand: Brand;
-  setBrandSelected: React.Dispatch<React.SetStateAction<string>>;
-  models: modelsRequest[];
-  brandSelected: string;
-  imageCount: number;
-  setImageCount: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export interface modelsRequest {
-  id: string;
-  name: string;
-  fuel: number;
-  value: number;
-  brand: string;
-  year: string;
-}
-
-interface Brand {
-  [key: string]: { name: string };
-}
 
 export const AdsContext = createContext<adsContextValues>(
   {} as adsContextValues
@@ -49,26 +21,17 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const handleCloseModal = () => {
     setIsOpen(false);
   };
+  
   useEffect(() => {
     const fetchBrand = async () => {
       try {
         const response = await apiHerokuApp.get("/cars");
         setBrand(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
-    fetchBrand();
-  }, []);
-
-  useEffect(() => {
-    const fetchModelos = async () => {
-      try {
-        const response = await apiHerokuApp.get(`/cars?brand=${brandSelected}`);
-        if (Array.isArray(response.data)) {
-          setModels(response.data);
+        const responseBrand = await apiHerokuApp.get(`/cars?brand=${brandSelected}`);
+        if (Array.isArray(responseBrand.data)) {
+          setModels(responseBrand.data);
+          
         } else {
           setModels([]);
         }
@@ -77,8 +40,9 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       }
     };
 
-    fetchModelos();
+    fetchBrand();
   }, [brandSelected]);
+
 
   return (
     <AdsContext.Provider

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LogoImg from "../../../assets/Logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { profileName, profileTitleName } from "../../../hooks";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 export const Menu = () => {
   const [open, setOpen] = useState(false);
@@ -9,15 +10,17 @@ export const Menu = () => {
   const nameRoutes = location.pathname;
   const navigate = useNavigate();
 
-  const nameUser = "Teste Dinamico";
+  const {user} = useContext(AuthContext)
 
   let content;
-  const userSeller = true;
-  const isLoggedIn = true;
 
   switch (nameRoutes) {
     case "/":
-      content = <MenuDefault />;
+      if (user) {
+        content = user.isSeller ? <MenuSeller /> : <MenuUser />;
+      } else {
+        content = <MenuDefault />;
+      }
       break;
     case "/login":
       content = <MenuDefault />;
@@ -26,8 +29,8 @@ export const Menu = () => {
       content = <MenuDefault />;
       break;
     default:
-      if (isLoggedIn) {
-        content = userSeller ? <MenuSeller /> : <MenuUser />;
+      if (user) {
+        content = user.isSeller ? <MenuSeller /> : <MenuUser />;
       } else {
         content = <MenuDefault />;
       }
@@ -44,10 +47,10 @@ export const Menu = () => {
         <div className={"flex w-40 h-6 cursor-pointer"} onClick={() => navigate("/")}>
           <img src={LogoImg} alt="logo" />
         </div>
-        {isLoggedIn ? (
-          <div className={"flex gap-2 "}>
-            <div className={"name-profile"}>{profileName(nameUser)}</div>
-            <button onClick={() => OpenMenu()}>{profileTitleName(nameUser)}</button>
+        {user ? (
+          <div className={"flex gap-2 items-center"}>
+            <div className={"name-profile"}>{profileName(user.name)}</div>
+            <button onClick={() => OpenMenu()}>{profileTitleName(user.name)}</button>
           </div>
         ) : (
           <button
@@ -86,7 +89,7 @@ export const Menu = () => {
           </button>
         )}
         {open && content}
-        {!isLoggedIn && (
+        {!user && (
           <div className={"hidden md:flex gap-4 border-l-2 h-full items-center pl-4"}>
             <Link
               to={"/login"}
@@ -142,17 +145,22 @@ export const MenuDefault = () => {
 };
 
 export const MenuUser = () => {
+
+  const LogOut = () => {
+    localStorage.clear()
+  }
+
   return (
-    <main className={"menu-user lg:right-10 animate-fadeIn"}>
-      <ul className={"border rounded shadow-lg p-1"}>
+    <main className={"menu-user lg:right-10 animate-fadeIn shadow-lg border rounded"}>
+      <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Editar Perfil</button>
+        <Link to={"/profile"}>Editar Perfil</Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Editar Endereço</button>
+        <button>Editar endereço</button>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Sair</button>
+          <button onClick={() => LogOut()}>Sair</button>
         </li>
       </ul>
     </main>
@@ -160,15 +168,20 @@ export const MenuUser = () => {
 };
 
 export const MenuSeller = () => {
+
+  const LogOut = () => {
+    localStorage.clear()
+  }
+
   return (
     <main
       className={
-        "flex absolute w-52 right-0 top-16 flex-col py-1 bg-colorColorsFixedWhiteFixed gap-2 animate-fadeIn"
+        "menu-user rounded animate-fadeIn border shadow-lg lg:right-12"
       }
     >
-      <ul className={"border rounded shadow-lg p-1"}>
+      <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Editar Perfil</button>
+        <Link to={"/profile"}>Editar Perfil</Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Endereço</button>
@@ -177,7 +190,7 @@ export const MenuSeller = () => {
           <button>Meus Anúncios</button>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Sair</button>
+        <button onClick={() => LogOut()}>Sair</button>
         </li>
       </ul>
     </main>

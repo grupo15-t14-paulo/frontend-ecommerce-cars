@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
+import { Footer } from "../../components/footer";
 import { SideBar } from "../../components/sideBar";
 import { carros } from "../../utility";
 import { SideBarMobile } from "../../components/sideBar/sideBarMobile";

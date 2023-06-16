@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Footer } from "../../components/Footer";
+import { useContext, useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { api } from "../../services/index";
 import { ICardProps } from "../../components/Card/interface";
@@ -7,10 +6,13 @@ import { carros } from "../../utility";
 import ImgDefault from "../../assets/Cars/default.png";
 import { useParams } from "react-router-dom";
 import { profileName } from "../../hooks/index";
+import { Footer } from "../../components/footer";
+import { AuthContext } from "../../providers/AuthProvider";
 
 export const DetailCar = () => {
   const [car, setCar] = useState<ICardProps>();
   const { id } = useParams();
+  const {user} = useContext(AuthContext)
 
   useEffect(() => {
     // const getCar = () => {
@@ -25,7 +27,6 @@ export const DetailCar = () => {
   }, []);
 
   //condicional aplicada na renderização do botão comprar
-  const user = false;
 
   return (
     <div className={"h-full min-w-screen box-border"}>

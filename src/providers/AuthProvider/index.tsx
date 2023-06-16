@@ -12,6 +12,8 @@ interface IAuthContextValues {
   login: (data: tLogin) => void;
   user: tReturnUser | null;
   requesting: boolean;
+  loading: boolean;
+  setLoading:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const AuthContext = createContext({} as IAuthContextValues);
@@ -21,13 +23,16 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const [user, setUser] = useState<tReturnUser | null>(null);
   const [requesting, setRequesting] = useState(false);
+  const [loading, setLoading] = useState(false)
+  
 
   useEffect(() => {
     const loadUser = async () => {
       const token = localStorage.getItem("user-ecommerce-cars:token");
 
       if (!token) {
-        return;
+        setUser(null)
+        return navigate('/login');
       }
 
       try {
@@ -42,7 +47,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     };
 
     loadUser();
-  }, []);
+  }, [loading]);
 
   const registerUser = async (data: tUser) => {
     try {
@@ -81,8 +86,10 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
+
+
   return (
-    <AuthContext.Provider value={{ registerUser, login, user, requesting }}>
+    <AuthContext.Provider value={{ registerUser, login, user, requesting,loading, setLoading}}>
       {children}
     </AuthContext.Provider>
   );

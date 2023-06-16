@@ -1,5 +1,5 @@
 import { AuthProvider } from "./providers/AuthProvider";
-import { AdsProvider } from "./providers/ads.provider";
+import { AdsProvider } from "./providers/AdsProvider/ads.provider";
 import { RoutesMain } from "./routes";
 
 export const App = () => {

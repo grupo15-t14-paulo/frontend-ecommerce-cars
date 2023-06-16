@@ -1,7 +1,14 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useAds } from "../../hooks/useAds";
-// import { modelsRequest } from "../../providers/ads.provider";
+import { useContext, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { TRegisterAnnoucementForm } from "./announciment.interface";
+import { api } from "../../services";
+import { carCreateSchema } from "../../providers/AdsProvider/ads.schemas";
+import { modelsRequest } from "../../providers/AdsProvider/interfaces";
+import { AuthContext } from "../../providers/AuthProvider";
 
 export const CreateAdsModal = () => {
   const {
@@ -13,7 +20,11 @@ export const CreateAdsModal = () => {
     setBrandSelected,
     imageCount,
     setImageCount,
+    setIsOpen
   } = useAds();
+
+  const [modelSelected, setModelSelected] = useState<modelsRequest>()
+  const {setLoading} = useContext(AuthContext)
 
   const renderImage = () => {
     const inputs = [];
@@ -29,6 +40,7 @@ export const CreateAdsModal = () => {
               name={`image${i}`}
               id={`image${i}`}
               className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none"
+            
             />
           </fieldset>
         </div>
@@ -37,34 +49,78 @@ export const CreateAdsModal = () => {
     return inputs;
   };
 
+  const getFuelLabel = (fuel: number | undefined) => {
+   
+    let fuelType;
+
+    switch (fuel) {
+      case 1:
+        fuelType = "Flex";
+        break;
+      case 2:
+        fuelType = "Elétrico";
+        break;
+      case 3:
+        fuelType = "Híbrido";
+        break;
+      default:
+        fuelType = "Não Informado";
+        break;
+    }
+    return fuelType
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<TRegisterAnnoucementForm>({
+    resolver: zodResolver(carCreateSchema),
+  });
+  
+  const submit: SubmitHandler<TRegisterAnnoucementForm> = async (data: TRegisterAnnoucementForm) => {
+    setLoading(true)
+    const newCar = {
+    brand: data.brand,
+    model:modelSelected?.name,
+    year: data.year,
+    typeCar: data.typeCar,
+    mileage: Number(data.mileage),
+    color: data.color,
+    fipePrice: modelSelected?.value,
+    price: Number(data.price),
+    description: data.description,
+    imageCover: data.imageCover,
+    images: data.images.map((image: { urlImage: string; }) => ({ urlImage: image.urlImage }))}
+
+    
+    try {
+     
+      const response = api.post<TRegisterAnnoucementForm>('/cars', newCar)
+      await response
+      setIsOpen(false)
+      
+    }catch(error){
+      console.log(error)
+    }finally{
+      setLoading(false)
+    }
+  }
+
   const handleAddImage = () => {
     setImageCount((prevCount) => prevCount + 1);
   };
 
-  // const initialData = {
-  //   year: "",
-  //   fuel: "",
-  //   tabelaFipe: {},
-  // };
 
-  // const handleDataUpdate = (data: modelsRequest) => {
-  //   initialData.year = data.year;
-  //   initialData.fuel = getFuelLabel(data.fuel);
-  //   initialData.tabelaFipe = data.value;
-  // };
+  const modelSelect = (event:React.FormEvent<HTMLSelectElement>) => {
+    const id = event.currentTarget.value
+    const filter = models.find((car) => car.id === id)
+    setValue('year', filter!.year)
+    setValue('typeCar', getFuelLabel(filter!.fuel))
+    return setModelSelected(filter)
+  } 
 
-  // const getFuelLabel = (fuel: number) => {
-  //   switch (fuel) {
-  //     case 1:
-  //       return "Flex";
-  //     case 2:
-  //       return "Elétrico";
-  //     case 3:
-  //       return "Híbrido";
-  //     default:
-  //       return "";
-  //   }
-  // };
 
   return (
     <Dialog.Root open={modalIsOpen}>
@@ -80,6 +136,7 @@ export const CreateAdsModal = () => {
           <Dialog.Description className="mt-[10px] mb-5 text-[15px] leading-normal">
             Informações do veículo
           </Dialog.Description>
+          <form onSubmit={handleSubmit(submit) }>
           <fieldset className="fieldset-default">
             <label className="label-default" htmlFor="marca">
               Marca
@@ -88,6 +145,7 @@ export const CreateAdsModal = () => {
               className="mt-2 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none"
               id="marca"
               value={brandSelected}
+              {...register('brand')}
               onChange={(e) => setBrandSelected(e.target.value)}
             >
               <option value="">Selecione a marca</option>
@@ -107,6 +165,8 @@ export const CreateAdsModal = () => {
               className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none"
               id="modelo"
               disabled={!brandSelected}
+              onInput={(event) => modelSelect(event)}
+              {...register('model')}
             >
               <option value="">Selecione o modelo</option>
 
@@ -122,11 +182,13 @@ export const CreateAdsModal = () => {
               <label className="label-default" htmlFor="ano">
                 Ano
               </label>
+             
               <input
                 className="input-normal w-full"
                 id="ano"
-                // disabled={!brandSelected}
-                // value={initialData.year}
+                disabled={!brandSelected}
+                value={modelSelected?.year}
+                {...register('year')}
               />
             </fieldset>
             <fieldset className="fieldset-default">
@@ -136,7 +198,8 @@ export const CreateAdsModal = () => {
               <input
                 className="input-low w-full"
                 id="combustivel"
-                // value={initialData.fuel}
+                value={modelSelected?.fuel && getFuelLabel(modelSelected.fuel)}
+                {...register('typeCar', { required: true })}
               />
             </fieldset>
           </div>
@@ -145,13 +208,13 @@ export const CreateAdsModal = () => {
               <label className="label-default " htmlFor="quilometragem">
                 Quilometragem
               </label>
-              <input className="input-normal w-full" id="quilometragem" />
+              <input className="input-normal w-full" id="quilometragem" {...register('mileage')}/>
             </fieldset>
             <fieldset className="fieldset-default">
               <label className=" label-default" htmlFor="cor">
                 Cor
               </label>
-              <input className="input-low w-full" id="cor" />
+              <input className="input-low w-full" id="cor" {...register('color')}/>
             </fieldset>
           </div>
           <div className="w-full flex gap-5">
@@ -159,13 +222,16 @@ export const CreateAdsModal = () => {
               <label className="  label-default" htmlFor="tabela fipe">
                 Preço tabela FIPE
               </label>
-              <input className="input-normal w-full" id="tabela fipe" />
+              <input className="input-normal w-full" id="tabela fipe" value={ modelSelected?.value && modelSelected?.value.toLocaleString('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+})} {...register('fipePrice')}/>
             </fieldset>
             <fieldset className="fieldset-default">
               <label className=" label-default" htmlFor="preço">
                 Preço
               </label>
-              <input className="input-low w-full" id="preço" />
+              <input className="input-low w-full" id="preço" {...register('price')}/>
             </fieldset>
           </div>
           <fieldset className="fieldset-default">
@@ -175,6 +241,7 @@ export const CreateAdsModal = () => {
             <textarea
               className=" resize-none focus: inline-flex mt-2 p-5 w-full h-20 flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
               id="descrição"
+              {...register('description')}
             />
           </fieldset>
           <fieldset className="fieldset-default">
@@ -184,6 +251,8 @@ export const CreateAdsModal = () => {
             <input
               className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
               id="imagem capa"
+              type="url"
+              {...register('imageCover')}
             />
           </fieldset>
           <fieldset className="fieldset-default">
@@ -193,6 +262,8 @@ export const CreateAdsModal = () => {
             <input
               className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none"
               id="imagem 1"
+              type="url"
+              {...register(`images.${0}.urlImage`)}
             />
           </fieldset>
           <fieldset className="fieldset-default">
@@ -202,6 +273,8 @@ export const CreateAdsModal = () => {
             <input
               className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
               id="imagem 2"
+              {...register(`images.${1}.urlImage`)}
+              type="url"
             />
           </fieldset>
           {renderImage()}
@@ -216,11 +289,11 @@ export const CreateAdsModal = () => {
           <div className="mt-[25px] flex justify-end">
             <div>
               <Dialog.Close asChild>
-                <button onClick={handleCloseModal} className="button-cancel">
+                <button onClick={handleCloseModal} className="button-cancel" type="button">
                   Cancelar
                 </button>
               </Dialog.Close>
-              <button className="button-default font-normal text-sm focus:outline-none bg-colorBrandBrand3 text-colorColorsFixedWhiteFixed ml-4 px-7">
+              <button type="submit" className="button-default font-normal text-sm focus:outline-none bg-colorBrandBrand3 text-colorColorsFixedWhiteFixed ml-4 px-7">
                 Criar anúncio
               </button>
             </div>
@@ -234,6 +307,8 @@ export const CreateAdsModal = () => {
               <Cross2Icon />
             </button>
           </Dialog.Close>
+          
+          </form>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

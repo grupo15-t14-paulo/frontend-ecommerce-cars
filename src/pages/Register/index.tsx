@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Footer } from "../../components/Footer";
+import { Footer } from "../../components/footer";
 import { Input } from "../../components/Input";
 import { Navbar } from "../../components/Navbar";
 import {
@@ -70,7 +70,7 @@ export const Register = () => {
       isSeller: data.isSeller,
       address: address,
     };
-
+    
     registerUser(user);
   };
 
