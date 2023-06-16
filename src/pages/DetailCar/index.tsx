@@ -6,7 +6,7 @@ import { carros } from "../../utility";
 import ImgDefault from "../../assets/Cars/default.png";
 import { useParams } from "react-router-dom";
 import { profileName } from "../../hooks/index";
-import { Footer } from "../../components/Footer";
+import { Footer } from "../../components/footer";
 import { AuthContext } from "../../providers/AuthProvider";
 
 export const DetailCar = () => {

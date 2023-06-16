@@ -1,35 +1,7 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { apiHerokuApp } from "../../services";
+import { adsContextValues, adsProviderProps, Brand, modelsRequest } from "./interfaces";
 
-interface adsProviderProps {
-  children: ReactNode;
-}
-
-interface adsContextValues {
-  handleOpenModal: () => void;
-  handleCloseModal: () => void;
-  modalIsOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  brand: Brand;
-  setBrandSelected: React.Dispatch<React.SetStateAction<string>>;
-  models: modelsRequest[];
-  brandSelected: string;
-  imageCount: number;
-  setImageCount: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export interface modelsRequest {
-  id: string;
-  name: string;
-  fuel: number;
-  value: number;
-  brand: string;
-  year: string;
-}
-
-interface Brand {
-  [key: string]: { name: string };
-}
 
 export const AdsContext = createContext<adsContextValues>(
   {} as adsContextValues

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
+import { Footer } from "../../components/footer";
 import { SideBarMobile } from "../../components/sideBar/sideBarMobile";
 import { ProfileHeader } from "../../components/ProfileHeader";
 import { ProfileCard } from "../../components/ProfileCard";
@@ -8,10 +8,8 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 export const Profile = () => {
   const [open, setOpen] = useState(false);
-
   const {user} = useContext(AuthContext)
-
-
+  
   return (
     <>
       <div className={"h-full min-w-screen box-border bg-colorGreyScaleGrey9"}>
@@ -24,7 +22,7 @@ export const Profile = () => {
           <section className={"  w-full h-full lg:w-full lg: box-border pb-5"}>
             <ul
               className={
-                "flex h-[490px] lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end  lg:py-0"
+                "flex h-[510px] lg:flex-wrap w-full gap-10 overflow-auto lg:justify-center lg:py-0  scrollbar"
               }
             >
               {user?.announcement && user?.announcement.map((car) => (

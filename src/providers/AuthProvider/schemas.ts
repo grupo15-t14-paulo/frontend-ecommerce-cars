@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { returnCarSchema } from "../AdsProvider/interfaces";
+import { returnCarSchema } from "../AdsProvider/ads.schemas";
 
 export const registerUserFormSchema = z
   .object({

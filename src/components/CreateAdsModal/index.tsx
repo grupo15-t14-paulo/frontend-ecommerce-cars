@@ -1,14 +1,14 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useAds } from "../../hooks/useAds";
-import { modelsRequest } from "../../providers/AdsProvider/ads.provider";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { carCreateSchema } from "../../providers/AdsProvider/interfaces";
 import { TRegisterAnnoucementForm } from "./announciment.interface";
 import { api } from "../../services";
-// import { modelsRequest } from "../../providers/ads.provider";
+import { carCreateSchema } from "../../providers/AdsProvider/ads.schemas";
+import { modelsRequest } from "../../providers/AdsProvider/interfaces";
+import { AuthContext } from "../../providers/AuthProvider";
 
 export const CreateAdsModal = () => {
   const {
@@ -24,6 +24,7 @@ export const CreateAdsModal = () => {
   } = useAds();
 
   const [modelSelected, setModelSelected] = useState<modelsRequest>()
+  const {setLoading} = useContext(AuthContext)
 
   const renderImage = () => {
     const inputs = [];
@@ -48,44 +49,6 @@ export const CreateAdsModal = () => {
     return inputs;
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TRegisterAnnoucementForm>({
-    resolver: zodResolver(carCreateSchema),
-  });
-  
-  const submit: SubmitHandler<TRegisterAnnoucementForm> = async (data: TRegisterAnnoucementForm) => {
-   
-    const newCar = {
-    brand: data.brand,
-    model:modelSelected?.name,
-    year: data.year,
-    typeCar: data.typeCar || 'Não informado',
-    mileage: Number(data.mileage),
-    color: data.color,
-    fipePrice: modelSelected?.value,
-    price: Number(data.price),
-    description: data.description,
-    imageCover: data.imageCover,
-    images: data.images.map((image) => ({ urlImage: image.urlImage }))}
-   
-    
-    try {
-  
-      const response = api.post<TRegisterAnnoucementForm>('/cars', newCar)
-      await response
-      setIsOpen(false)
-    }catch(error){
-      console.log(error)
-    }
-  }
-
-  const handleAddImage = () => {
-    setImageCount((prevCount) => prevCount + 1);
-  };
-
   const getFuelLabel = (fuel: number | undefined) => {
    
     let fuelType;
@@ -101,16 +64,60 @@ export const CreateAdsModal = () => {
         fuelType = "Híbrido";
         break;
       default:
-        fuelType = "Não informado";
+        fuelType = "Não Informado";
         break;
     }
     return fuelType
   };
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<TRegisterAnnoucementForm>({
+    resolver: zodResolver(carCreateSchema),
+  });
   
+  const submit: SubmitHandler<TRegisterAnnoucementForm> = async (data: TRegisterAnnoucementForm) => {
+    setLoading(true)
+    const newCar = {
+    brand: data.brand,
+    model:modelSelected?.name,
+    year: data.year,
+    typeCar: data.typeCar,
+    mileage: Number(data.mileage),
+    color: data.color,
+    fipePrice: modelSelected?.value,
+    price: Number(data.price),
+    description: data.description,
+    imageCover: data.imageCover,
+    images: data.images.map((image: { urlImage: string; }) => ({ urlImage: image.urlImage }))}
+
+    
+    try {
+     
+      const response = api.post<TRegisterAnnoucementForm>('/cars', newCar)
+      await response
+      setIsOpen(false)
+      
+    }catch(error){
+      console.log(error)
+    }finally{
+      setLoading(false)
+    }
+  }
+
+  const handleAddImage = () => {
+    setImageCount((prevCount) => prevCount + 1);
+  };
+
+
   const modelSelect = (event:React.FormEvent<HTMLSelectElement>) => {
     const id = event.currentTarget.value
     const filter = models.find((car) => car.id === id)
+    setValue('year', filter!.year)
+    setValue('typeCar', getFuelLabel(filter!.fuel))
     return setModelSelected(filter)
   } 
 
@@ -175,11 +182,12 @@ export const CreateAdsModal = () => {
               <label className="label-default" htmlFor="ano">
                 Ano
               </label>
+             
               <input
                 className="input-normal w-full"
                 id="ano"
                 disabled={!brandSelected}
-                defaultValue={modelSelected?.year}
+                value={modelSelected?.year}
                 {...register('year')}
               />
             </fieldset>
@@ -190,8 +198,8 @@ export const CreateAdsModal = () => {
               <input
                 className="input-low w-full"
                 id="combustivel"
-                value={modelSelected?.fuel ? getFuelLabel(modelSelected.fuel) : 'Não informado'}
-                {...register('typeCar')}
+                value={modelSelected?.fuel && getFuelLabel(modelSelected.fuel)}
+                {...register('typeCar', { required: true })}
               />
             </fieldset>
           </div>
