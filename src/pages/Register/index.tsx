@@ -70,7 +70,7 @@ export const Register = () => {
       isSeller: data.isSeller,
       address: address,
     };
-    
+
     registerUser(user);
   };
 
@@ -132,7 +132,7 @@ export const Register = () => {
               <MaskedInput
                 label="Celular"
                 placeholder="(DDD) 90000-0000"
-                register={register("cpf")}
+                register={register("tel")}
                 mask="(99) 99999-9999"
               />
               {errors.tel && (
@@ -145,7 +145,7 @@ export const Register = () => {
                 label="Data de nascimento"
                 placeholder="00/00/00"
                 register={register("dateBirth")}
-                mask="99/99/99"
+                mask="99/99/9999"
               />
               {errors.dateBirth && (
                 <span className={"text-colorFeedbackAlert1 text-sm"}>
