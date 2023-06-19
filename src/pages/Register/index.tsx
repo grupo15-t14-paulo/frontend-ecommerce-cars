@@ -298,6 +298,11 @@ export const Register = () => {
                   </label>
                 </div>
               </div>
+              {errors.isSeller && (
+                <span className={"text-colorFeedbackAlert1 text-sm"}>
+                  {errors.isSeller.message}
+                </span>
+              )}
 
               <Input
                 type="password"
