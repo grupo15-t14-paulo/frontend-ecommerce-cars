@@ -22,9 +22,11 @@ export const ProfileHeader = () => {
             </div>
 
             <h2 className="text-1x5">{user?.description}</h2>
-            <button onClick={() => handleOpenModal()} className="button-newAnnoucement">
-              Criar Anuncio
-            </button>
+            {user?.isSeller && (
+              <button onClick={() => handleOpenModal()} className="button-newAnnoucement">
+                Criar Anuncio
+              </button>
+            )}
           </div>
         </div>
       </div>
