@@ -48,7 +48,6 @@ export const Register = () => {
   const submit: SubmitHandler<tRegisterUserForm> = async (
     data: tRegisterUserForm
   ) => {
-    console.log(data.isSeller);
     data.isSeller = data.isSeller === "true" ? true : false;
 
     const address: tAddress = {
