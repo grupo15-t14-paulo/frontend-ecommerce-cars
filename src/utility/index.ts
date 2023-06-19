@@ -158,3 +158,7 @@ export const carros: ICardProps[] = [
     createdAt: "2023-01-1",
   },
 ];
+
+export const color = ["Azul", "Branca", "Cinza", "Prata", "Preta", "Verde"];
+export const years = ["2023", "2022", "2021", "2020", "2019", "2018"];
+export const fuels = ["Diesel", "Híbrido", "Flex", "Gasolina"];

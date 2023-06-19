@@ -11,8 +11,11 @@ export interface adsContextValues {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   brand: Brand;
   setBrandSelected: React.Dispatch<React.SetStateAction<string>>;
+  setBrandSelectedFilter: React.Dispatch<React.SetStateAction<string>>;
+  setModels: React.Dispatch<React.SetStateAction<modelsRequest[]>>;
   models: modelsRequest[];
   brandSelected: string;
+  brandSelectedFilter: string;
   imageCount: number;
   setImageCount: React.Dispatch<React.SetStateAction<number>>;
 }
