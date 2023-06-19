@@ -23,9 +23,7 @@ export const Home = () => {
           className={`mt-12 min-h-full w-full container flex flex-col gap-4 relative box-border lg:flex-row`}
         >
           <SideBar />
-          <section
-            className={"w-full h-full lg:w-full lg:min-h-max box-border pb-5"}
-          >
+          <section className={"w-full h-full lg:w-full lg:min-h-max box-border pb-5"}>
             <ul
               className={
                 "flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end py-10 lg:py-0"
@@ -33,6 +31,7 @@ export const Home = () => {
             >
               {carros.map((car) => (
                 <Card
+                  imgCover={car.imgCover}
                   id={car.id}
                   description={car.description}
                   img={car.img}
@@ -63,11 +62,7 @@ export const Home = () => {
             <span className={"text-2xl text-colorGreyScaleGrey3"}>
               1<span className={"text-colorGreyScaleGrey4"}> de 2</span>
             </span>
-            <button
-              className={
-                "flex items-center text-2xl text-colorBrandBrand1 font-bold"
-              }
-            >
+            <button className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}>
               Seguinte &gt;
             </button>
           </div>
