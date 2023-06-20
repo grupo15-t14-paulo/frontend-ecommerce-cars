@@ -16,8 +16,6 @@ export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
     const {resetPassword} = useAuth()
 
     const onFormSubmit = (formData: ResetPasswordData) => {
-        console.log(formData);
-        console.log(token);
         resetPassword(formData,token)
       };
     return (
