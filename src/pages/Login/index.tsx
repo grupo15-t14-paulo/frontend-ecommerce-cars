@@ -68,13 +68,14 @@ export const Login = () => {
                 </span>
               )}
 
-              <span
+              <Link
+                to={"/resetPassword"}
                 className={
                   "text-sm font-medium text-right hover:cursor-pointer hover:underline"
                 }
               >
                 Esqueci minha senha
-              </span>
+              </Link>
 
               <button
                 type="submit"
@@ -85,11 +86,10 @@ export const Login = () => {
                 {requesting ? "Entrando..." : "Entrar"}
               </button>
 
-              <Link 
-                to={"/resetPassword"}
+              <span 
                 className={"text-center text-sm text-colorGreyScaleGrey2 font-normal"}>
                 Ainda não possui conta?
-              </Link>
+              </span>
 
                 <Link
                   to={"/register"}
