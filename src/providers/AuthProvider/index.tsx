@@ -7,6 +7,8 @@ import {
 } from "./interfaces";
 import { api } from "../../services";
 import { useNavigate } from "react-router-dom";
+import { ResetPasswordData, SendEmailResetPasswordData } from "../../schemas/userResetPassword";
+import { toast } from "react-toastify";
 
 interface IAuthProviderProps {
   children: ReactNode;
@@ -16,6 +18,8 @@ interface IAuthContextValues {
   registerUser: (data: tUser) => void;
   updateUser: (data: tUpdateUserWithoutAddress) => void;
   login: (data: tLogin) => void;
+  sendEmail: (sendEmailResetPasswordData:SendEmailResetPasswordData)=> void
+  resetPassword:(resetPasswordData:ResetPasswordData, token:string)=> void
   user: tReturnUser | null;
   requesting: boolean;
   loading: boolean;
@@ -47,10 +51,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   useEffect(() => {
     const loadUser = async () => {
       const token = localStorage.getItem("user-ecommerce-cars:token");
-
+      
       if (!token) {
         setUser(null);
-        return navigate("/login");
       }
 
       try {
@@ -127,6 +130,27 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
+  const sendEmail = (sendEmailResetPasswordData:SendEmailResetPasswordData) =>{
+    api.post("/users/resetPassword",sendEmailResetPasswordData)
+      .then(()=>{
+        toast.success("Email enviado com sucesso!")
+        navigate("/")
+      }).catch((err)=>{
+        console.log(err)
+        toast.error("Erro ao enviar o e-mail tente novamente mais tarde ou verifique se o e-mail esta correto")
+      })
+  }
+  const resetPassword = (resetPasswordData:ResetPasswordData,token:string) =>{
+    api.patch(`/users/resetPassword/${token}`,{password: resetPasswordData.password})
+    .then(()=>{
+      toast.success("Senha atualizada com sucesso!")
+      navigate("/login")
+    }).catch((err)=>{
+      console.log(err)
+      toast.error("Erro ao atualizar a senha")
+    })
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -134,6 +158,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         updateUser,
         deleteUser,
         login,
+        sendEmail,
+        resetPassword,
         user,
         requesting,
         loading,
