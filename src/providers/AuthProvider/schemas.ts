@@ -55,9 +55,11 @@ export const returnUserSchema = userSchema.extend({
   announcement: z.array(returnCarSchema).optional(),
 });
 
-export const updateUserWithoutAddress = userSchema
-  .omit({ address: true })
-  .partial();
+export const userWithoutAddress = userSchema.omit({
+  address: true,
+});
+
+export const updateUserWithoutAddress = userWithoutAddress.partial();
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),

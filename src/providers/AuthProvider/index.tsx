@@ -16,6 +16,8 @@ interface IAuthContextValues {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   modalIsOpen: boolean;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  modalType: string;
+  setModalType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const AuthContext = createContext({} as IAuthContextValues);
@@ -27,6 +29,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [requesting, setRequesting] = useState(false);
   const [loading, setLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   useEffect(() => {
     const loadUser = async () => {
@@ -99,6 +102,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         setLoading,
         modalIsOpen,
         setModalIsOpen,
+        modalType,
+        setModalType,
       }}
     >
       {children}

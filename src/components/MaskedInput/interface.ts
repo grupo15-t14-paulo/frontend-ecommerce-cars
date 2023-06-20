@@ -5,4 +5,5 @@ export interface IMaskedInputProps {
   placeholder: string;
   register: UseFormRegisterReturn;
   mask: string;
+  isRequired?: boolean;
 }
