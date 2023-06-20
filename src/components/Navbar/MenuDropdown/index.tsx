@@ -159,7 +159,7 @@ export const MenuDefault = () => {
 };
 
 export const MenuUser = () => {
-  const { setModalIsOpen } = useAuth();
+  const { setModalIsOpen, setModalType } = useAuth();
 
   const LogOut = () => {
     localStorage.clear();
@@ -173,7 +173,13 @@ export const MenuUser = () => {
     >
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <Link to={"/profile"} onClick={() => setModalIsOpen(true)}>
+          <Link
+            to={"/profile"}
+            onClick={() => {
+              setModalIsOpen(true);
+              setModalType("edit-profile");
+            }}
+          >
             Editar Perfil
           </Link>
         </li>
@@ -191,6 +197,8 @@ export const MenuUser = () => {
 };
 
 export const MenuSeller = () => {
+  const { setModalIsOpen, setModalType } = useAuth();
+
   const LogOut = () => {
     localStorage.clear();
   };
@@ -203,7 +211,15 @@ export const MenuSeller = () => {
     >
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <Link to={"/profile"}>Editar Perfil</Link>
+          <Link
+            to={"/profile"}
+            onClick={() => {
+              setModalIsOpen(true);
+              setModalType("edit-profile");
+            }}
+          >
+            Editar Perfil
+          </Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Endereço</button>
