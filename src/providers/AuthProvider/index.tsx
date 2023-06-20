@@ -31,10 +31,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   useEffect(() => {
     const loadUser = async () => {
       const token = localStorage.getItem("user-ecommerce-cars:token");
-
+      
       if (!token) {
         setUser(null);
-        return navigate("/login");
       }
 
       try {
