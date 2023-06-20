@@ -48,7 +48,6 @@ export const Register = () => {
   const submit: SubmitHandler<tRegisterUserForm> = async (
     data: tRegisterUserForm
   ) => {
-    console.log(data.isSeller);
     data.isSeller = data.isSeller === "true" ? true : false;
 
     const address: tAddress = {
@@ -298,6 +297,11 @@ export const Register = () => {
                   </label>
                 </div>
               </div>
+              {errors.isSeller && (
+                <span className={"text-colorFeedbackAlert1 text-sm"}>
+                  {errors.isSeller.message}
+                </span>
+              )}
 
               <Input
                 type="password"

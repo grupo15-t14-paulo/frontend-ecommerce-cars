@@ -5,11 +5,26 @@ import { SideBarMobile } from "../../components/sideBar/sideBarMobile";
 import { ProfileHeader } from "../../components/ProfileHeader";
 import { ProfileCard } from "../../components/ProfileCard";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useAuth } from "../../hooks/useAuth";
+import { EditProfileModal } from "../../components/EditProfileModal";
 
 export const Profile = () => {
   const [open, setOpen] = useState(false);
-  const {user} = useContext(AuthContext)
-  
+  const { user } = useContext(AuthContext);
+
+  const { modalIsOpen, modalType } = useAuth();
+
+  let modal;
+
+  switch (modalType) {
+    case "":
+      modal = null;
+      break;
+    case "edit-profile":
+      modal = <EditProfileModal />;
+      break;
+  }
+
   return (
     <>
       <div className={"h-full min-w-screen box-border bg-colorGreyScaleGrey9"}>
@@ -25,22 +40,23 @@ export const Profile = () => {
                 "flex h-[510px] lg:flex-wrap w-full gap-10 overflow-auto lg:justify-center lg:py-0  scrollbar"
               }
             >
-              {user?.announcement && user?.announcement.map((car) => (
-                <ProfileCard
-                  id={car.id}
-                  description={car.description}
-                  img={car.images}
-                  km={car.mileage}
-                  title={car.model}
-                  userName={user.name}
-                  value={car.price}
-                  year={car.year}
-                  key={car.id}
-                  createdAt={car.createdAt}
-                  imgCover={car.imageCover}
-                  fipePrice={car.fipePrice}
-                />
-              ))}
+              {user?.announcement &&
+                user?.announcement.map((car) => (
+                  <ProfileCard
+                    id={car.id}
+                    description={car.description}
+                    img={car.images}
+                    km={car.mileage}
+                    title={car.model}
+                    userName={user.name}
+                    value={car.price}
+                    year={car.year}
+                    key={car.id}
+                    createdAt={car.createdAt}
+                    imgCover={car.imageCover}
+                    fipePrice={car.fipePrice}
+                  />
+                ))}
             </ul>
           </section>
 
@@ -62,6 +78,7 @@ export const Profile = () => {
       </div>
       {open && <SideBarMobile setOpen={setOpen} />}
       <Footer />
+      {modalIsOpen && modal}
     </>
   );
 };

@@ -3,6 +3,7 @@ import LogoImg from "../../../assets/Logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { profileName, profileTitleName } from "../../../hooks";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { useAuth } from "../../../hooks/useAuth";
 
 export const Menu = () => {
   const [open, setOpen] = useState(false);
@@ -10,7 +11,7 @@ export const Menu = () => {
   const nameRoutes = location.pathname;
   const navigate = useNavigate();
 
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   let content;
 
@@ -44,13 +45,18 @@ export const Menu = () => {
   return (
     <div className={"relative flex min-w-full shadow z-10 container"}>
       <div className={"container flex justify-between  items-center"}>
-        <div className={"flex w-40 h-6 cursor-pointer"} onClick={() => navigate("/")}>
+        <div
+          className={"flex w-40 h-6 cursor-pointer"}
+          onClick={() => navigate("/")}
+        >
           <img src={LogoImg} alt="logo" />
         </div>
         {user ? (
           <div className={"flex gap-2 items-center"}>
             <div className={"name-profile"}>{profileName(user.name)}</div>
-            <button onClick={() => OpenMenu()}>{profileTitleName(user.name)}</button>
+            <button onClick={() => OpenMenu()}>
+              {profileTitleName(user.name)}
+            </button>
           </div>
         ) : (
           <button
@@ -68,7 +74,11 @@ export const Menu = () => {
                 stroke="currentColor"
                 className="w-6 h-6"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             ) : (
               <svg
@@ -90,7 +100,11 @@ export const Menu = () => {
         )}
         {open && content}
         {!user && (
-          <div className={"hidden md:flex gap-4 border-l-2 h-full items-center pl-4"}>
+          <div
+            className={
+              "hidden md:flex gap-4 border-l-2 h-full items-center pl-4"
+            }
+          >
             <Link
               to={"/login"}
               className={
@@ -145,19 +159,34 @@ export const MenuDefault = () => {
 };
 
 export const MenuUser = () => {
+  const { setModalIsOpen, setModalType } = useAuth();
 
   const LogOut = () => {
-    localStorage.clear()
-  }
+    localStorage.clear();
+  };
 
   return (
-    <main className={"menu-user lg:right-10 animate-fadeIn shadow-lg border rounded"}>
+    <main
+      className={
+        "menu-user lg:right-10 animate-fadeIn shadow-lg border rounded"
+      }
+    >
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
-        <Link to={"/profile"}>Editar Perfil</Link>
+          <Link
+            to={"/profile"}
+            onClick={() => {
+              setModalIsOpen(true);
+              setModalType("edit-profile");
+            }}
+          >
+            Editar Perfil
+          </Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-        <button>Editar endereço</button>
+          <Link to={"/profile"} onClick={() => setModalIsOpen(true)}>
+            Editar Endereço
+          </Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button onClick={() => LogOut()}>Sair</button>
@@ -168,10 +197,11 @@ export const MenuUser = () => {
 };
 
 export const MenuSeller = () => {
+  const { setModalIsOpen, setModalType } = useAuth();
 
   const LogOut = () => {
-    localStorage.clear()
-  }
+    localStorage.clear();
+  };
 
   return (
     <main
@@ -181,7 +211,15 @@ export const MenuSeller = () => {
     >
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
-        <Link to={"/profile"}>Editar Perfil</Link>
+          <Link
+            to={"/profile"}
+            onClick={() => {
+              setModalIsOpen(true);
+              setModalType("edit-profile");
+            }}
+          >
+            Editar Perfil
+          </Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button>Editar Endereço</button>
@@ -190,7 +228,7 @@ export const MenuSeller = () => {
           <button>Meus Anúncios</button>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-        <button onClick={() => LogOut()}>Sair</button>
+          <button onClick={() => LogOut()}>Sair</button>
         </li>
       </ul>
     </main>

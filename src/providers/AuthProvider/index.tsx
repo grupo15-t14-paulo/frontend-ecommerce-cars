@@ -14,6 +14,10 @@ interface IAuthContextValues {
   requesting: boolean;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  modalIsOpen: boolean;
+  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  modalType: string;
+  setModalType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const AuthContext = createContext({} as IAuthContextValues);
@@ -24,14 +28,15 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [user, setUser] = useState<tReturnUser | null>(null);
   const [requesting, setRequesting] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   useEffect(() => {
     const loadUser = async () => {
       const token = localStorage.getItem("user-ecommerce-cars:token");
-
+      
       if (!token) {
         setUser(null);
-        return navigate("/login");
       }
 
       try {
@@ -86,7 +91,20 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ registerUser, login, user, requesting, loading, setLoading }}>
+    <AuthContext.Provider
+      value={{
+        registerUser,
+        login,
+        user,
+        requesting,
+        loading,
+        setLoading,
+        modalIsOpen,
+        setModalIsOpen,
+        modalType,
+        setModalType,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -11,7 +11,7 @@ export const registerUserFormSchema = z
     tel: z.string().min(15),
     dateBirth: z.string(),
     description: z.string().nullable(),
-    isSeller: z.string().or(z.boolean()).nullable(),
+    isSeller: z.string().or(z.boolean()),
     street: z.string().min(1).max(255),
     city: z.string().min(1).max(255),
     cep: z.string().length(9),
@@ -54,6 +54,12 @@ export const returnUserSchema = userSchema.extend({
   address: returnAddressSchema,
   announcement: z.array(returnCarSchema).optional(),
 });
+
+export const userWithoutAddress = userSchema.omit({
+  address: true,
+});
+
+export const updateUserWithoutAddress = userWithoutAddress.partial();
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
