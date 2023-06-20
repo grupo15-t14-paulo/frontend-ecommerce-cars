@@ -1,5 +1,10 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { tLogin, tReturnUser, tUser } from "./interfaces";
+import {
+  tLogin,
+  tReturnUser,
+  tUpdateUserWithoutAddress,
+  tUser,
+} from "./interfaces";
 import { api } from "../../services";
 import { useNavigate } from "react-router-dom";
 import { ResetPasswordData, SendEmailResetPasswordData } from "../../schemas/userResetPassword";
@@ -11,6 +16,7 @@ interface IAuthProviderProps {
 
 interface IAuthContextValues {
   registerUser: (data: tUser) => void;
+  updateUser: (data: tUpdateUserWithoutAddress) => void;
   login: (data: tLogin) => void;
   sendEmail: (sendEmailResetPasswordData:SendEmailResetPasswordData)=> void
   resetPassword:(resetPasswordData:ResetPasswordData, token:string)=> void
@@ -22,6 +28,8 @@ interface IAuthContextValues {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   modalType: string;
   setModalType: React.Dispatch<React.SetStateAction<string>>;
+  handleCloseModal: () => void;
+  deleteUser: () => void;
 }
 
 export const AuthContext = createContext({} as IAuthContextValues);
@@ -34,6 +42,11 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalType, setModalType] = useState("");
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+    setModalType("");
+  };
 
   useEffect(() => {
     const loadUser = async () => {
@@ -68,6 +81,29 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       console.log(error);
     } finally {
       setRequesting(false);
+    }
+  };
+
+  const updateUser = async (data: tUpdateUserWithoutAddress) => {
+    try {
+      const response = await api.patch("users", data);
+
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      await api.delete("users");
+
+      setUser(null);
+      localStorage.removeItem("user-ecommerce-cars:token");
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -119,6 +155,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     <AuthContext.Provider
       value={{
         registerUser,
+        updateUser,
+        deleteUser,
         login,
         sendEmail,
         resetPassword,
@@ -130,6 +168,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         setModalIsOpen,
         modalType,
         setModalType,
+        handleCloseModal,
       }}
     >
       {children}

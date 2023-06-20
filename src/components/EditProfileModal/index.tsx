@@ -10,7 +10,8 @@ import { MaskedInput } from "../MaskedInput";
 import { useEffect } from "react";
 
 export const EditProfileModal = () => {
-  const { modalIsOpen, setModalIsOpen, setModalType, user } = useAuth();
+  const { modalIsOpen, user, updateUser, handleCloseModal, setModalType } =
+    useAuth();
 
   const { register, handleSubmit, setValue } =
     useForm<tUpdateUserWithoutAddress>({
@@ -20,7 +21,9 @@ export const EditProfileModal = () => {
   const submit: SubmitHandler<tUpdateUserWithoutAddress> = async (
     data: tUpdateUserWithoutAddress
   ) => {
-    console.log(data);
+    updateUser(data);
+
+    handleCloseModal();
   };
 
   useEffect(() => {
@@ -37,8 +40,7 @@ export const EditProfileModal = () => {
       <Dialog.Portal>
         <Dialog.Overlay
           onClick={() => {
-            setModalIsOpen(false);
-            setModalType("");
+            handleCloseModal();
           }}
           className="bg-black bg-opacity-50 data-[state=open]:animate-overlayShow fixed inset-0"
         />
@@ -102,8 +104,7 @@ export const EditProfileModal = () => {
               <Dialog.Close asChild>
                 <button
                   onClick={() => {
-                    setModalIsOpen(false);
-                    setModalType("");
+                    handleCloseModal();
                   }}
                   className="flex justify-center items-center w-[30%] h-12 px-1 rounded border-none text-[13px] font-semibold text-colorGreyScaleGrey2 bg-colorGreyScaleGrey6 hover:bg-colorGreyScaleGrey5"
                   type="button"
@@ -113,7 +114,10 @@ export const EditProfileModal = () => {
               </Dialog.Close>
 
               <Dialog.Close asChild>
-                <button className="flex justify-center items-center w-[30%] h-12 px-1 rounded border-none text-[13px] font-semibold text-colorFeedbackAlert1 bg-colorFeedbackAlert3 hover:bg-colorFeedbackAlert2">
+                <button
+                  onClick={() => setModalType("exclude-profile")}
+                  className="flex justify-center items-center w-[30%] h-12 px-1 rounded border-none text-[13px] font-semibold text-colorFeedbackAlert1 bg-colorFeedbackAlert3 hover:bg-colorFeedbackAlert2"
+                >
                   Excluir perfil
                 </button>
               </Dialog.Close>
@@ -128,8 +132,7 @@ export const EditProfileModal = () => {
             <Dialog.Close asChild>
               <button
                 onClick={() => {
-                  setModalIsOpen(false);
-                  setModalType("");
+                  handleCloseModal();
                 }}
                 className=" absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full  focus:outline-none"
                 aria-label="Close"
