@@ -6,6 +6,7 @@ export const MaskedInput = ({
   placeholder,
   register,
   mask,
+  isRequired = true,
 }: IMaskedInputProps) => {
   return (
     <div className={"flex flex-col gap-2"}>
@@ -20,6 +21,7 @@ export const MaskedInput = ({
         className={
           "h-12 rounded border-2 border-colorGreyScaleGrey7 focus:outline-none focus:border-colorBrandBrand2 px-4"
         }
+        required={isRequired}
       />
     </div>
   );

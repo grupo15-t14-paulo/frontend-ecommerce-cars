@@ -12,7 +12,18 @@ export const Profile = () => {
   const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
 
-  const { modalIsOpen } = useAuth();
+  const { modalIsOpen, modalType } = useAuth();
+
+  let modal;
+
+  switch (modalType) {
+    case "":
+      modal = null;
+      break;
+    case "edit-profile":
+      modal = <EditProfileModal />;
+      break;
+  }
 
   return (
     <>
@@ -67,7 +78,7 @@ export const Profile = () => {
       </div>
       {open && <SideBarMobile setOpen={setOpen} />}
       <Footer />
-      {modalIsOpen && <EditProfileModal />}
+      {modalIsOpen && modal}
     </>
   );
 };
