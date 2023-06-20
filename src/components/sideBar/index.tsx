@@ -2,14 +2,7 @@ import { Key, useEffect, useState } from "react";
 import { useAds } from "../../hooks/useAds";
 import { apiHerokuApp } from "../../services";
 import { color, fuels, years } from "../../utility";
-
-interface ICarFiltter {
-  brand?: string;
-  name?: string;
-  fuel?: string;
-  year?: string;
-  cor?: string;
-}
+import { ICarFiltter } from "./sideBar.interface";
 
 export const SideBar = () => {
   const { models, brand, brandSelectedFilter, setBrandSelectedFilter, setModels } = useAds();

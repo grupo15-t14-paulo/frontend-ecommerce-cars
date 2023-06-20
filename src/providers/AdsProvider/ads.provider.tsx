@@ -1,16 +1,23 @@
 import { createContext, useEffect, useState } from "react";
-import { apiHerokuApp } from "../../services";
-import { adsContextValues, adsProviderProps, Brand, modelsRequest } from "./interfaces";
+import { api, apiHerokuApp } from "../../services";
+import {
+  adsContextValues,
+  adsProviderProps,
+  Brand,
+  IAnnoucement,
+  modelsRequest,
+} from "./interfaces";
 
 export const AdsContext = createContext<adsContextValues>({} as adsContextValues);
 
 export const AdsProvider = ({ children }: adsProviderProps) => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [brand, setBrand] = useState<Brand>({});
+  const [brand, setBrand] = useState<Brand>({} as Brand);
   const [models, setModels] = useState<modelsRequest[]>([]);
   const [brandSelected, setBrandSelected] = useState("");
   const [brandSelectedFilter, setBrandSelectedFilter] = useState("chevrolet");
   const [imageCount, setImageCount] = useState(2);
+  const [allCars, setAllCars] = useState<IAnnoucement[] | []>();
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -37,6 +44,17 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       }
     };
 
+    const getAllAnnouncement = async () => {
+      try {
+        const response = await api.get("/cars");
+
+        setAllCars(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllAnnouncement();
+
     fetchBrand();
   }, [brandSelected]);
 
@@ -56,6 +74,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         brandSelectedFilter,
         setModels,
         setBrandSelectedFilter,
+        allCars,
       }}
     >
       {children}

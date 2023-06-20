@@ -5,13 +5,13 @@ export interface ICardProps {
   imgCover: string;
   description: string | null | undefined;
   userName: string;
-  km: string;
+  km: number;
   year: string;
-  value: string;
-  fipePrice: string;
+  value: number;
+  fipePrice: number;
   createdAt: string;
 }
 
-export interface Images{
-  urlImage: string
+export interface Images {
+  urlImage: string;
 }

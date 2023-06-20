@@ -13,6 +13,7 @@ export const Card = ({
   year,
   id,
   fipePrice,
+  imgCover,
   createdAt,
 }: ICardProps) => {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ export const Card = ({
       >
         {img ? (
           <img
-            src={img}
+            src={imgCover}
             alt="imagem do carro"
             className={"w-full h-full object-contain hover:border-2 hover:border-colorBrandBrand1"}
           />

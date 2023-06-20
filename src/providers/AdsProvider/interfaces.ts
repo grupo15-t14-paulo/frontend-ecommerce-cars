@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Images } from "../../components/Card/interface";
 
 export interface adsProviderProps {
   children: ReactNode;
@@ -18,6 +19,7 @@ export interface adsContextValues {
   brandSelectedFilter: string;
   imageCount: number;
   setImageCount: React.Dispatch<React.SetStateAction<number>>;
+  allCars: IAnnoucement[] | [] | undefined;
 }
 
 export interface modelsRequest {
@@ -31,4 +33,22 @@ export interface modelsRequest {
 
 export interface Brand {
   [key: string]: { name: string };
+}
+
+export interface IAnnoucement {
+  brand: string;
+  color: string;
+  description: string;
+  fipePrice: number;
+  id: string;
+  imageCover: string;
+  images: Images[];
+  isAvailable: boolean;
+  mileage: number;
+  model: string;
+  price: number;
+  typeCar: string;
+  year: string;
+  userName: string;
+  createdAt: string;
 }

@@ -6,10 +6,11 @@ import { Footer } from "../../components/footer";
 import { SideBar } from "../../components/sideBar";
 import { carros } from "../../utility";
 import { SideBarMobile } from "../../components/sideBar/sideBarMobile";
+import { useAds } from "../../hooks/useAds";
 
 export const Home = () => {
   const [open, setOpen] = useState(false);
-
+  const { allCars } = useAds();
   const OpenMenu = () => {
     setOpen(!open);
   };
@@ -29,16 +30,16 @@ export const Home = () => {
                 "flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end py-10 lg:py-0"
               }
             >
-              {carros.map((car) => (
+              {allCars?.map((car) => (
                 <Card
-                  imgCover={car.imgCover}
+                  imgCover={car.imageCover}
                   id={car.id}
                   description={car.description}
-                  img={car.img}
-                  km={car.km}
-                  title={car.title}
+                  img={car.images}
+                  km={car.mileage}
+                  title={car.brand}
                   userName={car.userName}
-                  value={car.value}
+                  value={car.price}
                   year={car.year}
                   key={car.id}
                   createdAt={car.createdAt}
