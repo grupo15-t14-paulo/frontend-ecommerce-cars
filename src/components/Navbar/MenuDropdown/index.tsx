@@ -199,8 +199,11 @@ export const MenuUser = () => {
 export const MenuSeller = () => {
   const { setModalIsOpen, setModalType } = useAuth();
 
+  const navigate = useNavigate();
+
   const LogOut = () => {
     localStorage.clear();
+    navigate("/");
   };
 
   return (

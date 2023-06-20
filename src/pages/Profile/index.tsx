@@ -7,6 +7,7 @@ import { ProfileCard } from "../../components/ProfileCard";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useAuth } from "../../hooks/useAuth";
 import { EditProfileModal } from "../../components/EditProfileModal";
+import { ExcludeProfileModal } from "../../components/ExcludeProfileModal";
 
 export const Profile = () => {
   const [open, setOpen] = useState(false);
@@ -22,6 +23,9 @@ export const Profile = () => {
       break;
     case "edit-profile":
       modal = <EditProfileModal />;
+      break;
+    case "exclude-profile":
+      modal = <ExcludeProfileModal />;
       break;
   }
 

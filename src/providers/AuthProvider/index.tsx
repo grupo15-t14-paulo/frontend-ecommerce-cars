@@ -1,5 +1,10 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { tLogin, tReturnUser, tUser } from "./interfaces";
+import {
+  tLogin,
+  tReturnUser,
+  tUpdateUserWithoutAddress,
+  tUser,
+} from "./interfaces";
 import { api } from "../../services";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +14,7 @@ interface IAuthProviderProps {
 
 interface IAuthContextValues {
   registerUser: (data: tUser) => void;
+  updateUser: (data: tUpdateUserWithoutAddress) => void;
   login: (data: tLogin) => void;
   user: tReturnUser | null;
   requesting: boolean;
@@ -18,6 +24,8 @@ interface IAuthContextValues {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   modalType: string;
   setModalType: React.Dispatch<React.SetStateAction<string>>;
+  handleCloseModal: () => void;
+  deleteUser: () => void;
 }
 
 export const AuthContext = createContext({} as IAuthContextValues);
@@ -30,6 +38,11 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalType, setModalType] = useState("");
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+    setModalType("");
+  };
 
   useEffect(() => {
     const loadUser = async () => {
@@ -68,6 +81,29 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
+  const updateUser = async (data: tUpdateUserWithoutAddress) => {
+    try {
+      const response = await api.patch("users", data);
+
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      await api.delete("users");
+
+      setUser(null);
+      localStorage.removeItem("user-ecommerce-cars:token");
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const login = async (data: tLogin) => {
     try {
       setRequesting(true);
@@ -95,6 +131,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     <AuthContext.Provider
       value={{
         registerUser,
+        updateUser,
+        deleteUser,
         login,
         user,
         requesting,
@@ -104,6 +142,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         setModalIsOpen,
         modalType,
         setModalType,
+        handleCloseModal,
       }}
     >
       {children}
