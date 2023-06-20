@@ -1,7 +1,14 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { tLogin, tReturnUser, tUser } from "./interfaces";
+import {
+  tLogin,
+  tReturnUser,
+  tUpdateUserWithoutAddress,
+  tUser,
+} from "./interfaces";
 import { api } from "../../services";
 import { useNavigate } from "react-router-dom";
+import { ResetPasswordData, SendEmailResetPasswordData } from "../../schemas/userResetPassword";
+import { toast } from "react-toastify";
 
 interface IAuthProviderProps {
   children: ReactNode;
@@ -9,7 +16,10 @@ interface IAuthProviderProps {
 
 interface IAuthContextValues {
   registerUser: (data: tUser) => void;
+  updateUser: (data: tUpdateUserWithoutAddress) => void;
   login: (data: tLogin) => void;
+  sendEmail: (sendEmailResetPasswordData:SendEmailResetPasswordData)=> void
+  resetPassword:(resetPasswordData:ResetPasswordData, token:string)=> void
   user: tReturnUser | null;
   requesting: boolean;
   loading: boolean;
@@ -18,6 +28,8 @@ interface IAuthContextValues {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   modalType: string;
   setModalType: React.Dispatch<React.SetStateAction<string>>;
+  handleCloseModal: () => void;
+  deleteUser: () => void;
 }
 
 export const AuthContext = createContext({} as IAuthContextValues);
@@ -30,6 +42,11 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalType, setModalType] = useState("");
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+    setModalType("");
+  };
 
   useEffect(() => {
     const loadUser = async () => {
@@ -67,6 +84,29 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
+  const updateUser = async (data: tUpdateUserWithoutAddress) => {
+    try {
+      const response = await api.patch("users", data);
+
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      await api.delete("users");
+
+      setUser(null);
+      localStorage.removeItem("user-ecommerce-cars:token");
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const login = async (data: tLogin) => {
     try {
       setRequesting(true);
@@ -90,11 +130,36 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
+  const sendEmail = (sendEmailResetPasswordData:SendEmailResetPasswordData) =>{
+    api.post("/users/resetPassword",sendEmailResetPasswordData)
+      .then(()=>{
+        toast.success("Email enviado com sucesso!")
+        navigate("/")
+      }).catch((err)=>{
+        console.log(err)
+        toast.error("Erro ao enviar o e-mail tente novamente mais tarde ou verifique se o e-mail esta correto")
+      })
+  }
+  const resetPassword = (resetPasswordData:ResetPasswordData,token:string) =>{
+    api.patch(`/users/resetPassword/${token}`,{password: resetPasswordData.password})
+    .then(()=>{
+      toast.success("Senha atualizada com sucesso!")
+      navigate("/login")
+    }).catch((err)=>{
+      console.log(err)
+      toast.error("Erro ao atualizar a senha")
+    })
+  }
+
   return (
     <AuthContext.Provider
       value={{
         registerUser,
+        updateUser,
+        deleteUser,
         login,
+        sendEmail,
+        resetPassword,
         user,
         requesting,
         loading,
@@ -103,6 +168,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         setModalIsOpen,
         modalType,
         setModalType,
+        handleCloseModal,
       }}
     >
       {children}
