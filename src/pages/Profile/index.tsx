@@ -8,6 +8,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useAuth } from "../../hooks/useAuth";
 import { EditProfileModal } from "../../components/EditProfileModal";
 import { ExcludeProfileModal } from "../../components/ExcludeProfileModal";
+import { EditAddressModal } from "../../components/EditAddressModal";
 
 export const Profile = () => {
   const [open, setOpen] = useState(false);
@@ -27,6 +28,8 @@ export const Profile = () => {
     case "exclude-profile":
       modal = <ExcludeProfileModal />;
       break;
+    case "edit-address":
+      modal = <EditAddressModal />;
   }
 
   return (

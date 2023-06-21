@@ -190,8 +190,8 @@ export const Register = () => {
                 </span>
               )}
 
-              <div className={"flex gap-[9px]"}>
-                <div className={"w-2/4"}>
+              <div className={"flex justify-between"}>
+                <div className={"w-[48%]"}>
                   <Input
                     type="text"
                     label="Estado"
@@ -205,7 +205,7 @@ export const Register = () => {
                   )}
                 </div>
 
-                <div className={"w-2/4"}>
+                <div className={"w-[48%]"}>
                   <Input
                     type="text"
                     label="Cidade"
@@ -232,8 +232,8 @@ export const Register = () => {
                 </span>
               )}
 
-              <div className={"flex gap-[9px]"}>
-                <div className={"w-2/4"}>
+              <div className={"flex justify-between"}>
+                <div className={"w-[48%]"}>
                   <Input
                     type="text"
                     label="Número"
@@ -247,7 +247,7 @@ export const Register = () => {
                   )}
                 </div>
 
-                <div className={"w-2/4"}>
+                <div className={"w-[48%]"}>
                   <Input
                     type="text"
                     label="Complemento"

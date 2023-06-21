@@ -13,10 +13,14 @@ export const EditProfileModal = () => {
   const { modalIsOpen, user, updateUser, handleCloseModal, setModalType } =
     useAuth();
 
-  const { register, handleSubmit, setValue } =
-    useForm<tUpdateUserWithoutAddress>({
-      resolver: zodResolver(updateUserWithoutAddress),
-    });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<tUpdateUserWithoutAddress>({
+    resolver: zodResolver(updateUserWithoutAddress),
+  });
 
   const submit: SubmitHandler<tUpdateUserWithoutAddress> = async (
     data: tUpdateUserWithoutAddress
@@ -62,6 +66,11 @@ export const EditProfileModal = () => {
               register={register("name")}
               isRequired={false}
             />
+            {errors.name && (
+              <span className={"text-colorFeedbackAlert1 text-sm"}>
+                {errors.name.message}
+              </span>
+            )}
 
             <Input
               type="email"
@@ -70,6 +79,11 @@ export const EditProfileModal = () => {
               register={register("email")}
               isRequired={false}
             />
+            {errors.email && (
+              <span className={"text-colorFeedbackAlert1 text-sm"}>
+                {errors.email.message}
+              </span>
+            )}
 
             <MaskedInput
               label="CPF"
@@ -77,6 +91,11 @@ export const EditProfileModal = () => {
               register={register("cpf")}
               mask="999.999.999-99"
             />
+            {errors.cpf && (
+              <span className={"text-colorFeedbackAlert1 text-sm"}>
+                {errors.cpf.message}
+              </span>
+            )}
 
             <MaskedInput
               label="Celular"
@@ -84,6 +103,11 @@ export const EditProfileModal = () => {
               register={register("tel")}
               mask="(99) 99999-9999"
             />
+            {errors.tel && (
+              <span className={"text-colorFeedbackAlert1 text-sm"}>
+                {errors.tel.message}
+              </span>
+            )}
 
             <MaskedInput
               label="Data de nascimento"
@@ -91,6 +115,11 @@ export const EditProfileModal = () => {
               register={register("dateBirth")}
               mask="99/99/9999"
             />
+            {errors.dateBirth && (
+              <span className={"text-colorFeedbackAlert1 text-sm"}>
+                {errors.dateBirth.message}
+              </span>
+            )}
 
             <Input
               type="text"
@@ -99,6 +128,11 @@ export const EditProfileModal = () => {
               register={register("description")}
               isRequired={false}
             />
+            {errors.description && (
+              <span className={"text-colorFeedbackAlert1 text-sm"}>
+                {errors.description.message}
+              </span>
+            )}
 
             <div className="mt-[25px] flex justify-between">
               <Dialog.Close asChild>
