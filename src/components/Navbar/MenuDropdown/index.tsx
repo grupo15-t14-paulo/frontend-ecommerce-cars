@@ -167,7 +167,13 @@ export const MenuUser = () => {
           </Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <Link to={"/profile"} onClick={() => setModalIsOpen(true)}>
+          <Link
+            to={"/profile"}
+            onClick={() => {
+              setModalIsOpen(true);
+              setModalType("edit-address");
+            }}
+          >
             Editar Endereço
           </Link>
         </li>
@@ -201,10 +207,15 @@ export const MenuSeller = () => {
           </Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <button>Editar Endereço</button>
-        </li>
-        <li className={"h-10 flex items-center p-2 my-2"}>
-          <Link to={"/profile"}>Meus Anúncios</Link>
+          <Link
+            to={"/profile"}
+            onClick={() => {
+              setModalIsOpen(true);
+              setModalType("edit-address");
+            }}
+          >
+            Editar Endereço
+          </Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button onClick={() => LogOut()}>Sair</button>
