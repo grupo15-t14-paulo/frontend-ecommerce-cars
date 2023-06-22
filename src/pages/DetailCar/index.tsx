@@ -8,11 +8,15 @@ import { useParams } from "react-router-dom";
 import { profileName } from "../../hooks/index";
 import { Footer } from "../../components/footer";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+
+
 
 export const DetailCar = () => {
   const [car, setCar] = useState<ICardProps>();
   const { id } = useParams();
   const {user} = useContext(AuthContext)
+  
 
   useEffect(() => {
     // const getCar = () => {
@@ -27,6 +31,7 @@ export const DetailCar = () => {
   }, []);
 
   //condicional aplicada na renderização do botão comprar
+  const navigate = useNavigate();
 
   return (
     <div className={"h-full min-w-screen box-border"}>
@@ -166,6 +171,7 @@ export const DetailCar = () => {
                 Ipsum has been the industry's
               </p>
               <button
+              onClick={() => navigate(`/users/${id}`)}
                 className={
                   "border w-max bg-colorGreyScaleGrey0 text-colorColorsFixedWhiteFixed hover:bg-colorColorsFixedWhiteFixed hover:text-colorGreyScaleGrey0 px-4 py-2 text-sm rounded "
                 }
