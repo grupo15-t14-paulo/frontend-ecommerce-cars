@@ -89,14 +89,14 @@ export const SideBar = () => {
   return (
     <div className="hidden mb-0 lg:block lg:w-1/4 ">
       <div>
-        <h2 className="text-black text-2xl font-semibold">Marca</h2>
+        <h2 className="text-black gap-1 text-2xl font-semibold">Marca</h2>
         <ul className="mb-10 li-sideBar">
           {carFilter?.brand ? (
-            <li>{carFilter.brand}</li>
+            <li>{carFilter.brand.charAt(0).toUpperCase() + carFilter.brand.slice(1)}</li>
           ) : (
             marcas.map((marca, index) => (
               <li key={index} className="span-li-sidebar" onClick={() => handleBrandClick(marca)}>
-                {marca}
+                {marca.charAt(0).toUpperCase() + marca.slice(1)}
               </li>
             ))
           )}
@@ -104,9 +104,9 @@ export const SideBar = () => {
       </div>
       <div>
         <h2 className="text-black text-2xl font-semibold">Modelo</h2>
-        <ul className="mb-10 li-sideBar  max-h-80 py-2 w-full overflow-y-auto scrollbar">
+        <ul className="mb-10 li-sideBar gap-1 max-h-80 py-2 w-full overflow-y-auto scrollbar">
           {carFilter?.model ? (
-            <li>{carFilter.model}</li>
+            <li>{carFilter.model.charAt(0).toUpperCase() + carFilter.model.slice(1)}</li>
           ) : (
             models.map((model, index) => (
               <li
@@ -114,7 +114,7 @@ export const SideBar = () => {
                 className="span-li-sidebar"
                 onClick={() => handleCarFilter("model", model)}
               >
-                {model.split(" ").slice(0, 3).join(" ")}
+                {model.split(" ").slice(0, 3).join(" ").charAt(0).toUpperCase() + model.slice(1)}
               </li>
             ))
           )}

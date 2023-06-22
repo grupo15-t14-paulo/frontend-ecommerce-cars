@@ -1,7 +1,7 @@
 import { profileName, profileTitleName } from "../../hooks";
 import ImgDefault from "../../assets/Cars/default.png";
 import { useNavigate } from "react-router-dom";
-import { ICarUserReturn, ICardProps } from "../Card/interface";
+import {  ICardProps } from "../Card/interface";
 
 export const ProfileCard = ({
   img,

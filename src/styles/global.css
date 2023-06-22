@@ -112,7 +112,7 @@ $color-colors-fixed-white-fixed: #ffffff;*/
   }
 
   .span-li-sidebar {
-    @apply cursor-pointer text-colorGreyScaleGrey3;
+    @apply cursor-pointer text-colorGreyScaleGrey3 hover:text-colorGreyScaleGrey0;
   }
 
   .li-sideBar {

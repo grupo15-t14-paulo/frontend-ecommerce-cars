@@ -114,7 +114,7 @@ export const SideBarMobile = ({ setOpen }: IPropsBarMobile) => {
         </div>
         <div>
           <h2 className="text-black text-2xl font-semibold">Modelo</h2>
-          <ul className="mb-10 li-sideBar  max-h-80 py-2 w-full overflow-y-auto scrollbar">
+          <ul className="mb-10 li-sideBar max-h-80 py-2 w-full overflow-y-auto scrollbar">
           {carFilter?.model ? (
             <li>{carFilter.model}</li>
           ) : (

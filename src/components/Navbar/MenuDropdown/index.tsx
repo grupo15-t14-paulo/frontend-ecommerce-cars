@@ -218,6 +218,15 @@ export const MenuSeller = () => {
           </Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
+          <Link
+            to={"/profile"}
+            
+          >
+            Meus Anúncios
+          </Link>
+        </li>
+        
+        <li className={"h-10 flex items-center p-2 my-2"}>
           <button onClick={() => LogOut()}>Sair</button>
         </li>
       </ul>

@@ -33,9 +33,10 @@ export interface IUser {
   cpf: string;
   tel: string;
   dateBirth: string;
-  description: string;
+  description: string | null | undefined;
   isSeller: boolean;
 }
+
 
 export interface Images {
   urlImage: string;
@@ -56,20 +57,10 @@ export interface ICarUserReturn {
   createdAt: string;
   isAvailable: boolean;
   images: Image[];
-  user: User;
+  user: IUser;
 }
 
 interface Image {
   urlImage: string;
 }
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  cpf: string;
-  tel: string;
-  dateBirth: string;
-  description: string;
-  isSeller: boolean;
-}
