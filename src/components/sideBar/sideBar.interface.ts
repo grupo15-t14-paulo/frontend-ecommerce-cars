@@ -9,3 +9,7 @@ export interface ICarFiltter {
   minMileage?: string;
   maxMileage?: string;
 }
+
+export interface IPropsBarMobile {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}

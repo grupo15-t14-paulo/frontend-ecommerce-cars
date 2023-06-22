@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useAds } from "../../hooks/useAds";
 import { apiHerokuApp } from "../../services";
-import { color, fuels, years } from "../../utility";
 import { ICarFiltter } from "./sideBar.interface";
 
 export const SideBar = () => {
@@ -17,6 +16,10 @@ export const SideBar = () => {
 
   const marcas = [...new Set(allCars?.map((obj) => obj.brand))];
   const models = [...new Set(allCars?.map((obj) => obj.model))];
+  const colors = [...new Set(allCars?.map((obj) => obj.color))];
+  const years = [...new Set(allCars?.map((obj) => obj.year))];
+  const fuels = [...new Set(allCars?.map((obj) => obj.typeCar))];
+
   // const marcas = Object.keys(brand).map((prop) => prop.charAt(0).toUpperCase() + prop.slice(1));
 
   useEffect(() => {
@@ -123,7 +126,7 @@ export const SideBar = () => {
           {carFilter?.color ? (
             <li>{carFilter.color}</li>
           ) : (
-            color.map((cor, index) => (
+            colors.map((cor, index) => (
               <li
                 key={index}
                 className="span-li-sidebar"
@@ -205,8 +208,7 @@ export const SideBar = () => {
           />
         </div>
         <button
-          className="button-default mt-5 w-full bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed 
-        hover:bg-colorColorsFixedWhiteFixed hover:text-colorGreyScaleGrey0"
+          className="flex justify-center mt-10 bg-colorBrandBrand2 text-colorColorsFixedWhiteFixed py-3 rounded max-w-[279px] hover:text-colorGreyScaleGrey0 hover:bg-colorColorsFixedWhiteFixed border-2"
           onClick={() => emptyFilter()}
         >
           Limpar Filtro
