@@ -155,39 +155,26 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
-  const sendEmail = (
-    sendEmailResetPasswordData: SendEmailResetPasswordData
-  ) => {
-    api
-      .post("/users/resetPassword", sendEmailResetPasswordData)
-      .then(() => {
-        toast.success("Email enviado com sucesso!");
-        navigate("/");
+  const sendEmail = (sendEmailResetPasswordData:SendEmailResetPasswordData) =>{
+    api.post("/users/resetPassword",sendEmailResetPasswordData)
+      .then(()=>{
+        toast.success("Email enviado com sucesso!")
+        navigate("/")
+      }).catch((err)=>{
+        console.log(err)
+        toast.error("Erro ao enviar o e-mail tente novamente mais tarde ou verifique se o e-mail esta correto")
       })
-      .catch((err) => {
-        console.log(err);
-        toast.error(
-          "Erro ao enviar o e-mail tente novamente mais tarde ou verifique se o e-mail esta correto"
-        );
-      });
-  };
-  const resetPassword = (
-    resetPasswordData: ResetPasswordData,
-    token: string
-  ) => {
-    api
-      .patch(`/users/resetPassword/${token}`, {
-        password: resetPasswordData.password,
-      })
-      .then(() => {
-        toast.success("Senha atualizada com sucesso!");
-        navigate("/login");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Erro ao atualizar a senha");
-      });
-  };
+  }
+  const resetPassword = (resetPasswordData:ResetPasswordData,token:string) =>{
+    api.patch(`/users/resetPassword/${token}`,{password: resetPasswordData.password})
+    .then(()=>{
+      toast.success("Senha atualizada com sucesso!")
+      navigate("/login")
+    }).catch((err)=>{
+      console.log(err)
+      toast.error("Erro ao atualizar a senha")
+    })
+  }
 
   return (
     <AuthContext.Provider

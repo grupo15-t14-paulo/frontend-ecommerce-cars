@@ -1,14 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/footer";
 import { SideBar } from "../../components/sideBar";
-import { carros } from "../../utility";
 import { SideBarMobile } from "../../components/sideBar/sideBarMobile";
+import { useAds } from "../../hooks/useAds";
+import { api } from "../../services";
+import { IAnnoucement } from "../../providers/AdsProvider/interfaces";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Home = () => {
   const [open, setOpen] = useState(false);
+  const { allCars, carFilter, filtering } = useAds();
+  const { user } = useAuth();
+  const [carsFilter, setCarsFilter] = useState<IAnnoucement[] | []>([]);
+
+  useEffect(() => {
+    const getCarFilter = async () => {
+      try {
+        if (!carFilter) {
+          return;
+        }
+        const queryParams = Object.entries(carFilter || {})
+          .filter(([, value]) => value !== undefined)
+          .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+          .join("&");
+
+        const response = await api.get(`/cars?${queryParams}`);
+        const cars: IAnnoucement[] = response.data;
+
+        const filterCars = cars.filter((car) => car.user.id !== user?.id);
+        setCarsFilter(filterCars);
+      } catch (error) {
+        return console.log(error);
+      }
+    };
+
+    getCarFilter();
+  }, [carFilter]);
 
   const OpenMenu = () => {
     setOpen(!open);
@@ -26,25 +56,52 @@ export const Home = () => {
           <section className={"w-full h-full lg:w-full lg:min-h-max box-border pb-5"}>
             <ul
               className={
-                "flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-end py-10 lg:py-0"
+                "flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-start px-2 py-10 lg:py-0"
               }
             >
-              {carros.map((car) => (
-                <Card
-                  imgCover={car.imgCover}
-                  id={car.id}
-                  description={car.description}
-                  img={car.img}
-                  km={car.km}
-                  title={car.title}
-                  userName={car.userName}
-                  value={car.value}
-                  year={car.year}
-                  key={car.id}
-                  createdAt={car.createdAt}
-                  fipePrice={car.fipePrice}
-                />
-              ))}
+              {carsFilter.length > 0 && filtering ? (
+                carsFilter?.map((car) => (
+                  <Card
+                    imgCover={car.imageCover}
+                    id={car.id}
+                    description={car.description}
+                    img={car.images}
+                    km={car.mileage}
+                    title={car.brand}
+                    user={car.user}
+                    value={car.price}
+                    year={car.year}
+                    key={car.id}
+                    createdAt={car.createdAt}
+                    fipePrice={car.fipePrice}
+                  />
+                ))
+              ) : filtering ? (
+                <div
+                  className={
+                    "w-full h-[150px] flex items-center justify-center bg-colorBrandBrand2 text-colorColorsFixedWhiteFixed text-3xl rounded-sm shadow-lg"
+                  }
+                >
+                  Anúncios não encontrado :(
+                </div>
+              ) : (
+                allCars?.map((car) => (
+                  <Card
+                    imgCover={car.imageCover}
+                    id={car.id}
+                    description={car.description}
+                    img={car.images}
+                    km={car.mileage}
+                    title={car.brand}
+                    user={car.user}
+                    value={car.price}
+                    year={car.year}
+                    key={car.id}
+                    createdAt={car.createdAt}
+                    fipePrice={car.fipePrice}
+                  />
+                ))
+              )}
             </ul>
           </section>
           <button

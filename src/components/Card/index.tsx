@@ -1,5 +1,5 @@
 import { profileName, profileTitleName } from "../../hooks";
-import { ICardProps } from "./interface";
+import { ICardValueProps } from "./interface";
 import ImgDefault from "../../assets/Cars/default.png";
 import { useNavigate } from "react-router-dom";
 
@@ -8,13 +8,14 @@ export const Card = ({
   title,
   description,
   km,
-  userName,
+  user,
   value,
   year,
   id,
   fipePrice,
+  imgCover,
   createdAt,
-}: ICardProps) => {
+}: ICardValueProps) => {
   const navigate = useNavigate();
 
   const verfyDataIsNew = (data: string): boolean => {
@@ -51,7 +52,7 @@ export const Card = ({
       >
         {img ? (
           <img
-            src={img}
+            src={imgCover}
             alt="imagem do carro"
             className={"w-full h-full object-contain hover:border-2 hover:border-colorBrandBrand1"}
           />
@@ -67,13 +68,13 @@ export const Card = ({
           <p className={"text-sm h-full line-clamp-2"}>{description}</p>
         </div>
         <div className={"flex items-center gap-1"}>
-          <div className={"name-profile"}>{profileName(userName)}</div>
-          <span>{profileTitleName(userName)}</span>
+          <div className={"name-profile"}>{profileName(user.name)}</div>
+          <span>{profileTitleName(user.name)}</span>
         </div>
       </section>
       <div className={"flex w-full relative gap-1"}>
         <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
-          {km}
+          {km} Km
         </span>
         <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
           {year}

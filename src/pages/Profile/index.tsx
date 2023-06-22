@@ -55,7 +55,7 @@ export const Profile = () => {
                     img={car.images}
                     km={car.mileage}
                     title={car.model}
-                    userName={user.name}
+                    user={user}
                     value={car.price}
                     year={car.year}
                     key={car.id}
@@ -67,17 +67,11 @@ export const Profile = () => {
             </ul>
           </section>
 
-          <div
-            className={"flex mb-10 sm:right-28 md:right-1/3 gap-4  font-bold"}
-          >
+          <div className={"flex mb-10 sm:right-28 md:right-1/3 gap-4  font-bold"}>
             <span className={"text-2xl text-colorGreyScaleGrey3"}>
               1<span className={"text-colorGreyScaleGrey4"}> de 2</span>
             </span>
-            <button
-              className={
-                "flex items-center text-2xl text-colorBrandBrand1 font-bold"
-              }
-            >
+            <button className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}>
               Seguinte &gt;
             </button>
           </div>

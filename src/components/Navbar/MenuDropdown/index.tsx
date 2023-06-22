@@ -45,18 +45,13 @@ export const Menu = () => {
   return (
     <div className={"relative flex min-w-full shadow z-10 container"}>
       <div className={"container flex justify-between  items-center"}>
-        <div
-          className={"flex w-40 h-6 cursor-pointer"}
-          onClick={() => navigate("/")}
-        >
+        <div className={"flex w-40 h-6 cursor-pointer"} onClick={() => navigate("/")}>
           <img src={LogoImg} alt="logo" />
         </div>
         {user ? (
           <div className={"flex gap-2 items-center"}>
             <div className={"name-profile"}>{profileName(user.name)}</div>
-            <button onClick={() => OpenMenu()}>
-              {profileTitleName(user.name)}
-            </button>
+            <button onClick={() => OpenMenu()}>{profileTitleName(user.name)}</button>
           </div>
         ) : (
           <button
@@ -74,11 +69,7 @@ export const Menu = () => {
                 stroke="currentColor"
                 className="w-6 h-6"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
               <svg
@@ -100,11 +91,7 @@ export const Menu = () => {
         )}
         {open && content}
         {!user && (
-          <div
-            className={
-              "hidden md:flex gap-4 border-l-2 h-full items-center pl-4"
-            }
-          >
+          <div className={"hidden md:flex gap-4 border-l-2 h-full items-center pl-4"}>
             <Link
               to={"/login"}
               className={
@@ -166,11 +153,7 @@ export const MenuUser = () => {
   };
 
   return (
-    <main
-      className={
-        "menu-user lg:right-10 animate-fadeIn shadow-lg border rounded"
-      }
-    >
+    <main className={"menu-user lg:right-10 animate-fadeIn shadow-lg border rounded"}>
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <Link
@@ -205,19 +188,12 @@ export const MenuUser = () => {
 export const MenuSeller = () => {
   const { setModalIsOpen, setModalType } = useAuth();
 
-  const navigate = useNavigate();
-
   const LogOut = () => {
     localStorage.clear();
-    navigate("/");
   };
 
   return (
-    <main
-      className={
-        "menu-user rounded animate-fadeIn border shadow-lg lg:right-12"
-      }
-    >
+    <main className={"menu-user rounded animate-fadeIn border shadow-lg lg:right-12"}>
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <Link
@@ -241,6 +217,15 @@ export const MenuSeller = () => {
             Editar Endereço
           </Link>
         </li>
+        <li className={"h-10 flex items-center p-2 my-2"}>
+          <Link
+            to={"/profile"}
+            
+          >
+            Meus Anúncios
+          </Link>
+        </li>
+        
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button onClick={() => LogOut()}>Sair</button>
         </li>

@@ -112,7 +112,7 @@ $color-colors-fixed-white-fixed: #ffffff;*/
   }
 
   .span-li-sidebar {
-    @apply cursor-pointer text-colorGreyScaleGrey3;
+    @apply cursor-pointer text-colorGreyScaleGrey3 hover:text-colorGreyScaleGrey0;
   }
 
   .li-sideBar {
@@ -124,7 +124,7 @@ $color-colors-fixed-white-fixed: #ffffff;*/
   }
 
   .input-sidebar {
-    @apply bg-colorGreyScaleGrey5 h-12 w-32 text-center sm:w-24;
+    @apply bg-colorGreyScaleGrey5 h-12 w-32 text-center sm:w-24 outline-colorBrandBrand1;
   }
 
   .km-year {
@@ -149,6 +149,14 @@ $color-colors-fixed-white-fixed: #ffffff;*/
 
   .input-normal {
     @apply mt-2 md:w-auto inline-flex h-[35px] flex-1 items-center justify-center rounded-[4px] text-[15px] px-1 leading-none border-colorGreyScaleGrey1 border outline-none;
+  }
+
+  .sideBar-mobile{
+    @apply flex justify-center items-start w-screen min-h-screen shadow absolute top-20 mb-80 inset-0
+  }
+
+  .sideBar-mobile-div {
+    @apply flex flex-col bg-colorColorsFixedWhiteFixed shadow min-h-full min-w-full p-10
   }
 }
 

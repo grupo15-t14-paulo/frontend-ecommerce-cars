@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { api } from "../../services/index";
-import { ICardProps } from "../../components/Card/interface";
-import { carros } from "../../utility";
+import { ICarUserReturn } from "../../components/Card/interface";
 import ImgDefault from "../../assets/Cars/default.png";
 import { useParams } from "react-router-dom";
 import { profileName } from "../../hooks/index";
@@ -10,24 +9,23 @@ import { Footer } from "../../components/footer";
 import { AuthContext } from "../../providers/AuthProvider";
 
 export const DetailCar = () => {
-  const [car, setCar] = useState<ICardProps>();
-  const { id } = useParams();
-  const {user} = useContext(AuthContext)
+  const [car, setCar] = useState<ICarUserReturn>();
+  const { carId } = useParams();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    // const getCar = () => {
-    //   const response = api.get<ICardProps>(`/dashboard/${id}`);
-
-    //   setCar(response.data);
-    // };
-    const car: ICardProps[] = carros.filter((car) => car.id == id);
-    if (car) {
-      setCar(car[0]);
-    }
+    const getCar = async () => {
+      try {
+        const response = await api.get<ICarUserReturn>(`/cars/search/${carId}`);
+        setCar(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCar();
   }, []);
 
   //condicional aplicada na renderização do botão comprar
-
   return (
     <div className={"h-full min-w-screen box-border"}>
       <Navbar />
@@ -43,10 +41,10 @@ export const DetailCar = () => {
                 "h-[350px] min-w-full flex justify-center items-center bg-colorColorsFixedWhiteFixed rounded"
               }
             >
-              {car?.img ? (
-                <img src={car?.img} alt={car?.title} className={"w-72 lg:w-96"} />
+              {car?.imageCover ? (
+                <img src={car?.imageCover} alt={car?.brand} className={"w-72 lg:w-96"} />
               ) : (
-                <img src={ImgDefault} alt={car?.title} className={"w-72"} />
+                <img src={ImgDefault} alt={car?.brand} className={"w-72"} />
               )}
             </div>
             <div>
@@ -55,7 +53,7 @@ export const DetailCar = () => {
                   "max-h-[326px] lg:h-[240px] min-w-full flex flex-col bg-colorColorsFixedWhiteFixed rounded p-8 gap-5 shadow-md"
                 }
               >
-                <h2 className={"text-ellipsis text-xl font-bold h-10"}>{car?.title}</h2>
+                <h2 className={"text-ellipsis text-xl font-bold h-10"}>{car?.model}</h2>
                 <div
                   className={
                     "flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center lg:mb-3 lg:mt-3"
@@ -63,11 +61,11 @@ export const DetailCar = () => {
                 >
                   <div className={"flex gap-2"}>
                     <span className={"km-year w-max"}>{car?.year}</span>
-                    <span className={"km-year w-max"}>{car?.km}</span>
+                    <span className={"km-year w-max"}>{car?.mileage} Km</span>
                   </div>
 
                   <span>
-                    {car?.value?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+                    {car?.price?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
                   </span>
                 </div>
                 {user ? (
@@ -108,48 +106,20 @@ export const DetailCar = () => {
                 <b>Fotos</b>
               </h2>
               <div className={"grid grid-cols-3 gap-4 mt-5"}>
-                <div
-                  className={
-                    "bg-colorGreyScaleGrey7 h-[90px] w-[90px] flex items-center justify-center"
-                  }
-                >
-                  <img src={car?.img} alt="" className={"w-[70px]"} />
-                </div>
-                <div
-                  className={
-                    "bg-colorGreyScaleGrey7 h-[90px] w-[90px] flex items-center justify-center"
-                  }
-                >
-                  <img src={car?.img} alt="" className={"w-[70px]"} />
-                </div>
-                <div
-                  className={
-                    "bg-colorGreyScaleGrey7 h-[90px] w-[90px] flex items-center justify-center"
-                  }
-                >
-                  <img src={car?.img} alt="" className={"w-[70px]"} />
-                </div>
-                <div
-                  className={
-                    "bg-colorGreyScaleGrey7 h-[90px] w-[90px] flex items-center justify-center"
-                  }
-                >
-                  <img src={car?.img} alt="" className={"w-[70px]"} />
-                </div>
-                <div
-                  className={
-                    "bg-colorGreyScaleGrey7 h-[90px] w-[90px] flex items-center justify-center"
-                  }
-                >
-                  <img src={car?.img} alt="" className={"w-[70px]"} />
-                </div>
-                <div
-                  className={
-                    "bg-colorGreyScaleGrey7 h-[90px] w-[90px] flex items-center justify-center"
-                  }
-                >
-                  <img src={car?.img} alt="" className={"w-[70px]"} />
-                </div>
+                {car?.images ? (
+                  car?.images.map((img, id) => (
+                    <div
+                      className={
+                        "bg-colorGreyScaleGrey7 h-[90px] w-[90px] flex items-center justify-center"
+                      }
+                      key={id}
+                    >
+                      <img src={img.urlImage} alt="" className={"w-[70px]"} />
+                    </div>
+                  ))
+                ) : (
+                  <div>Sem imagens</div>
+                )}
               </div>
             </div>
             <div
@@ -160,11 +130,8 @@ export const DetailCar = () => {
               <div className={"name-profile w-[77px] h-[77px] rounded-full text-3xl"}>
                 {profileName("User Name")}
               </div>
-              <h2 className={"font-bold"}>{car?.userName}</h2>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's
-              </p>
+              <h2 className={"font-bold"}>{car?.user.name}</h2>
+              <p>{car?.user.description}</p>
               <button
                 className={
                   "border w-max bg-colorGreyScaleGrey0 text-colorColorsFixedWhiteFixed hover:bg-colorColorsFixedWhiteFixed hover:text-colorGreyScaleGrey0 px-4 py-2 text-sm rounded "
