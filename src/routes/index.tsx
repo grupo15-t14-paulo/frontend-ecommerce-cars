@@ -6,6 +6,7 @@ import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { SendEmailResetPassword } from "../pages/ResetPassword";
 import { ResetPassword } from "../pages/ConfirmResetPassword";
+import { UserAnnouncements } from "../pages/UserAnnouncements";
 
 export const RoutesMain = () => {
   return (
@@ -17,6 +18,7 @@ export const RoutesMain = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard/:carId" element={<DetailCar />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/users/:id" element={<UserAnnouncements />} />
     </Routes>
   );
 };

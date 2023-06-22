@@ -7,11 +7,15 @@ import { useParams } from "react-router-dom";
 import { profileName } from "../../hooks/index";
 import { Footer } from "../../components/footer";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+
 
 export const DetailCar = () => {
   const [car, setCar] = useState<ICarUserReturn>();
   const { carId } = useParams();
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const getCar = async () => {
@@ -21,10 +25,12 @@ export const DetailCar = () => {
       } catch (error) {
         console.log(error);
       }
+      
     };
     getCar();
   }, []);
 
+  
   //condicional aplicada na renderização do botão comprar
   return (
     <div className={"h-full min-w-screen box-border"}>
@@ -128,7 +134,7 @@ export const DetailCar = () => {
               }
             >
               <div className={"name-profile w-[77px] h-[77px] rounded-full text-3xl"}>
-                {profileName("User Name")}
+                {profileName(`${car?.user.name}`)}
               </div>
               <h2 className={"font-bold"}>{car?.user.name}</h2>
               <p>{car?.user.description}</p>
@@ -136,6 +142,7 @@ export const DetailCar = () => {
                 className={
                   "border w-max bg-colorGreyScaleGrey0 text-colorColorsFixedWhiteFixed hover:bg-colorColorsFixedWhiteFixed hover:text-colorGreyScaleGrey0 px-4 py-2 text-sm rounded "
                 }
+                onClick={() => navigate(`/users/${car?.user.id}`)}
               >
                 Ver todos anuncios
               </button>
