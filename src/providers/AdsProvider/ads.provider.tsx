@@ -8,7 +8,6 @@ import {
   modelsRequest,
 } from "./interfaces";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
-import { useAuth } from "../../hooks/useAuth";
 
 export const AdsContext = createContext<adsContextValues>({} as adsContextValues);
 

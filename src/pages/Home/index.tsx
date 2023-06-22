@@ -56,7 +56,7 @@ export const Home = () => {
           <section className={"w-full h-full lg:w-full lg:min-h-max box-border pb-5"}>
             <ul
               className={
-                "flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-start px-2 py-10 lg:py-0"
+                "flex lg:flex-wrap  w-full gap-3 lg:gap-10 lg:justify-around overflow-auto px-2 py-10 lg:py-0"
               }
             >
               {carsFilter.length > 0 && filtering ? (
