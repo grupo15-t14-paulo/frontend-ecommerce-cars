@@ -1,15 +1,11 @@
-import { useEffect } from "react";
 import { useAds } from "../../../hooks/useAds";
-import { apiHerokuApp } from "../../../services";
 import { ICarFiltter, IPropsBarMobile } from "../sideBar.interface";
 
 
 export const SideBarMobile = ({ setOpen }: IPropsBarMobile) => {
 
   const {
-    brandSelectedFilter,
     setBrandSelectedFilter,
-    setModels,
     carFilter,
     setCarFilter,
     allCars,
@@ -22,22 +18,6 @@ export const SideBarMobile = ({ setOpen }: IPropsBarMobile) => {
   const years = [...new Set(allCars?.map((obj) => obj.year))];
   const fuels = [...new Set(allCars?.map((obj) => obj.typeCar))];
 
-  useEffect(() => {
-    const fetchBrand = async () => {
-      try {
-        const responseBrand = await apiHerokuApp.get(`/cars?brand=${brandSelectedFilter}`);
-        if (Array.isArray(responseBrand.data)) {
-          setModels(responseBrand.data);
-        } else {
-          setModels([]);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchBrand();
-  }, [brandSelectedFilter]);
 
   const handleCarFilter = (type: string, content: string) => {
     const newCar: ICarFiltter = { ...carFilter };
