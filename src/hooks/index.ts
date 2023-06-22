@@ -20,3 +20,5 @@ export const profileTitleName = (name: string | undefined) => {
 
   return `${firstName} ${secondName}`;
 };
+
+

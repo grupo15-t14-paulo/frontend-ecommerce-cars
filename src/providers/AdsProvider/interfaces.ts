@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
-import { Images } from "../../components/Card/interface";
+import { IUser, Images } from "../../components/Card/interface";
+import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
 
 export interface adsProviderProps {
   children: ReactNode;
@@ -20,6 +21,10 @@ export interface adsContextValues {
   imageCount: number;
   setImageCount: React.Dispatch<React.SetStateAction<number>>;
   allCars: IAnnoucement[] | [] | undefined;
+  setCarFilter: React.Dispatch<React.SetStateAction<ICarFiltter | null | undefined>>;
+  carFilter: ICarFiltter | null | undefined;
+  filtering: boolean;
+  setFiltering: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface modelsRequest {
@@ -49,6 +54,6 @@ export interface IAnnoucement {
   price: number;
   typeCar: string;
   year: string;
-  userName: string;
+  user: IUser;
   createdAt: string;
 }

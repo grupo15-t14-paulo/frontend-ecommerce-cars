@@ -1,14 +1,23 @@
-import { Key, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAds } from "../../hooks/useAds";
 import { apiHerokuApp } from "../../services";
 import { color, fuels, years } from "../../utility";
 import { ICarFiltter } from "./sideBar.interface";
 
 export const SideBar = () => {
-  const { models, brand, brandSelectedFilter, setBrandSelectedFilter, setModels } = useAds();
-  const [carFilter, setCarFilter] = useState<ICarFiltter | null>();
+  const {
+    brandSelectedFilter,
+    setBrandSelectedFilter,
+    setModels,
+    carFilter,
+    setCarFilter,
+    allCars,
+    setFiltering,
+  } = useAds();
 
-  const marcas = Object.keys(brand).map((prop) => prop.charAt(0).toUpperCase() + prop.slice(1));
+  const marcas = [...new Set(allCars?.map((obj) => obj.brand))];
+  const models = [...new Set(allCars?.map((obj) => obj.model))];
+  // const marcas = Object.keys(brand).map((prop) => prop.charAt(0).toUpperCase() + prop.slice(1));
 
   useEffect(() => {
     const fetchBrand = async () => {
@@ -29,10 +38,10 @@ export const SideBar = () => {
 
   const handleCarFilter = (type: string, content: string) => {
     const newCar: ICarFiltter = { ...carFilter };
-
+    setFiltering(true);
     switch (type) {
-      case "name":
-        newCar.name = content;
+      case "model":
+        newCar.model = content;
         break;
       case "brand":
         newCar.brand = content;
@@ -44,7 +53,19 @@ export const SideBar = () => {
         newCar.fuel = content;
         break;
       case "cor":
-        newCar.cor = content;
+        newCar.color = content;
+        break;
+      case "minPrice":
+        newCar.minPrice = content;
+        break;
+      case "maxPrice":
+        newCar.maxPrice = content;
+        break;
+      case "minMileage":
+        newCar.minMileage = content;
+        break;
+      case "maxMileage":
+        newCar.maxMileage = content;
         break;
     }
 
@@ -55,6 +76,11 @@ export const SideBar = () => {
     const lowerName = str.toLowerCase();
     handleCarFilter("brand", str);
     setBrandSelectedFilter(lowerName);
+  };
+
+  const emptyFilter = () => {
+    setCarFilter({});
+    setFiltering(false);
   };
 
   return (
@@ -75,17 +101,17 @@ export const SideBar = () => {
       </div>
       <div>
         <h2 className="text-black text-2xl font-semibold">Modelo</h2>
-        <ul className="mb-10 li-sideBar  max-h-80 py-2 w-full overflow-y-scroll  scrollbar">
-          {carFilter?.name ? (
-            <li>{carFilter.name}</li>
+        <ul className="mb-10 li-sideBar  max-h-80 py-2 w-full overflow-y-auto scrollbar">
+          {carFilter?.model ? (
+            <li>{carFilter.model}</li>
           ) : (
-            models.map((model: { name: string }, index: Key | null | undefined) => (
+            models.map((model, index) => (
               <li
                 key={index}
                 className="span-li-sidebar"
-                onClick={() => handleCarFilter("name", model.name)}
+                onClick={() => handleCarFilter("model", model)}
               >
-                {model.name.split(" ").slice(0, 3).join(" ")}
+                {model.split(" ").slice(0, 3).join(" ")}
               </li>
             ))
           )}
@@ -94,8 +120,8 @@ export const SideBar = () => {
       <div>
         <h2 className="text-black text-2xl font-semibold">Cor</h2>
         <ul className="mb-10 li-sideBar">
-          {carFilter?.cor ? (
-            <li>{carFilter.cor}</li>
+          {carFilter?.color ? (
+            <li>{carFilter.color}</li>
           ) : (
             color.map((cor, index) => (
               <li
@@ -152,11 +178,13 @@ export const SideBar = () => {
             className="input-sidebar placeholder:text-colorGreyScaleGrey3"
             type="text"
             placeholder="Mínima"
+            onChange={(e) => handleCarFilter("minMileage", e.target.value)}
           />
           <input
             className="input-sidebar placeholder:text-colorGreyScaleGrey3"
             type="text"
             placeholder="Máxima"
+            onChange={(e) => handleCarFilter("maxMileage", e.target.value)}
           />
         </div>
       </div>
@@ -167,17 +195,19 @@ export const SideBar = () => {
             className="input-sidebar placeholder:text-colorGreyScaleGrey3"
             type="text"
             placeholder="Mínimo"
+            onChange={(e) => handleCarFilter("minPrice", e.target.value)}
           />
           <input
             className="input-sidebar placeholder:text-colorGreyScaleGrey3"
             type="text"
             placeholder="Máximo"
+            onChange={(e) => handleCarFilter("maxPrice", e.target.value)}
           />
         </div>
-        <button 
-        className="button-default mt-5 w-full bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed 
+        <button
+          className="button-default mt-5 w-full bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed 
         hover:bg-colorColorsFixedWhiteFixed hover:text-colorGreyScaleGrey0"
-        onClick={() => setCarFilter({})}
+          onClick={() => emptyFilter()}
         >
           Limpar Filtro
         </button>

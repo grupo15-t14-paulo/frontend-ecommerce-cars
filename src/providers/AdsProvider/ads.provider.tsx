@@ -7,6 +7,8 @@ import {
   IAnnoucement,
   modelsRequest,
 } from "./interfaces";
+import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
+import { useAuth } from "../../hooks/useAuth";
 
 export const AdsContext = createContext<adsContextValues>({} as adsContextValues);
 
@@ -15,9 +17,11 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const [brand, setBrand] = useState<Brand>({} as Brand);
   const [models, setModels] = useState<modelsRequest[]>([]);
   const [brandSelected, setBrandSelected] = useState("");
-  const [brandSelectedFilter, setBrandSelectedFilter] = useState("chevrolet");
+  const [brandSelectedFilter, setBrandSelectedFilter] = useState("");
   const [imageCount, setImageCount] = useState(2);
   const [allCars, setAllCars] = useState<IAnnoucement[] | []>();
+  const [carFilter, setCarFilter] = useState<ICarFiltter | null>();
+  const [filtering, setFiltering] = useState(false);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -48,7 +52,11 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       try {
         const response = await api.get("/cars");
 
-        setAllCars(response.data);
+        const cars: IAnnoucement[] = response.data;
+
+        // const filterCars = cars.filter((car) => car.user.id !== user?.id);
+
+        setAllCars(cars);
       } catch (error) {
         console.log(error);
       }
@@ -75,6 +83,10 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         setModels,
         setBrandSelectedFilter,
         allCars,
+        carFilter,
+        setCarFilter,
+        filtering,
+        setFiltering,
       }}
     >
       {children}

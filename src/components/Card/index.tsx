@@ -1,5 +1,5 @@
 import { profileName, profileTitleName } from "../../hooks";
-import { ICardProps } from "./interface";
+import { ICardValueProps } from "./interface";
 import ImgDefault from "../../assets/Cars/default.png";
 import { useNavigate } from "react-router-dom";
 
@@ -8,14 +8,14 @@ export const Card = ({
   title,
   description,
   km,
-  userName,
+  user,
   value,
   year,
   id,
   fipePrice,
   imgCover,
   createdAt,
-}: ICardProps) => {
+}: ICardValueProps) => {
   const navigate = useNavigate();
 
   const verfyDataIsNew = (data: string): boolean => {
@@ -68,8 +68,8 @@ export const Card = ({
           <p className={"text-sm h-full line-clamp-2"}>{description}</p>
         </div>
         <div className={"flex items-center gap-1"}>
-          <div className={"name-profile"}>{profileName(userName)}</div>
-          <span>{profileTitleName(userName)}</span>
+          <div className={"name-profile"}>{profileName(user.name)}</div>
+          <span>{profileTitleName(user.name)}</span>
         </div>
       </section>
       <div className={"flex w-full relative gap-1"}>
@@ -80,7 +80,7 @@ export const Card = ({
           {year}
         </span>
         <span className={"absolute right-0 bottom-1"}>
-          {value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+          {parseInt(value).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
         </span>
       </div>
       {verfyDataIsNew(createdAt) && (

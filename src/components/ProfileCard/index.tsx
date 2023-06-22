@@ -1,14 +1,14 @@
 import { profileName, profileTitleName } from "../../hooks";
 import ImgDefault from "../../assets/Cars/default.png";
 import { useNavigate } from "react-router-dom";
-import { ICardProps } from "../Card/interface";
+import { ICarUserReturn, ICardProps } from "../Card/interface";
 
 export const ProfileCard = ({
   img,
   title,
   description,
   km,
-  userName,
+  user,
   value,
   year,
   id,
@@ -67,19 +67,19 @@ export const ProfileCard = ({
           <p className={"text-sm h-full line-clamp-2"}>{description}</p>
         </div>
         <div className={"flex items-center gap-1"}>
-          <div className={"name-profile"}>{profileName(userName)}</div>
-          <span>{profileTitleName(userName)}</span>
+          <div className={"name-profile"}>{profileName(user.name)}</div>
+          <span>{profileTitleName(user.name)}</span>
         </div>
       </section>
       <div className={"flex w-full relative gap-1"}>
         <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
-          {km}
+          {km} Km
         </span>
         <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
           {year}
         </span>
         <span className={"absolute right-0 bottom-1"}>
-          {value.toLocaleString("pt-BR", {
+          {parseInt(value).toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
           })}

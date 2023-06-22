@@ -1,17 +1,75 @@
+export interface ICardValueProps {
+  id: string;
+  title: string;
+  img: Images[];
+  imgCover: string;
+  description: string | null | undefined;
+  km: number;
+  year: string;
+  value: number;
+  fipePrice: number;
+  createdAt: string;
+  user: IUser;
+}
+
 export interface ICardProps {
   id: string;
   title: string;
   img: Images[];
   imgCover: string;
   description: string | null | undefined;
-  userName: string;
-  km: number;
+  km: string;
   year: string;
-  value: number;
-  fipePrice: number;
+  value: string;
+  fipePrice: string;
   createdAt: string;
+  user: IUser;
+}
+
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  tel: string;
+  dateBirth: string;
+  description: string;
+  isSeller: boolean;
 }
 
 export interface Images {
   urlImage: string;
+}
+
+export interface ICarUserReturn {
+  id: string;
+  brand: string;
+  model: string;
+  year: string;
+  typeCar: string;
+  mileage: number;
+  color: string;
+  fipePrice: number;
+  price: number;
+  description: string;
+  imageCover: string;
+  createdAt: string;
+  isAvailable: boolean;
+  images: Image[];
+  user: User;
+}
+
+interface Image {
+  urlImage: string;
+}
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  tel: string;
+  dateBirth: string;
+  description: string;
+  isSeller: boolean;
 }
