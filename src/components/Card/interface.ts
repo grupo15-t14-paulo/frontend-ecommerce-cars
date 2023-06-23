@@ -37,7 +37,6 @@ export interface IUser {
   isSeller: boolean;
 }
 
-
 export interface Images {
   urlImage: string;
 }
@@ -63,4 +62,3 @@ export interface ICarUserReturn {
 interface Image {
   urlImage: string;
 }
-
