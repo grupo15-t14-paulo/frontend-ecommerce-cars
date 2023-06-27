@@ -1,11 +1,10 @@
 import { useContext } from "react";
 import { profileName } from "../../hooks";
 import { useAds } from "../../hooks/useAds";
-import { CreateAdsModal } from "../CreateAdsModal";
 import { AuthContext } from "../../providers/AuthProvider";
 
 export const ProfileHeader = () => {
-  const { modalIsOpen, handleOpenModal } = useAds();
+  const { modalIsOpen, handleOpenModal, setModalAdsType } = useAds();
   const { user } = useContext(AuthContext);
 
   return (
@@ -18,20 +17,28 @@ export const ProfileHeader = () => {
             </div>
             <div className={"w-full flex gap-5 items-center"}>
               <h1 className="mt-5 mb-5 text-2x1">{user?.name}</h1>
-              {user?.isSeller && <span className={"km-year h-max"}>Anunciante</span>}
+              {user?.isSeller && (
+                <span className={"km-year h-max"}>Anunciante</span>
+              )}
             </div>
 
-            <h2 className="text-1x5 max-h-[100px] line-clamp-4">{user?.description}</h2>
+            <h2 className="text-1x5 max-h-[100px] line-clamp-4">
+              {user?.description}
+            </h2>
             {user?.isSeller && (
-              <button onClick={() => handleOpenModal()} className="button-newAnnoucement">
+              <button
+                onClick={() => {
+                  handleOpenModal();
+                  setModalAdsType("create-ads");
+                }}
+                className="button-newAnnoucement"
+              >
                 Criar Anuncio
               </button>
             )}
           </div>
         </div>
       </div>
-
-      {modalIsOpen && <CreateAdsModal />}
     </>
   );
 };

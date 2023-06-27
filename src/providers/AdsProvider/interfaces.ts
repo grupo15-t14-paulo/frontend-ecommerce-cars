@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { IUser, Images } from "../../components/Card/interface";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
+import { TRegisterAnnoucementForm } from "../../components/CreateAdsModal/announcement.interface";
 
 export interface adsProviderProps {
   children: ReactNode;
@@ -21,10 +22,16 @@ export interface adsContextValues {
   imageCount: number;
   setImageCount: React.Dispatch<React.SetStateAction<number>>;
   allCars: IAnnoucement[] | [] | undefined;
-  setCarFilter: React.Dispatch<React.SetStateAction<ICarFiltter | null | undefined>>;
+  setCarFilter: React.Dispatch<
+    React.SetStateAction<ICarFiltter | null | undefined>
+  >;
   carFilter: ICarFiltter | null | undefined;
   filtering: boolean;
   setFiltering: React.Dispatch<React.SetStateAction<boolean>>;
+  car: TRegisterAnnoucementForm | null;
+  setCar: React.Dispatch<React.SetStateAction<TRegisterAnnoucementForm | null>>;
+  modalAdsType: string;
+  setModalAdsType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface modelsRequest {
@@ -43,8 +50,8 @@ export interface Brand {
 export interface IAnnoucement {
   brand: string;
   color: string;
-  description: string;
-  fipePrice: number;
+  description: string | null | undefined;
+  fipePrice: number | string;
   id: string;
   imageCover: string;
   images: Images[];
