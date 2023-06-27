@@ -8,8 +8,11 @@ import {
   modelsRequest,
 } from "./interfaces";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
+import { TRegisterAnnoucementForm } from "../../components/CreateAdsModal/announcement.interface";
 
-export const AdsContext = createContext<adsContextValues>({} as adsContextValues);
+export const AdsContext = createContext<adsContextValues>(
+  {} as adsContextValues
+);
 
 export const AdsProvider = ({ children }: adsProviderProps) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -21,6 +24,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const [allCars, setAllCars] = useState<IAnnoucement[] | []>();
   const [carFilter, setCarFilter] = useState<ICarFiltter | null>();
   const [filtering, setFiltering] = useState(false);
+  const [car, setCar] = useState<TRegisterAnnoucementForm | null>(null);
+  const [modalAdsType, setModalAdsType] = useState("");
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -36,8 +41,11 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         const response = await apiHerokuApp.get("/cars");
         setBrand(response.data);
 
-        const responseBrand = await apiHerokuApp.get(`/cars?brand=${brandSelected}`);
-        if (Array.isArray(responseBrand.data)) {
+        const responseBrand = await apiHerokuApp.get(
+          `/cars?brand=${brandSelected}`
+        );
+
+        if (Array.isArray(await responseBrand.data)) {
           setModels(responseBrand.data);
         } else {
           setModels([]);
@@ -63,6 +71,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
     getAllAnnouncement();
 
     fetchBrand();
+    console.log(models);
   }, [brandSelected]);
 
   return (
@@ -86,6 +95,10 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         setCarFilter,
         filtering,
         setFiltering,
+        car,
+        setCar,
+        modalAdsType,
+        setModalAdsType,
       }}
     >
       {children}

@@ -1,9 +1,9 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { useAuth } from "../../hooks/useAuth";
+import { useAds } from "../../hooks/useAds";
 
-export const ExcludeProfileModal = () => {
-  const { modalIsOpen, handleCloseModal, deleteUser } = useAuth();
+export const ExcludeAdsModal = () => {
+  const { modalIsOpen, handleCloseModal } = useAds();
 
   return (
     <Dialog.Root open={modalIsOpen}>
@@ -16,14 +16,14 @@ export const ExcludeProfileModal = () => {
         />
         <Dialog.Content className="overflow-auto flex-col items-center data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-colorGreyScaleGrey10 p-[25px] z-50 overflow-y-scroll scrollbar box-border">
           <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">
-            Excluir perfil
+            Excluir anúncio
           </Dialog.Title>
           <h2 className="text-base font-medium">
-            Tem certeza que deseja excluir seu perfil?
+            Tem certeza que deseja remover este anúncio?
           </h2>
           <Dialog.Description className="mt-[10px] mb-5 text-[15px] text-colorGreyScaleGrey2 leading-normal">
-            Essa ação não pode ser desfeita. Isso excluirá permanentemente sua
-            conta e removerá seus dados de nossos servidores.
+            Essa ação não pode ser desfeita. Isso excluirá permanentemente seu
+            anúncio e removerá seus dados de nossos servidores.
           </Dialog.Description>
           <form className={"flex flex-col gap-6"}>
             <div className="mt-[25px] flex justify-end gap-3">
@@ -40,11 +40,8 @@ export const ExcludeProfileModal = () => {
               </Dialog.Close>
 
               <Dialog.Close asChild>
-                <button
-                  onClick={() => deleteUser()}
-                  className="flex justify-center items-center max-w-fit h-12 px-3 rounded border-none text-[13px] font-semibold text-colorFeedbackAlert1 bg-colorFeedbackAlert3 hover:bg-colorFeedbackAlert2"
-                >
-                  Sim, excluir perfil
+                <button className="flex justify-center items-center max-w-fit h-12 px-3 rounded border-none text-[13px] font-semibold text-colorFeedbackAlert1 bg-colorFeedbackAlert3 hover:bg-colorFeedbackAlert2">
+                  Sim, excluir anúncio
                 </button>
               </Dialog.Close>
             </div>

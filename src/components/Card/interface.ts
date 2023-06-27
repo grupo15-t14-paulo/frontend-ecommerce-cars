@@ -24,6 +24,9 @@ export interface ICardProps {
   fipePrice: string;
   createdAt: string;
   user: IUser;
+  brand: string;
+  typeCar: string;
+  color: string;
 }
 
 export interface IUser {

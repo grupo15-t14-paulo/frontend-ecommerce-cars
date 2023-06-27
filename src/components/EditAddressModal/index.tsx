@@ -57,7 +57,7 @@ export const EditAddressModal = () => {
     setValue("street", user?.address.street);
     setValue("number", user?.address.number);
     setValue("complement", user?.address.complement);
-  });
+  }, []);
 
   return (
     <Dialog.Root open={modalIsOpen}>
