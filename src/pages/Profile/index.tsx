@@ -12,6 +12,7 @@ import { EditAddressModal } from "../../components/EditAddressModal";
 import { CreateAdsModal } from "../../components/CreateAdsModal";
 import { useAds } from "../../hooks/useAds";
 import { ExcludeAdsModal } from "../../components/ExcludeAdsModal";
+import { EditAdsModal } from "../../components/EditAdsModal";
 
 export const Profile = () => {
   const [open, setOpen] = useState(false);
@@ -47,7 +48,7 @@ export const Profile = () => {
       modalAds = <CreateAdsModal />;
       break;
     case "edit-ads":
-      modalAds = <CreateAdsModal />;
+      modalAds = <EditAdsModal />;
       break;
     case "exclude-ads":
       modalAds = <ExcludeAdsModal />;
