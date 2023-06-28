@@ -29,8 +29,9 @@ export const Home = () => {
 
         const response = await api.get(`/cars?${queryParams}`);
         const cars: IAnnoucement[] = response.data;
-
+        
         const filterCars = cars.filter((car) => car.user.id !== user?.id);
+        
         setCarsFilter(filterCars);
       } catch (error) {
         return console.log(error);
@@ -38,7 +39,7 @@ export const Home = () => {
     };
 
     getCarFilter();
-  }, [carFilter]);
+  }, [carFilter,user?.id]);
 
   const OpenMenu = () => {
     setOpen(!open);

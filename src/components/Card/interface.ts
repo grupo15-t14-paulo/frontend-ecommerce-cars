@@ -7,7 +7,7 @@ export interface ICardValueProps {
   km: number;
   year: string;
   value: number;
-  fipePrice: number;
+  fipePrice: string | number;
   createdAt: string;
   user: IUser;
 }

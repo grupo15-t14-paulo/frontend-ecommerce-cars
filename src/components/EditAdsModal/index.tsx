@@ -294,7 +294,8 @@ export const EditAdsModal = () => {
                 </label>
                 <input
                   placeholder="Digite o valor"
-                  className="input-low w-full"
+                  className="input-low w-full input-type-number"
+                  type="number"
                   id="preço"
                   {...register("price")}
                 />
