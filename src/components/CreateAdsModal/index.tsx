@@ -260,8 +260,9 @@ export const CreateAdsModal = () => {
                 </label>
                 <input
                   placeholder="Digite o valor"
-                  className="input-low w-full"
+                  className="input-low w-full input-type-number"
                   id="preço"
+                  type="number"
                   {...register("price")}
                 />
               </fieldset>

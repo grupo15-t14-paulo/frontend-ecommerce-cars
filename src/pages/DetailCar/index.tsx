@@ -3,7 +3,7 @@ import { Navbar } from "../../components/Navbar";
 import { api } from "../../services/index";
 import { ICarUserReturn } from "../../components/Card/interface";
 import ImgDefault from "../../assets/Cars/default.png";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { profileName } from "../../hooks/index";
 import { Footer } from "../../components/footer";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -31,7 +31,6 @@ export const DetailCar = () => {
   }, []);
 
   
-  //condicional aplicada na renderização do botão comprar
   return (
     <div className={"h-full min-w-screen box-border"}>
       <Navbar />
@@ -83,13 +82,13 @@ export const DetailCar = () => {
                     Comprar
                   </button>
                 ) : (
-                  <button
+                  <Link to={"/login"}
                     className={
                       "border w-max bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed hover:bg-colorColorsFixedWhiteFixed hover:text-colorBrandBrand1 px-4 py-2 text-sm rounded"
                     }
                   >
                     Fazer Login
-                  </button>
+                  </Link>
                 )}
               </div>
               <div
