@@ -4,7 +4,7 @@ import { useAds } from "../../hooks/useAds";
 import { AuthContext } from "../../providers/AuthProvider";
 
 export const ProfileHeader = () => {
-  const { modalIsOpen, handleOpenModal, setModalAdsType } = useAds();
+  const { handleOpenModal, setModalAdsType } = useAds();
   const { user } = useContext(AuthContext);
 
   return (
@@ -33,7 +33,7 @@ export const ProfileHeader = () => {
                 }}
                 className="button-newAnnoucement"
               >
-                Criar Anuncio
+                Criar Anúncio
               </button>
             )}
           </div>
