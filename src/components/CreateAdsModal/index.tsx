@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useAds } from "../../hooks/useAds";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TRegisterAnnoucementForm } from "./announcement.interface";
@@ -22,49 +22,10 @@ export const CreateAdsModal = () => {
     imageCount,
     setImageCount,
     setIsOpen,
-    car,
-    setCar,
-    modalAdsType,
-    setModalAdsType,
   } = useAds();
 
   const [modelSelected, setModelSelected] = useState<modelsRequest>();
   const { setLoading } = useContext(AuthContext);
-
-  const { register, handleSubmit, setValue } =
-    useForm<TRegisterAnnoucementForm>({
-      resolver: zodResolver(carCreateSchema),
-    });
-
-  useEffect(() => {
-    if (car) {
-      console.log(car);
-      setBrandSelected(car.brand);
-      console.log(models);
-
-      const selectedModel = models.find(
-        (model) => model.name.normalize("NFD") === car.model
-      );
-
-      if (selectedModel) {
-        setValue("model", selectedModel!.id);
-      }
-
-      setValue("brand", car.brand);
-      setValue("color", car.color);
-      setValue("description", car.description);
-      setValue("imageCover", car.imageCover);
-      setValue("mileage", car.mileage);
-      setValue("price", car.price);
-      // setValue("fipePrice", car.fipePrice);
-      // setValue("typeCar", car.typeCar);
-      // setValue("year", car.year);
-
-      for (let i = 0; i < car.images.length; i++) {
-        setValue(`images.${i}.urlImage`, car.images[i].urlImage);
-      }
-    }
-  }, []);
 
   const renderImage = () => {
     const inputs = [];
@@ -107,6 +68,11 @@ export const CreateAdsModal = () => {
     }
     return fuelType;
   };
+
+  const { register, handleSubmit, setValue } =
+    useForm<TRegisterAnnoucementForm>({
+      resolver: zodResolver(carCreateSchema),
+    });
 
   const submit: SubmitHandler<TRegisterAnnoucementForm> = async (
     data: TRegisterAnnoucementForm
@@ -160,7 +126,7 @@ export const CreateAdsModal = () => {
         />
         <Dialog.Content className="overflow-auto flex-col items-center data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-colorGreyScaleGrey10 p-[25px] z-50 overflow-y-scroll scrollbar box-border">
           <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">
-            {modalAdsType != "edit-ads" ? "Criar anúncio" : "Editar anúncio"}
+            Criar anuncio
           </Dialog.Title>
           <Dialog.Description className="mt-[10px] mb-5 text-[15px] leading-normal">
             Informações do veículo
@@ -193,7 +159,7 @@ export const CreateAdsModal = () => {
               <select
                 className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none"
                 id="modelo"
-                disabled={car || brandSelected ? false : true}
+                disabled={!brandSelected}
                 onInput={(event) => modelSelect(event)}
                 {...register("model")}
               >
@@ -356,71 +322,28 @@ export const CreateAdsModal = () => {
                 Adicionar campo para imagem da galeria
               </button>
             )}
-            {modalAdsType != "edit-ads" ? (
-              <div className="mt-[25px] flex justify-end">
-                <div>
-                  <Dialog.Close asChild>
-                    <button
-                      onClick={() => {
-                        handleCloseModal();
-                      }}
-                      className="button-cancel"
-                      type="button"
-                    >
-                      Cancelar
-                    </button>
-                  </Dialog.Close>
-                  <button
-                    type="submit"
-                    className="button-default font-normal text-sm focus:outline-none bg-colorBrandBrand3 text-colorColorsFixedWhiteFixed ml-4 px-7"
-                  >
-                    Criar anúncio
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="mt-[25px] flex justify-between">
+            <div className="mt-[25px] flex justify-end">
+              <div>
                 <Dialog.Close asChild>
                   <button
-                    onClick={() => {
-                      handleCloseModal();
-                      setCar(null);
-                      setModalAdsType("");
-                    }}
-                    className="flex justify-center items-center w-[30%] h-12 px-1 rounded border-none text-[13px] font-semibold text-colorGreyScaleGrey2 bg-colorGreyScaleGrey6 hover:bg-colorGreyScaleGrey5"
+                    onClick={handleCloseModal}
+                    className="button-cancel"
                     type="button"
                   >
                     Cancelar
                   </button>
                 </Dialog.Close>
-
-                <Dialog.Close asChild>
-                  <button
-                    onClick={() => setModalAdsType("exclude-ads")}
-                    className="flex justify-center items-center w-[30%] h-12 px-1 rounded border-none text-[13px] font-semibold text-colorFeedbackAlert1 bg-colorFeedbackAlert3 hover:bg-colorFeedbackAlert2"
-                  >
-                    Excluir anúncio
-                  </button>
-                </Dialog.Close>
-
                 <button
                   type="submit"
-                  className="flex justify-center items-center w-1/3 h-12 px-1 rounded border-none text-[13px] font-semibold text-colorColorsFixedWhiteFixed bg-colorBrandBrand3 hover:bg-colorBrandBrand1"
+                  className="button-default font-normal text-sm focus:outline-none bg-colorBrandBrand3 text-colorColorsFixedWhiteFixed ml-4 px-7"
                 >
-                  Salvar alterações
+                  Criar anúncio
                 </button>
               </div>
-            )}
+            </div>
             <Dialog.Close asChild>
               <button
-                onClick={() => {
-                  handleCloseModal();
-
-                  if (modalAdsType === "edit-ads") {
-                    setCar(null);
-                    setModalAdsType("");
-                  }
-                }}
+                onClick={handleCloseModal}
                 className=" absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full  focus:outline-none"
                 aria-label="Close"
               >
