@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import { IUser, Images } from "../../components/Card/interface";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
-import { TRegisterAnnoucementForm } from "../../components/CreateAdsModal/announcement.interface";
+import { returnCarSchema } from "./ads.schemas";
+import { z } from "zod";
 
 export interface adsProviderProps {
   children: ReactNode;
@@ -28,10 +29,11 @@ export interface adsContextValues {
   carFilter: ICarFiltter | null | undefined;
   filtering: boolean;
   setFiltering: React.Dispatch<React.SetStateAction<boolean>>;
-  car: TRegisterAnnoucementForm | null;
-  setCar: React.Dispatch<React.SetStateAction<TRegisterAnnoucementForm | null>>;
+  car: tReturnCar | null;
+  setCar: React.Dispatch<React.SetStateAction<tReturnCar | null>>;
   modalAdsType: string;
   setModalAdsType: React.Dispatch<React.SetStateAction<string>>;
+  getAllAnnouncement: () => void;
 }
 
 export interface modelsRequest {
@@ -64,3 +66,5 @@ export interface IAnnoucement {
   user: IUser;
   createdAt: string;
 }
+
+export type tReturnCar = z.infer<typeof returnCarSchema>;

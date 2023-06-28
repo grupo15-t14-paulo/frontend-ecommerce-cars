@@ -1,9 +1,25 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useAds } from "../../hooks/useAds";
+import { api } from "../../services";
+import { toast } from "react-toastify";
 
 export const ExcludeAdsModal = () => {
-  const { modalIsOpen, handleCloseModal } = useAds();
+  const { modalIsOpen, handleCloseModal, getAllAnnouncement, car } = useAds();
+
+  const deleteAds = async (carId: string) => {
+    try {
+      await api.delete(`cars/${carId}`);
+
+      toast.success("Anúncio deletado com sucesso");
+
+      getAllAnnouncement();
+
+      handleCloseModal();
+    } catch (error) {
+      toast.error("Ops, algo deu errado!");
+    }
+  };
 
   return (
     <Dialog.Root open={modalIsOpen}>
@@ -40,7 +56,12 @@ export const ExcludeAdsModal = () => {
               </Dialog.Close>
 
               <Dialog.Close asChild>
-                <button className="flex justify-center items-center max-w-fit h-12 px-3 rounded border-none text-[13px] font-semibold text-colorFeedbackAlert1 bg-colorFeedbackAlert3 hover:bg-colorFeedbackAlert2">
+                <button
+                  onClick={() => {
+                    if (car) deleteAds(car.id);
+                  }}
+                  className="flex justify-center items-center max-w-fit h-12 px-3 rounded border-none text-[13px] font-semibold text-colorFeedbackAlert1 bg-colorFeedbackAlert3 hover:bg-colorFeedbackAlert2"
+                >
                   Sim, excluir anúncio
                 </button>
               </Dialog.Close>

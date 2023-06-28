@@ -27,6 +27,7 @@ export const ProfileCard = ({
 
   const setCarInfo = () => {
     const car = {
+      id: id,
       brand: brand,
       model: title,
       year: year,
@@ -38,6 +39,7 @@ export const ProfileCard = ({
       description: description,
       imageCover: imgCover,
       images: img,
+      createdAt: createdAt,
     };
 
     setBrandSelected(brand);

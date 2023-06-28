@@ -6,9 +6,9 @@ import {
   Brand,
   IAnnoucement,
   modelsRequest,
+  tReturnCar,
 } from "./interfaces";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
-import { TRegisterAnnoucementForm } from "../../components/CreateAdsModal/announcement.interface";
 
 export const AdsContext = createContext<adsContextValues>(
   {} as adsContextValues
@@ -24,7 +24,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const [allCars, setAllCars] = useState<IAnnoucement[] | []>();
   const [carFilter, setCarFilter] = useState<ICarFiltter | null>();
   const [filtering, setFiltering] = useState(false);
-  const [car, setCar] = useState<TRegisterAnnoucementForm | null>(null);
+  const [car, setCar] = useState<tReturnCar | null>(null);
   const [modalAdsType, setModalAdsType] = useState("");
 
   const handleOpenModal = () => {
@@ -33,6 +33,20 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
 
   const handleCloseModal = () => {
     setIsOpen(false);
+  };
+
+  const getAllAnnouncement = async () => {
+    try {
+      const response = await api.get("/cars");
+
+      const cars: IAnnoucement[] = response.data;
+
+      // const filterCars = cars.filter((car) => car.user.id !== user?.id);
+
+      setAllCars(cars);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -55,23 +69,9 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       }
     };
 
-    const getAllAnnouncement = async () => {
-      try {
-        const response = await api.get("/cars");
-
-        const cars: IAnnoucement[] = response.data;
-
-        // const filterCars = cars.filter((car) => car.user.id !== user?.id);
-
-        setAllCars(cars);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getAllAnnouncement();
 
     fetchBrand();
-    console.log(models);
   }, [brandSelected]);
 
   return (
@@ -99,6 +99,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         setCar,
         modalAdsType,
         setModalAdsType,
+        getAllAnnouncement,
       }}
     >
       {children}
