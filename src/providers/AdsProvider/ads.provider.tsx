@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext,  useEffect, useState } from "react";
 import { api, apiHerokuApp } from "../../services";
 import {
   adsContextValues,
@@ -9,6 +9,7 @@ import {
   tReturnCar,
 } from "./interfaces";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
+import { useAuth } from "../../hooks/useAuth";
 
 export const AdsContext = createContext<adsContextValues>(
   {} as adsContextValues
@@ -27,6 +28,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const [car, setCar] = useState<tReturnCar | null>(null);
   const [modalAdsType, setModalAdsType] = useState("");
 
+  const {user} = useAuth()
+
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -38,11 +41,10 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const getAllAnnouncement = async () => {
     try {
       const response = await api.get("/cars");
-
       const cars: IAnnoucement[] = response.data;
-      // const filterCars = cars.filter((car) => car.user.id !== user?.id);
-
-      setAllCars(cars);
+      const filterCars = cars.filter((car) => car.user.id !== user?.id);
+      
+      setAllCars(filterCars);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +73,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
     getAllAnnouncement();
 
     fetchBrand();
-  }, [brandSelected]);
+  }, [brandSelected, user]);
 
   return (
     <AdsContext.Provider

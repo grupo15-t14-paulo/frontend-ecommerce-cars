@@ -3,12 +3,15 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { useAds } from "../../hooks/useAds";
 import { api } from "../../services";
 import { toast } from "react-toastify";
+import { useAuth } from "../../hooks/useAuth";
 
 export const ExcludeAdsModal = () => {
   const { modalIsOpen, handleCloseModal, getAllAnnouncement, car } = useAds();
+  const { setLoading } = useAuth();
 
   const deleteAds = async (carId: string) => {
     try {
+      setLoading(true)
       await api.delete(`cars/${carId}`);
 
       toast.success("Anúncio deletado com sucesso");
@@ -18,6 +21,8 @@ export const ExcludeAdsModal = () => {
       handleCloseModal();
     } catch (error) {
       toast.error("Ops, algo deu errado!");
+    }finally{
+      setLoading(false)
     }
   };
 

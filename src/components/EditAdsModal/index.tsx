@@ -218,15 +218,12 @@ export const EditAdsModal = () => {
             </div>
             <div className="w-full flex gap-5">
               <fieldset className="fieldset-default">
-                <label className="  label-default" htmlFor="tabela fipe">
-                  Preço tabela FIPE
-                </label>
-                <input
-                  placeholder="Digite o valor da fipe"
-                  className="input-normal w-full"
-                  id="tabela fipe"
-                  {...register("fipePrice")}
-                />
+                <Input
+                type="text"
+                label="Preço tabela FIPE"
+                register={register("fipePrice")}
+                isDisabled={true}
+              />
               </fieldset>
               <fieldset className="fieldset-default">
                 <label className=" label-default" htmlFor="preço">

@@ -69,10 +69,9 @@ export const CreateAdsModal = () => {
     return fuelType;
   };
 
-  const { register, handleSubmit, setValue } =
-    useForm<TRegisterAnnoucementForm>({
-      resolver: zodResolver(carCreateSchema),
-    });
+  const { register, handleSubmit, setValue, formState:{errors} } = useForm<TRegisterAnnoucementForm>({
+    resolver: zodResolver(carCreateSchema),
+  });
 
   const submit: SubmitHandler<TRegisterAnnoucementForm> = async (
     data: TRegisterAnnoucementForm
@@ -125,9 +124,7 @@ export const CreateAdsModal = () => {
           className="bg-black bg-opacity-50 data-[state=open]:animate-overlayShow fixed inset-0"
         />
         <Dialog.Content className="overflow-auto flex-col items-center data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-colorGreyScaleGrey10 p-[25px] z-50 overflow-y-scroll scrollbar box-border">
-          <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">
-            Criar anuncio
-          </Dialog.Title>
+          <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">Criar anuncio</Dialog.Title>
           <Dialog.Description className="mt-[10px] mb-5 text-[15px] leading-normal">
             Informações do veículo
           </Dialog.Description>
@@ -151,6 +148,7 @@ export const CreateAdsModal = () => {
                   </option>
                 ))}
               </select>
+             
             </fieldset>
             <fieldset className="fieldset-default">
               <label className="label-default" htmlFor="modelo">
@@ -171,6 +169,7 @@ export const CreateAdsModal = () => {
                   </option>
                 ))}
               </select>
+             
             </fieldset>
             <div className="  w-full flex gap-5">
               <fieldset className="fieldset-default">
@@ -186,6 +185,7 @@ export const CreateAdsModal = () => {
                   value={modelSelected?.year}
                   {...register("year")}
                 />
+               
               </fieldset>
               <fieldset className="fieldset-default">
                 <label className="label-default" htmlFor="combustivel">
@@ -195,9 +195,7 @@ export const CreateAdsModal = () => {
                   placeholder="Selecione o Combustivel"
                   className="input-low w-full"
                   id="combustivel"
-                  value={
-                    modelSelected?.fuel && getFuelLabel(modelSelected.fuel)
-                  }
+                  value={modelSelected?.fuel && getFuelLabel(modelSelected.fuel)}
                   {...register("typeCar", { required: true })}
                 />
               </fieldset>
@@ -233,6 +231,11 @@ export const CreateAdsModal = () => {
                     </option>
                   ))}
                 </select>
+                {errors.color && (
+                <span className={"text-colorFeedbackAlert1 text-sm"}>
+                  {errors.color.message}
+                </span>
+              )}
               </fieldset>
             </div>
             <div className="w-full flex gap-5">
@@ -260,7 +263,7 @@ export const CreateAdsModal = () => {
                 </label>
                 <input
                   placeholder="Digite o valor"
-                  className="input-low w-full input-type-number"
+                  className="input-low w-full input-type-number "
                   id="preço"
                   type="number"
                   {...register("price")}
@@ -326,11 +329,7 @@ export const CreateAdsModal = () => {
             <div className="mt-[25px] flex justify-end">
               <div>
                 <Dialog.Close asChild>
-                  <button
-                    onClick={handleCloseModal}
-                    className="button-cancel"
-                    type="button"
-                  >
+                  <button onClick={handleCloseModal} className="button-cancel" type="button">
                     Cancelar
                   </button>
                 </Dialog.Close>
