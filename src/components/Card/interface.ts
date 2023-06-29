@@ -7,8 +7,8 @@ export interface ICardValueProps {
   km: number;
   year: string;
   value: number;
-  fipePrice: string | number;
-  createdAt: string;
+  fipePrice: number;
+  createdAt: string | Date;
   user: IUser;
 }
 
@@ -44,9 +44,15 @@ export interface Images {
   urlImage: string;
 }
 
+interface userIdComments {
+  id:string
+} 
+
 export interface IComments {
   id: string;
   comment: string;
+  createdAt:string
+  user: userIdComments
 }
 
 export interface ICarUserReturn {

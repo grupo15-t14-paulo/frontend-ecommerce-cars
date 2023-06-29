@@ -9,7 +9,7 @@ import { api } from "../../services";
 import { carCreateSchema } from "../../providers/AdsProvider/ads.schemas";
 import { modelsRequest } from "../../providers/AdsProvider/interfaces";
 import { AuthContext } from "../../providers/AuthProvider";
-import { colorDefault } from "../../utility";
+import { colorDefault } from "../../styles/utility";
 
 export const CreateAdsModal = () => {
   const {
