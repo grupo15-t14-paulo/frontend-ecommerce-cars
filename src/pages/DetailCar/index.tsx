@@ -15,6 +15,11 @@ export const DetailCar = () => {
   const { carId } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [text , setText] = useState("")
+
+  const addTextArea = (value:string) =>{
+    setText((prevText) => prevText + value + " ")
+  }
 
 
   useEffect(() => {
@@ -93,12 +98,13 @@ export const DetailCar = () => {
               </div>
               <div
                 className={
-                  "max-h-[326px] min-w-full flex flex-col bg-colorColorsFixedWhiteFixed rounded p-8 gap-5 mt-4 mb-4 shadow-md"
+                  "h-[300px] min-w-full overflow-auto flex flex-col bg-colorColorsFixedWhiteFixed rounded p-8 gap-5 mt-4 mb-4 shadow-md"
                 }
               >
-                <h2 className={"text-ellipsis text-xl font-bold "}>Descrição</h2>
+                <h2 className={"text-xl font-bold "}>Descrição</h2>
                 <span>{car?.description}</span>
               </div>
+              <div className="hidden lg:block lg:h-[900px]"></div>
             </div>
           </section>
           <section>
@@ -145,6 +151,51 @@ export const DetailCar = () => {
               >
                 Ver todos anuncios
               </button>
+            </div>
+          </section>
+          <section className="shadow-md p-4 bg-colorColorsFixedWhiteFixed lg:h-full lg:absolute lg:w-5/12 lg:top-[900px] mt-36">
+            <h2 className={"text-colorGreyScaleGrey1 mb-5 text-2xl"}>Comentários</h2>
+            <div>
+              <ul>
+                <li className="flex flex-col gap-2 mb-10">
+                  <div className="flex gap-2 items-center">
+                    <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
+                    <p>Bernardo Guimaraes</p>
+                    <p className="text-colorGreyScaleGrey4">há 15 dias</p>
+                  </div>
+                    <p className="text-colorGreyScaleGrey2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                </li>
+                <li className="flex flex-col gap-2 mb-10">
+                  <div className="flex gap-2 items-center">
+                    <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
+                    <p>Bernardo Guimaraes</p>
+                    <p className="text-colorGreyScaleGrey4">há 15 dias</p>
+                  </div>
+                    <p className="text-colorGreyScaleGrey2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                </li>
+                <li className="flex flex-col gap-2 mb-10">
+                  <div className="flex gap-2 items-center">
+                    <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
+                    <p>Bernardo Guimaraes</p>
+                    <p className="text-colorGreyScaleGrey4">há 15 dias</p>
+                  </div>
+                    <p className="text-colorGreyScaleGrey2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                </li>
+              </ul>
+              <div className="flex flex-col gap-5 items-baseline mt-36 relative">
+                <div className="flex gap-2 items-center">
+                  <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
+                  <p>{car?.user.name}</p>
+                </div>
+                <textarea className="outline-none h-32 w-full p-2 resize-none border rounded-sm border-colorGreyScaleGrey4 text-colorGreyScaleGrey2" value={text} onChange={(e)=> setText(e.target.value)} placeholder="Digitar comentário" />
+                {user ? <button className="bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed h-10 w-28 cursor-pointer border-none rounded-md lg:absolute lg:right-1 lg:bottom-12">Comentar</button> : 
+                <button className="bg-colorGreyScaleGrey5 text-colorColorsFixedWhiteFixed h-10 w-28 border-none rounded-md lg:absolute lg:right-1 lg:bottom-12" disabled>Comentar</button>}
+                <div className="flex flex-wrap gap-10 w-full">
+                  <button onClick={()=> addTextArea("Gostei muito!")} className="text-colorGreyScaleGrey4 cursor-pointer">Gostei muito!</button>
+                  <button onClick={()=> addTextArea("Incrível")} className="text-colorGreyScaleGrey4 cursor-pointer">Incrível</button>
+                  <button onClick={()=> addTextArea("Recomendarei para meus amigos!")} className="text-colorGreyScaleGrey4 cursor-pointer">Recomendarei para meus amigos!</button>
+                </div>
+              </div>
             </div>
           </section>
         </main>
