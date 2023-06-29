@@ -30,4 +30,16 @@ export const returnCarSchema = carCreateSchema.extend({
 
 export const returnAllCarsSchema = returnCarSchema.array();
 
-export const carUpdateSchema = carCreateSchema.omit({ images: true }).partial();
+export const updateCarSchema = z.object({
+  brand: z.string().min(1).max(100).optional(),
+  model: z.string().min(1).max(100).optional(),
+  year: z.string(),
+  typeCar: z.string(),
+  mileage: z.string().or(z.number()),
+  color: z.string().min(1).max(100),
+  fipePrice: z.string().or(z.number()),
+  price: z.string().or(z.number()),
+  description: z.string().optional().nullable(),
+  imageCover: z.string().min(1).max(250),
+  images: imageCreateSchema.array(),
+});
