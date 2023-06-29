@@ -44,6 +44,11 @@ export interface Images {
   urlImage: string;
 }
 
+export interface IComments {
+  id: string;
+  comment: string;
+}
+
 export interface ICarUserReturn {
   id: string;
   brand: string;
@@ -59,6 +64,7 @@ export interface ICarUserReturn {
   createdAt: string;
   isAvailable: boolean;
   images: Image[];
+  comments: IComments[];
   user: IUser;
 }
 
