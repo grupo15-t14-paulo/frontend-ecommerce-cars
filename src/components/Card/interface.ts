@@ -44,10 +44,15 @@ export interface Images {
   urlImage: string;
 }
 
+interface userIdComments {
+  id:string
+} 
+
 export interface IComments {
   id: string;
   comment: string;
   createdAt:string
+  user: userIdComments
 }
 
 export interface ICarUserReturn {
