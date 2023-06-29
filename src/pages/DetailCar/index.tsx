@@ -47,9 +47,9 @@ export const DetailCar = () => {
               }
             >
               {car?.imageCover ? (
-                <img src={car?.imageCover} alt={car?.brand} className={"w-72 lg:w-96"} />
+                <img src={car?.imageCover} alt={car?.brand} className={"w-72 lg:w-96 lg:max-w-96 h-max"} />
               ) : (
-                <img src={ImgDefault} alt={car?.brand} className={"w-72"} />
+                <img src={ImgDefault} alt={car?.brand} className={"w-72 h-max"} />
               )}
             </div>
             <div>

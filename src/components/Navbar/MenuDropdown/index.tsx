@@ -44,7 +44,7 @@ export const Menu = () => {
 
   return (
     <div className={"relative flex min-w-full shadow z-10 container"}>
-      <div className={"container flex justify-between  items-center"}>
+      <div className={"container flex justify-between  items-center relative"}>
         <div className={"flex w-40 h-6 cursor-pointer"} onClick={() => navigate("/")}>
           <img src={LogoImg} alt="logo" />
         </div>
@@ -146,14 +146,19 @@ export const MenuDefault = () => {
 };
 
 export const MenuUser = () => {
-  const { setModalIsOpen, setModalType } = useAuth();
-
-  const LogOut = () => {
+  const { setModalIsOpen, setModalType, setLoading } = useAuth();
+  const navigate = useNavigate()
+  
+  const LogOut = async () => {
+    setLoading(true)
     localStorage.clear();
-  };
+    await navigate('/login')
+    setLoading(false)
+  }
+
 
   return (
-    <main className={"menu-user lg:right-10 animate-fadeIn shadow-lg border rounded"}>
+    <main className={"menu-user lg:right-0 animate-fadeIn shadow-lg border rounded"}>
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <Link
@@ -186,14 +191,19 @@ export const MenuUser = () => {
 };
 
 export const MenuSeller = () => {
-  const { setModalIsOpen, setModalType } = useAuth();
+  const { setModalIsOpen, setModalType, setLoading } = useAuth();
 
-  const LogOut = () => {
+  const navigate = useNavigate()
+  const LogOut = async () => {
+    setLoading(true)
     localStorage.clear();
-  };
+    await navigate('/login')
+    setLoading(false)
+  }
+
 
   return (
-    <main className={"menu-user rounded animate-fadeIn border shadow-lg lg:right-12"}>
+    <main className={"menu-user rounded animate-fadeIn border shadow-lg lg:right-0 "}>
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <Link
@@ -218,14 +228,9 @@ export const MenuSeller = () => {
           </Link>
         </li>
         <li className={"h-10 flex items-center p-2 my-2"}>
-          <Link
-            to={"/profile"}
-            
-          >
-            Meus Anúncios
-          </Link>
+          <Link to={"/profile"}>Meus Anúncios</Link>
         </li>
-        
+
         <li className={"h-10 flex items-center p-2 my-2"}>
           <button onClick={() => LogOut()}>Sair</button>
         </li>
