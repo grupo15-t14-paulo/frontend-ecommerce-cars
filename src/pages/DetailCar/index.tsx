@@ -1,22 +1,55 @@
-import { useContext, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { api } from "../../services/index";
 import { ICarUserReturn } from "../../components/Card/interface";
 import ImgDefault from "../../assets/Cars/default.png";
 import { Link, useParams } from "react-router-dom";
-import { profileName } from "../../hooks/index";
+import { profileName, profileTitleName } from "../../hooks/index";
 import { Footer } from "../../components/footer";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import moment from "moment"
+import 'moment/locale/pt-br'
 
+const currentDate = moment().locale("pt-br").fromNow();
+
+type Comment = {
+  id: number;
+  comment: string;
+};
 
 export const DetailCar = () => {
   const [car, setCar] = useState<ICarUserReturn>();
   const { carId } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [text, setText] = useState("");
 
+  
 
+  const addTextArea = (value: string) => {
+    setText((prevText) => prevText + value + " ");
+  };
+
+  const postComment = async (comment: string) => {
+    try {
+      await api.post<Comment>(`/comments/${carId}`, { comment });
+      setText("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!text) {
+      return;
+    }
+
+    postComment(text);
+  };
+  
   useEffect(() => {
     const getCar = async () => {
       try {
@@ -28,9 +61,8 @@ export const DetailCar = () => {
       
     };
     getCar();
-  }, []);
-
-  
+  }, [carId,car]);
+  moment.locale();
   return (
     <div className={"h-full min-w-screen box-border"}>
       <Navbar />
@@ -93,12 +125,13 @@ export const DetailCar = () => {
               </div>
               <div
                 className={
-                  "max-h-[326px] min-w-full flex flex-col bg-colorColorsFixedWhiteFixed rounded p-8 gap-5 mt-4 mb-4 shadow-md"
+                  "h-[300px] min-w-full overflow-auto flex flex-col bg-colorColorsFixedWhiteFixed rounded p-8 gap-5 mt-4 mb-4 shadow-md"
                 }
               >
-                <h2 className={"text-ellipsis text-xl font-bold "}>Descrição</h2>
+                <h2 className={"text-xl font-bold "}>Descrição</h2>
                 <span>{car?.description}</span>
               </div>
+              <div className="hidden lg:block lg:h-[900px]"></div>
             </div>
           </section>
           <section>
@@ -145,6 +178,41 @@ export const DetailCar = () => {
               >
                 Ver todos anuncios
               </button>
+            </div>
+          </section>
+          <section className="shadow-md p-4 bg-colorColorsFixedWhiteFixed lg:h-full lg:absolute lg:w-5/12 lg:top-[900px] mt-36">
+            <h2 className={"text-colorGreyScaleGrey1 mb-5 text-2xl"}>Comentários</h2>
+            <div>
+              <ul>
+                {car?.comments.map((comment) => (
+                  <li key={comment.id} className="flex flex-col gap-2 mb-10">
+                    <div className="flex gap-2 items-center">
+                      <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
+                      <p>{profileTitleName(`${car?.user.name}`)}</p>
+                      <p className="text-colorGreyScaleGrey4">{currentDate}</p>
+                    </div>
+                    <p className="text-colorGreyScaleGrey2">{comment.comment}</p>
+                  </li>
+                ))}
+              </ul>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5 items-baseline mt-36 relative">
+                <div className="flex gap-2 items-center">
+                  <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
+                  <p>{car?.user.name}</p>
+                </div>
+                <textarea className="outline-none h-32 w-full p-2 resize-none border rounded-sm border-colorGreyScaleGrey4 text-colorGreyScaleGrey2" 
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Digitar comentário" 
+                />
+                {user ? <button type="submit" disabled={!text} className="bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed h-10 w-28 cursor-pointer border-none rounded-md lg:absolute lg:right-1 lg:bottom-12">Comentar</button> : 
+                <button className="bg-colorGreyScaleGrey5 text-colorColorsFixedWhiteFixed h-10 w-28 border-none rounded-md lg:absolute lg:right-1 lg:bottom-12" disabled>Comentar</button>}
+                <div className="flex flex-wrap gap-10 w-full">
+                  <button type="button" onClick={()=> addTextArea("Gostei muito!")} className="text-colorGreyScaleGrey4 cursor-pointer">Gostei muito!</button>
+                  <button type="button" onClick={()=> addTextArea("Incrível")} className="text-colorGreyScaleGrey4 cursor-pointer">Incrível</button>
+                  <button type="button" onClick={()=> addTextArea("Recomendarei para meus amigos!")} className="text-colorGreyScaleGrey4 cursor-pointer">Recomendarei para meus amigos!</button>
+                </div>
+              </form>
             </div>
           </section>
         </main>
