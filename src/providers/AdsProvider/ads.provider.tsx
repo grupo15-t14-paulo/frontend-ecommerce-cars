@@ -40,7 +40,6 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       const response = await api.get("/cars");
 
       const cars: IAnnoucement[] = response.data;
-
       // const filterCars = cars.filter((car) => car.user.id !== user?.id);
 
       setAllCars(cars);
