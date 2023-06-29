@@ -1,16 +1,13 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useAds } from "../../hooks/useAds";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "../../services";
 import { updateCarSchema } from "../../providers/AdsProvider/ads.schemas";
-import {
-  modelsRequest,
-  tUpdateCar,
-} from "../../providers/AdsProvider/interfaces";
-import { colorDefault } from "../../utility";
+import { tUpdateCar } from "../../providers/AdsProvider/interfaces";
+import { colorDefault } from "../../styles/utility";
 import { Input } from "../Input";
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
@@ -28,8 +25,6 @@ export const EditAdsModal = () => {
   } = useAds();
 
   const { setUser } = useAuth();
-
-  const [modelSelected, setModelSelected] = useState<modelsRequest>();
 
   const fuelTypes = [
     "Diesel",
@@ -166,7 +161,6 @@ export const EditAdsModal = () => {
                   placeholder="Digite o ano"
                   className="input-normal w-full"
                   id="ano"
-                  value={modelSelected?.year}
                   {...register("year")}
                 />
               </fieldset>
@@ -231,13 +225,6 @@ export const EditAdsModal = () => {
                   placeholder="Digite o valor da fipe"
                   className="input-normal w-full"
                   id="tabela fipe"
-                  value={
-                    modelSelected?.value &&
-                    modelSelected?.value.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })
-                  }
                   {...register("fipePrice")}
                 />
               </fieldset>
