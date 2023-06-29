@@ -123,7 +123,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       localStorage.setItem("user-ecommerce-cars:token", token);
 
       const userResponse = await api.get("users");
-
+      
       setUser(userResponse.data);
 
       toast.success("Usuário logado com sucesso!");
