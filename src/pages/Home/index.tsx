@@ -74,7 +74,7 @@ export const Home = () => {
                     year={car.year}
                     key={car.id}
                     createdAt={car.createdAt}
-                    fipePrice={car.fipePrice}
+                    fipePrice={+car.fipePrice}
                   />
                 ))
               ) : filtering ? (
@@ -99,7 +99,7 @@ export const Home = () => {
                     year={car.year}
                     key={car.id}
                     createdAt={car.createdAt}
-                    fipePrice={car.fipePrice}
+                    fipePrice={+car.fipePrice}
                   />
                 ))
               )}
