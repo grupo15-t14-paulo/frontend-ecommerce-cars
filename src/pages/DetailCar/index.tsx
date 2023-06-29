@@ -208,7 +208,7 @@ export const DetailCar = () => {
               </button>
             </div>
           </section>
-          <section className="shadow-md p-4 bg-colorColorsFixedWhiteFixed lg:h-full lg:absolute lg:w-5/12 lg:top-[900px] mt-36">
+          <section className="shadow-md p-4 bg-colorColorsFixedWhiteFixed lg:h-full lg:absolute lg:w-[51%] lg:top-[900px] mt-36">
             <h2 className={"text-colorGreyScaleGrey1 mb-5 text-2xl"}>Comentários</h2>
             <div>
               <ul>
@@ -241,10 +241,10 @@ export const DetailCar = () => {
                 ))}
               </ul>
               <form onSubmit={handleSubmit} className="flex flex-col gap-5 items-baseline mt-36 relative">
-                <div className="flex gap-2 items-center">
-                  <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
-                  <p>{car?.user.name}</p>
-                </div>
+                {user && <div className="flex gap-2 items-center">
+                  <span className="name-profile">{profileName(`${user.name}`)}</span>
+                  <p>{user.name}</p>
+                </div>}
                 <textarea className="outline-none h-32 w-full p-2 resize-none border rounded-sm border-colorGreyScaleGrey4 text-colorGreyScaleGrey2" 
                 value={text}
                 onChange={(e) => setText(e.target.value)}

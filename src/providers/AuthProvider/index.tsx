@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       await api.post("users", data);
 
       toast.success("Usuário registrado com sucesso!");
-
+      navigate('/login')
     } catch (error) {
       toast.error("Ops, algo deu errado!");
     } finally {
