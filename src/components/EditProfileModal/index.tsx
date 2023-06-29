@@ -37,7 +37,7 @@ export const EditProfileModal = () => {
     setValue("tel", user?.tel);
     setValue("dateBirth", user?.dateBirth);
     setValue("description", user?.description);
-  });
+  }, []);
 
   return (
     <Dialog.Root open={modalIsOpen}>

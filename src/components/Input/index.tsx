@@ -6,6 +6,7 @@ export const Input = ({
   placeholder,
   register,
   isRequired = true,
+  isDisabled = false,
 }: IInputProps) => {
   return (
     <div className={"flex flex-col gap-2"}>
@@ -22,6 +23,7 @@ export const Input = ({
         }
         {...register}
         required={isRequired}
+        disabled={isDisabled}
       />
     </div>
   );

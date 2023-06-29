@@ -1,7 +1,8 @@
 import { profileName, profileTitleName } from "../../hooks";
 import ImgDefault from "../../assets/Cars/default.png";
 import { useNavigate } from "react-router-dom";
-import {  ICardProps } from "../Card/interface";
+import { ICardProps } from "../Card/interface";
+import { useAds } from "../../hooks/useAds";
 
 export const ProfileCard = ({
   img,
@@ -15,8 +16,36 @@ export const ProfileCard = ({
   fipePrice,
   imgCover,
   createdAt,
+  brand,
+  typeCar,
+  color,
 }: ICardProps) => {
   const navigate = useNavigate();
+
+  const { handleOpenModal, setCar, setBrandSelected, setModalAdsType } =
+    useAds();
+
+  const setCarInfo = () => {
+    const car = {
+      id: id,
+      brand: brand,
+      model: title,
+      year: year,
+      typeCar: typeCar,
+      mileage: km,
+      color: color,
+      fipePrice: fipePrice,
+      price: value,
+      description: description,
+      imageCover: imgCover,
+      images: img,
+      createdAt: createdAt,
+    };
+
+    setBrandSelected(brand);
+
+    setCar(car);
+  };
 
   const verfyDataIsNew = (data: string): boolean => {
     const newData = new Date(data);
@@ -53,15 +82,23 @@ export const ProfileCard = ({
           <img
             src={imgCover}
             alt="imagem do carro"
-            className={"w-full h-full object-contain hover:border-2 hover:border-colorBrandBrand1"}
+            className={
+              "w-full h-full object-contain hover:border-2 hover:border-colorBrandBrand1"
+            }
           />
         ) : (
-          <img src={ImgDefault} alt="imagem do carro" className={"w-full h-full object-contain"} />
+          <img
+            src={ImgDefault}
+            alt="imagem do carro"
+            className={"w-full h-full object-contain"}
+          />
         )}
       </section>
       <section className={"mt-1 mb-2 flex flex-col gap-4 p-1"}>
         <div className={"pr-1"}>
-          <h2 className={"mb-1 text-base font-semibold line-clamp-1 h-5"}>{title}</h2>
+          <h2 className={"mb-1 text-base font-semibold line-clamp-1 h-5"}>
+            {title}
+          </h2>
         </div>
         <div className={"h-10 w-[280px]"}>
           <p className={"text-sm h-full line-clamp-2"}>{description}</p>
@@ -72,10 +109,18 @@ export const ProfileCard = ({
         </div>
       </section>
       <div className={"flex w-full relative gap-1"}>
-        <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
+        <span
+          className={
+            "flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"
+          }
+        >
           {km} Km
         </span>
-        <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
+        <span
+          className={
+            "flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"
+          }
+        >
           {year}
         </span>
         <span className={"absolute right-0 bottom-1"}>
@@ -99,6 +144,11 @@ export const ProfileCard = ({
         <button
           className=" border-colorGreyScaleGrey1 rounded px-4 py-2"
           style={{ border: "1px solid" }}
+          onClick={() => {
+            setModalAdsType("edit-ads");
+            handleOpenModal();
+            setCarInfo();
+          }}
         >
           Editar
         </button>

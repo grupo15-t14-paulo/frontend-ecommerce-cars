@@ -29,8 +29,9 @@ export const Home = () => {
 
         const response = await api.get(`/cars?${queryParams}`);
         const cars: IAnnoucement[] = response.data;
-
+        
         const filterCars = cars.filter((car) => car.user.id !== user?.id);
+        
         setCarsFilter(filterCars);
       } catch (error) {
         return console.log(error);
@@ -38,7 +39,7 @@ export const Home = () => {
     };
 
     getCarFilter();
-  }, [carFilter]);
+  }, [carFilter,user?.id]);
 
   const OpenMenu = () => {
     setOpen(!open);
@@ -56,7 +57,7 @@ export const Home = () => {
           <section className={"w-full h-full lg:w-full lg:min-h-max box-border pb-5"}>
             <ul
               className={
-                "flex lg:flex-wrap w-full gap-10 overflow-auto lg:justify-start px-2 py-10 lg:py-0"
+                "flex lg:flex-wrap  w-full gap-3 lg:gap-10 lg:justify-around overflow-auto px-2 py-10 lg:py-0"
               }
             >
               {carsFilter.length > 0 && filtering ? (
@@ -73,7 +74,7 @@ export const Home = () => {
                     year={car.year}
                     key={car.id}
                     createdAt={car.createdAt}
-                    fipePrice={car.fipePrice}
+                    fipePrice={+car.fipePrice}
                   />
                 ))
               ) : filtering ? (
@@ -98,7 +99,7 @@ export const Home = () => {
                     year={car.year}
                     key={car.id}
                     createdAt={car.createdAt}
-                    fipePrice={car.fipePrice}
+                    fipePrice={+car.fipePrice}
                   />
                 ))
               )}

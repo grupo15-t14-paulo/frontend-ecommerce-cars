@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import { IUser, Images } from "../../components/Card/interface";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
+import { returnCarSchema, updateCarSchema } from "./ads.schemas";
+import { z } from "zod";
 
 export interface adsProviderProps {
   children: ReactNode;
@@ -21,10 +23,17 @@ export interface adsContextValues {
   imageCount: number;
   setImageCount: React.Dispatch<React.SetStateAction<number>>;
   allCars: IAnnoucement[] | [] | undefined;
-  setCarFilter: React.Dispatch<React.SetStateAction<ICarFiltter | null | undefined>>;
+  setCarFilter: React.Dispatch<
+    React.SetStateAction<ICarFiltter | null | undefined>
+  >;
   carFilter: ICarFiltter | null | undefined;
   filtering: boolean;
   setFiltering: React.Dispatch<React.SetStateAction<boolean>>;
+  car: tReturnCar | null;
+  setCar: React.Dispatch<React.SetStateAction<tReturnCar | null>>;
+  modalAdsType: string;
+  setModalAdsType: React.Dispatch<React.SetStateAction<string>>;
+  getAllAnnouncement: () => void;
 }
 
 export interface modelsRequest {
@@ -43,8 +52,8 @@ export interface Brand {
 export interface IAnnoucement {
   brand: string;
   color: string;
-  description: string;
-  fipePrice: number;
+  description: string | null | undefined;
+  fipePrice: number | string;
   id: string;
   imageCover: string;
   images: Images[];
@@ -55,5 +64,9 @@ export interface IAnnoucement {
   typeCar: string;
   year: string;
   user: IUser;
-  createdAt: string;
+  createdAt: string | Date;
 }
+
+export type tReturnCar = z.infer<typeof returnCarSchema>;
+
+export type tUpdateCar = z.infer<typeof updateCarSchema>;

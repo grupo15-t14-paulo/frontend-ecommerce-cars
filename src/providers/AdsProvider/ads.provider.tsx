@@ -6,11 +6,13 @@ import {
   Brand,
   IAnnoucement,
   modelsRequest,
+  tReturnCar,
 } from "./interfaces";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
-import { useAuth } from "../../hooks/useAuth";
 
-export const AdsContext = createContext<adsContextValues>({} as adsContextValues);
+export const AdsContext = createContext<adsContextValues>(
+  {} as adsContextValues
+);
 
 export const AdsProvider = ({ children }: adsProviderProps) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -22,6 +24,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const [allCars, setAllCars] = useState<IAnnoucement[] | []>();
   const [carFilter, setCarFilter] = useState<ICarFiltter | null>();
   const [filtering, setFiltering] = useState(false);
+  const [car, setCar] = useState<tReturnCar | null>(null);
+  const [modalAdsType, setModalAdsType] = useState("");
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -31,14 +35,30 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
     setIsOpen(false);
   };
 
+  const getAllAnnouncement = async () => {
+    try {
+      const response = await api.get("/cars");
+
+      const cars: IAnnoucement[] = response.data;
+      // const filterCars = cars.filter((car) => car.user.id !== user?.id);
+
+      setAllCars(cars);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const fetchBrand = async () => {
       try {
         const response = await apiHerokuApp.get("/cars");
         setBrand(response.data);
 
-        const responseBrand = await apiHerokuApp.get(`/cars?brand=${brandSelected}`);
-        if (Array.isArray(responseBrand.data)) {
+        const responseBrand = await apiHerokuApp.get(
+          `/cars?brand=${brandSelected}`
+        );
+
+        if (Array.isArray(await responseBrand.data)) {
           setModels(responseBrand.data);
         } else {
           setModels([]);
@@ -48,19 +68,6 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       }
     };
 
-    const getAllAnnouncement = async () => {
-      try {
-        const response = await api.get("/cars");
-
-        const cars: IAnnoucement[] = response.data;
-
-        // const filterCars = cars.filter((car) => car.user.id !== user?.id);
-
-        setAllCars(cars);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getAllAnnouncement();
 
     fetchBrand();
@@ -87,6 +94,11 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         setCarFilter,
         filtering,
         setFiltering,
+        car,
+        setCar,
+        modalAdsType,
+        setModalAdsType,
+        getAllAnnouncement,
       }}
     >
       {children}

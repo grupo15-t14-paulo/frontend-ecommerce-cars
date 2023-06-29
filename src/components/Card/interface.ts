@@ -8,7 +8,7 @@ export interface ICardValueProps {
   year: string;
   value: number;
   fipePrice: number;
-  createdAt: string;
+  createdAt: string | Date;
   user: IUser;
 }
 
@@ -24,6 +24,9 @@ export interface ICardProps {
   fipePrice: string;
   createdAt: string;
   user: IUser;
+  brand: string;
+  typeCar: string;
+  color: string;
 }
 
 export interface IUser {
@@ -37,9 +40,19 @@ export interface IUser {
   isSeller: boolean;
 }
 
-
 export interface Images {
   urlImage: string;
+}
+
+interface userIdComments {
+  id:string
+} 
+
+export interface IComments {
+  id: string;
+  comment: string;
+  createdAt:string
+  user: userIdComments
 }
 
 export interface ICarUserReturn {
@@ -57,10 +70,10 @@ export interface ICarUserReturn {
   createdAt: string;
   isAvailable: boolean;
   images: Image[];
+  comments: IComments[];
   user: IUser;
 }
 
 interface Image {
   urlImage: string;
 }
-
