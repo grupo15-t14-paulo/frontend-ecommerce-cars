@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { IUser, Images } from "../../components/Card/interface";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
-import { returnCarSchema } from "./ads.schemas";
+import { returnCarSchema, updateCarSchema } from "./ads.schemas";
 import { z } from "zod";
 
 export interface adsProviderProps {
@@ -68,3 +68,5 @@ export interface IAnnoucement {
 }
 
 export type tReturnCar = z.infer<typeof returnCarSchema>;
+
+export type tUpdateCar = z.infer<typeof updateCarSchema>;
