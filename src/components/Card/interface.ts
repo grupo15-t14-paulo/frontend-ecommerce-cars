@@ -46,6 +46,7 @@ export interface Images {
 
 interface userIdComments {
   id:string
+  name:string
 } 
 
 export interface IComments {

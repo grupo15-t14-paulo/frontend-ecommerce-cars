@@ -84,13 +84,12 @@ export const DetailCar = () => {
 
     postComment(text);
   };
-  // const isOwner = (userId:string) =>{
-  //   if(user?.id === userId){
-  //     return true
-  //   }
-  //   return false
-  // }
-
+  const isOwner = (userId:string) =>{
+    if(user?.id === userId){
+      return true
+    }
+    return false
+  }
   return (
     <div className={"h-full min-w-screen box-border"}>
       <Navbar />
@@ -215,10 +214,10 @@ export const DetailCar = () => {
                 {car?.comments.map((comment) => (
                   <li key={comment.id} className="flex flex-col gap-2 mb-10">
                     <div className="flex gap-3 items-center">
-                      <span className="name-profile">{profileName(`${user?.name}`)}</span>
-                      <p>{profileTitleName(`${user?.name}`)}</p>
+                      <span className="name-profile">{profileName(`${comment.user.name}`)}</span>
+                      <p>{profileTitleName(`${comment.user.name}`)}</p>
                       <p className="text-colorGreyScaleGrey4">{moment(comment.createdAt).locale("pt-br").fromNow()}</p>
-                      {/* {isOwner(comment.user.id) &&  */}
+                      {isOwner(comment.user.id) && 
                         <>
                           <button type="button" onClick={() => {
                             setEditComment(comment)
@@ -234,7 +233,7 @@ export const DetailCar = () => {
                             </svg>
                           </button>
                         </>
-                      {/* } */}
+                      }
                     </div>
                     <p className="text-colorGreyScaleGrey2">{comment.comment}</p>
                   </li>
