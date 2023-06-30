@@ -59,13 +59,13 @@ Criando sua conta como Comprador você pode:
 
 
 
-## 3.1 Requisitos
+## 4.1 Requisitos
 
 - PostgreSQL database;
 
 
 
-## 4. Instalação da aplicação
+## 5. Instalação da aplicação
 
 - <h3>Front-End</h3>
 
@@ -87,7 +87,7 @@ Utilize o comando `"yarn dev"` para inicializar a aplicação.
 
 
 
-## 5. Time de desenvolvedores
+## 6. Time de desenvolvedores
 
 <table>
   <tr>
