@@ -41,8 +41,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
 
   const getAllAnnouncement = async () => {
     try {
-      const response = await api.get(`/cars?${page}`);
-      console.log(response)
+      const response = await api.get(`/cars?page=${page}`);
+     
       const cars: IAnnoucement[] = response.data;
       const filterCars = cars.filter((car) => car.user.id !== user?.id);
       
