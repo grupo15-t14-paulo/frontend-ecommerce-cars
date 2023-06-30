@@ -161,10 +161,10 @@ export const DetailCar = () => {
               <div className="hidden lg:block lg:h-[900px]"></div>
             </div>
           </section>
-          <section>
+          <section className={'flex flex-wrap gap-5 justify-center lg:block'}>
             <div
               className={
-                "h-[350px] max-w-[382px] flex-col bg-colorColorsFixedWhiteFixed rounded mt-10 p-5 shadow-md"
+                "h-[350px] min-w-[382px] max-w-[382px] flex-col bg-colorColorsFixedWhiteFixed rounded mt-10 p-5 shadow-md"
               }
             >
               <h2 className={"mt-4 mb-10 text-xl"}>
@@ -189,7 +189,7 @@ export const DetailCar = () => {
             </div>
             <div
               className={
-                "max-h-[350px] max-w-[382px] flex flex-col gap-5 items-center bg-colorColorsFixedWhiteFixed rounded mt-10 p-5 shadow-md"
+                "max-h-[350px] min-w-[382px] max-w-[382px] flex flex-col gap-5 items-center bg-colorColorsFixedWhiteFixed rounded mt-10 p-5 shadow-md"
               }
             >
               <div className={"name-profile w-[77px] h-[77px] rounded-full text-3xl"}>
@@ -207,7 +207,7 @@ export const DetailCar = () => {
               </button>
             </div>
           </section>
-          <section className="shadow-md p-4 bg-colorColorsFixedWhiteFixed lg:h-full lg:absolute lg:w-[51%] lg:max-w-[815px] lg:top-[900px] mt-36">
+          <section className="shadow-lg p-4 bg-colorColorsFixedWhiteFixed lg:max-h-[800px] lg:absolute lg:w-[60%] lg:max-w-[750px] lg:top-[900px] mt-36">
             <h2 className={"text-colorGreyScaleGrey1 mb-5 text-2xl"}>Comentários</h2>
             <div>
               <ul>
@@ -239,7 +239,7 @@ export const DetailCar = () => {
                   </li>
                 ))}
               </ul>
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5 items-baseline mt-36 relative">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5 items-baseline mt-20 relative">
                 {user && <div className="flex gap-2 items-center">
                   <span className="name-profile">{profileName(`${user.name}`)}</span>
                   <p>{user.name}</p>
@@ -252,9 +252,9 @@ export const DetailCar = () => {
                 {user ? <button type="submit" disabled={!text} className="bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed h-10 w-28 cursor-pointer border-none rounded-md lg:absolute lg:right-1 lg:bottom-12">Comentar</button> : 
                 <button className="bg-colorGreyScaleGrey5 text-colorColorsFixedWhiteFixed h-10 w-28 border-none rounded-md lg:absolute lg:right-1 lg:bottom-12" disabled>Comentar</button>}
                 <div className="flex flex-wrap gap-10 w-full">
-                  <button type="button" onClick={()=> addTextArea("Gostei muito!")} className="text-colorGreyScaleGrey4 cursor-pointer">Gostei muito!</button>
-                  <button type="button" onClick={()=> addTextArea("Incrível")} className="text-colorGreyScaleGrey4 cursor-pointer">Incrível</button>
-                  <button type="button" onClick={()=> addTextArea("Recomendarei para meus amigos!")} className="text-colorGreyScaleGrey4 cursor-pointer">Recomendarei para meus amigos!</button>
+                  <button type="button" onClick={()=> addTextArea("Gostei muito!")} className="text-colorGreyScaleGrey4 cursor-pointer rounded-lg px-2 bg-colorGreyScaleGrey6">Gostei muito!</button>
+                  <button type="button" onClick={()=> addTextArea("Incrível")} className="text-colorGreyScaleGrey4 cursor-pointer rounded-lg px-2 bg-colorGreyScaleGrey6">Incrível</button>
+                  <button type="button" onClick={()=> addTextArea("Recomendarei para meus amigos!")} className="text-colorGreyScaleGrey4 cursor-pointer rounded-lg px-2 bg-colorGreyScaleGrey6">Recomendarei para meus amigos!</button>
                 </div>
               </form>
             </div>

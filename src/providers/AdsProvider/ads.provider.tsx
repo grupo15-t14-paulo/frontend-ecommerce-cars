@@ -42,6 +42,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const getAllAnnouncement = async () => {
     try {
       const response = await api.get(`/cars?${page}`);
+      console.log(response)
       const cars: IAnnoucement[] = response.data;
       const filterCars = cars.filter((car) => car.user.id !== user?.id);
       
@@ -56,7 +57,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       try {
         const response = await apiHerokuApp.get("/cars");
         setBrand(response.data);
-        console.log('teste')
+        
         const responseBrand = await apiHerokuApp.get(
           `/cars?brand=${brandSelected}`
         );
