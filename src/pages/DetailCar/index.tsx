@@ -208,15 +208,15 @@ export const DetailCar = () => {
               </button>
             </div>
           </section>
-          <section className="shadow-md p-4 bg-colorColorsFixedWhiteFixed lg:h-full lg:absolute lg:w-[51%] lg:top-[900px] mt-36">
+          <section className="shadow-md p-4 bg-colorColorsFixedWhiteFixed lg:h-full lg:absolute lg:w-[51%] lg:max-w-[815px] lg:top-[900px] mt-36">
             <h2 className={"text-colorGreyScaleGrey1 mb-5 text-2xl"}>Comentários</h2>
             <div>
               <ul>
                 {car?.comments.map((comment) => (
                   <li key={comment.id} className="flex flex-col gap-2 mb-10">
                     <div className="flex gap-3 items-center">
-                      <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
-                      <p>{profileTitleName(`${car?.user.name}`)}</p>
+                      <span className="name-profile">{profileName(`${user?.name}`)}</span>
+                      <p>{profileTitleName(`${user?.name}`)}</p>
                       <p className="text-colorGreyScaleGrey4">{moment(comment.createdAt).locale("pt-br").fromNow()}</p>
                       {/* {isOwner(comment.user.id) &&  */}
                         <>

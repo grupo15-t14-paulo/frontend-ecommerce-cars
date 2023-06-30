@@ -34,6 +34,8 @@ export interface adsContextValues {
   modalAdsType: string;
   setModalAdsType: React.Dispatch<React.SetStateAction<string>>;
   getAllAnnouncement: () => void;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  page: number;
 }
 
 export interface modelsRequest {
