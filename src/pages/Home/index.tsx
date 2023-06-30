@@ -118,6 +118,9 @@ export const Home = () => {
               "flex absolute -bottom-24 right-20 sm:right-28 md:right-1/3 gap-4  font-bold"
             }
           >
+             {page > 1 && <button className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"} onClick={()=> setPage(page-1)}>
+             &lt; Anterior
+            </button>}
             <span className={"text-2xl text-colorGreyScaleGrey3"}>
             <span className={"text-colorGreyScaleGrey4"}>{page}</span>
             </span>
