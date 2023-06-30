@@ -27,6 +27,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const [filtering, setFiltering] = useState(false);
   const [car, setCar] = useState<tReturnCar | null>(null);
   const [modalAdsType, setModalAdsType] = useState("");
+  const [page, setPage] = useState(1)
 
   const {user} = useAuth()
 
@@ -40,7 +41,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
 
   const getAllAnnouncement = async () => {
     try {
-      const response = await api.get("/cars");
+      const response = await api.get(`/cars?${page}`);
+      console.log(response)
       const cars: IAnnoucement[] = response.data;
       const filterCars = cars.filter((car) => car.user.id !== user?.id);
       
@@ -55,7 +57,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       try {
         const response = await apiHerokuApp.get("/cars");
         setBrand(response.data);
-
+        
         const responseBrand = await apiHerokuApp.get(
           `/cars?brand=${brandSelected}`
         );
@@ -73,7 +75,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
     getAllAnnouncement();
 
     fetchBrand();
-  }, [brandSelected, user]);
+  }, [brandSelected, user, page]);
 
   return (
     <AdsContext.Provider
@@ -101,6 +103,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         modalAdsType,
         setModalAdsType,
         getAllAnnouncement,
+        setPage,
+        page,
       }}
     >
       {children}

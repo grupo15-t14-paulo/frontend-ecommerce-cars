@@ -269,6 +269,11 @@ export const CreateAdsModal = () => {
                   {...register("price")}
                 />
               </fieldset>
+              {errors.mileage && (
+                <span className={"text-colorFeedbackAlert1 text-sm"}>
+                  {errors.mileage.message}
+                </span>
+              )}
             </div>
             <fieldset className="fieldset-default">
               <label className=" label-default" htmlFor="descrição">
@@ -281,10 +286,16 @@ export const CreateAdsModal = () => {
                 {...register("description")}
               />
             </fieldset>
+            {errors.description && (
+                <span className={"text-colorFeedbackAlert1 text-sm"}>
+                  {errors.description.message}
+                </span>
+              )}
             <fieldset className="fieldset-default">
               <label className=" label-default" htmlFor="imagem capa">
                 Imagem da capa
               </label>
+              
               <input
                 placeholder="Carregar imagem"
                 className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
@@ -293,6 +304,11 @@ export const CreateAdsModal = () => {
                 {...register("imageCover")}
               />
             </fieldset>
+            {errors.imageCover && (
+                <span className={"text-colorFeedbackAlert1 text-sm"}>
+                  {errors.imageCover.message}
+                </span>
+              )}
             <fieldset className="fieldset-default">
               <label className="label-default" htmlFor="imagem 1">
                 1° Imagem da galeria
@@ -305,6 +321,7 @@ export const CreateAdsModal = () => {
                 {...register(`images.${0}.urlImage`)}
               />
             </fieldset>
+           
             <fieldset className="fieldset-default">
               <label className="label-default" htmlFor="imagem 2">
                 2° imagem da galeria

@@ -12,9 +12,10 @@ import { useAuth } from "../../hooks/useAuth";
 
 export const Home = () => {
   const [open, setOpen] = useState(false);
-  const { allCars, carFilter, filtering } = useAds();
+  const { allCars, carFilter, filtering, page, setPage } = useAds();
   const { user } = useAuth();
   const [carsFilter, setCarsFilter] = useState<IAnnoucement[] | []>([]);
+
 
   useEffect(() => {
     const getCarFilter = async () => {
@@ -27,7 +28,7 @@ export const Home = () => {
           .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
           .join("&");
 
-        const response = await api.get(`/cars?${queryParams}`);
+        const response = await api.get(`/cars?${queryParams}&${page}`);
         const cars: IAnnoucement[] = response.data;
         
         const filterCars = cars.filter((car) => car.user.id !== user?.id);
@@ -39,7 +40,7 @@ export const Home = () => {
     };
 
     getCarFilter();
-  }, [carFilter,user?.id]);
+  }, [carFilter,user?.id, page]);
 
   const OpenMenu = () => {
     setOpen(!open);
@@ -118,9 +119,9 @@ export const Home = () => {
             }
           >
             <span className={"text-2xl text-colorGreyScaleGrey3"}>
-              1<span className={"text-colorGreyScaleGrey4"}> de 2</span>
+            <span className={"text-colorGreyScaleGrey4"}>{page}</span>
             </span>
-            <button className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}>
+            <button className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"} onClick={()=> setPage(page+1)}>
               Seguinte &gt;
             </button>
           </div>
