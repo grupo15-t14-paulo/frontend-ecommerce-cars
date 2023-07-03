@@ -16,25 +16,6 @@ export const SideBar = () => {
   const years = [...new Set(allCars?.map((obj) => obj.year))];
   const fuels = [...new Set(allCars?.map((obj) => obj.typeCar))];
 
-  // const marcas = Object.keys(brand).map((prop) => prop.charAt(0).toUpperCase() + prop.slice(1));
-
-  // useEffect(() => {
-  //   const fetchBrand = async () => {
-  //     try {
-  //       const responseBrand = await apiHerokuApp.get(`/cars?brand=${brandSelectedFilter}`);
-  //       if (Array.isArray(responseBrand.data)) {
-  //         setModels(responseBrand.data);
-  //       } else {
-  //         setModels([]);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   fetchBrand();
-  // }, [brandSelectedFilter]);
-
   const handleCarFilter = (type: string, content: string) => {
     const newCar: ICarFiltter = { ...carFilter };
     setFiltering(true);

@@ -19,7 +19,7 @@ export const Profile = () => {
   const { user } = useContext(AuthContext);
 
   const { modalIsOpen, modalType } = useAuth();
-  const { modalIsOpen: modalAdsIsOpen, modalAdsType } = useAds();
+  const { modalIsOpen: modalAdsIsOpen, modalAdsType, page } = useAds();
 
   let modal;
 
@@ -97,7 +97,7 @@ export const Profile = () => {
             className={"flex mb-10 sm:right-28 md:right-1/3 gap-4  font-bold"}
           >
             <span className={"text-2xl text-colorGreyScaleGrey3"}>
-              1<span className={"text-colorGreyScaleGrey4"}> de 2</span>
+            <span className={"text-colorGreyScaleGrey4"}>{page}</span>
             </span>
             <button
               className={

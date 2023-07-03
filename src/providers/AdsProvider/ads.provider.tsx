@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext,  useEffect, useState } from "react";
 import { api, apiHerokuApp } from "../../services";
 import {
   adsContextValues,
@@ -9,6 +9,7 @@ import {
   tReturnCar,
 } from "./interfaces";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
+import { useAuth } from "../../hooks/useAuth";
 
 export const AdsContext = createContext<adsContextValues>(
   {} as adsContextValues
@@ -26,6 +27,9 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const [filtering, setFiltering] = useState(false);
   const [car, setCar] = useState<tReturnCar | null>(null);
   const [modalAdsType, setModalAdsType] = useState("");
+  const [page, setPage] = useState(1)
+
+  const {user} = useAuth()
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -37,12 +41,12 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
 
   const getAllAnnouncement = async () => {
     try {
-      const response = await api.get("/cars");
-
+      const response = await api.get(`/cars?page=${page}`);
+     
       const cars: IAnnoucement[] = response.data;
-      // const filterCars = cars.filter((car) => car.user.id !== user?.id);
-
-      setAllCars(cars);
+      const filterCars = cars.filter((car) => car.user.id !== user?.id);
+      
+      setAllCars(filterCars);
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +57,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       try {
         const response = await apiHerokuApp.get("/cars");
         setBrand(response.data);
-
+        
         const responseBrand = await apiHerokuApp.get(
           `/cars?brand=${brandSelected}`
         );
@@ -71,7 +75,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
     getAllAnnouncement();
 
     fetchBrand();
-  }, [brandSelected]);
+  }, [brandSelected, user, page]);
 
   return (
     <AdsContext.Provider
@@ -99,6 +103,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         modalAdsType,
         setModalAdsType,
         getAllAnnouncement,
+        setPage,
+        page,
       }}
     >
       {children}

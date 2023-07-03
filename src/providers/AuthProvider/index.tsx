@@ -1,5 +1,7 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {
+  IAuthContextValues,
+  IAuthProviderProps,
   tLogin,
   tReturnUser,
   tUpdateAddress,
@@ -13,30 +15,6 @@ import {
   SendEmailResetPasswordData,
 } from "../../schemas/userResetPassword";
 import { toast } from "react-toastify";
-
-interface IAuthProviderProps {
-  children: ReactNode;
-}
-
-interface IAuthContextValues {
-  registerUser: (data: tUser) => void;
-  updateUser: (data: tUpdateUserWithoutAddress) => void;
-  updateUserAddress: (data: tUpdateAddress) => void;
-  login: (data: tLogin) => void;
-  sendEmail: (sendEmailResetPasswordData: SendEmailResetPasswordData) => void;
-  resetPassword: (resetPasswordData: ResetPasswordData, token: string) => void;
-  user: tReturnUser | null;
-  setUser: React.Dispatch<React.SetStateAction<tReturnUser | null>>;
-  requesting: boolean;
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  modalIsOpen: boolean;
-  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  modalType: string;
-  setModalType: React.Dispatch<React.SetStateAction<string>>;
-  handleCloseModal: () => void;
-  deleteUser: () => void;
-}
 
 export const AuthContext = createContext({} as IAuthContextValues);
 
@@ -67,6 +45,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
         const response = await api.get("users");
         setUser(response.data);
+        
       } catch (error) {
         console.log(error);
       }
@@ -82,8 +61,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       await api.post("users", data);
 
       toast.success("Usuário registrado com sucesso!");
-
-      setTimeout(() => navigate("/login"), 3000);
+      navigate('/login')
     } catch (error) {
       toast.error("Ops, algo deu errado!");
     } finally {
@@ -93,14 +71,16 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const updateUser = async (data: tUpdateUserWithoutAddress) => {
     try {
-      const response = await api.patch("users", data);
-
-      setUser(response.data);
+      setLoading(true)
+      await api.patch("users", data);
 
       toast.success("Perfil editado com sucesso!");
     } catch (error) {
       toast.error("Ops, algo deu errado!");
+    }finally{
+      setLoading(false)
     }
+    
   };
 
   const updateUserAddress = async (data: tUpdateAddress) => {
@@ -142,12 +122,12 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       localStorage.setItem("user-ecommerce-cars:token", token);
 
       const userResponse = await api.get("users");
-
+      
       setUser(userResponse.data);
 
       toast.success("Usuário logado com sucesso!");
 
-      setTimeout(() => navigate("/"), 2000);
+      navigate("/")
     } catch (error) {
       toast.error("Ops, algo deu errado!");
     } finally {

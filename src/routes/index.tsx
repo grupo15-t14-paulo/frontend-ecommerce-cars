@@ -7,15 +7,20 @@ import { Register } from "../pages/Register";
 import { SendEmailResetPassword } from "../pages/ResetPassword";
 import { ResetPassword } from "../pages/ConfirmResetPassword";
 import { UserAnnouncements } from "../pages/UserAnnouncements";
+import { ProtectedRoutes } from "./protectedRoute";
 
 export const RoutesMain = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/login" element={<Login />} />
+      </Route>
       <Route path="/resetPassword" element={<SendEmailResetPassword />} />
       <Route path="/resetPassword/:token" element={<ResetPassword />} />
-      <Route path="/register" element={<Register />} />
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/register" element={<Register />} />
+      </Route>
       <Route path="/dashboard/:carId" element={<DetailCar />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/users/:id" element={<UserAnnouncements />} />

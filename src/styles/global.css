@@ -191,7 +191,6 @@ $color-colors-fixed-white-fixed: #ffffff;*/
   input[type='number']::-webkit-inner-spin-button,
   input[type='number'] {
     -webkit-appearance: none;
-    margin: 0;
   }
 }
 

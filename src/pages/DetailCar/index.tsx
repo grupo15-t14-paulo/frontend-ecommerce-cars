@@ -84,13 +84,12 @@ export const DetailCar = () => {
 
     postComment(text);
   };
-  // const isOwner = (userId:string) =>{
-  //   if(user?.id === userId){
-  //     return true
-  //   }
-  //   return false
-  // }
-
+  const isOwner = (userId:string) =>{
+    if(user?.id === userId){
+      return true
+    }
+    return false
+  }
   return (
     <div className={"h-full min-w-screen box-border"}>
       <Navbar />
@@ -107,9 +106,9 @@ export const DetailCar = () => {
               }
             >
               {car?.imageCover ? (
-                <img src={car?.imageCover} alt={car?.brand} className={"w-72 lg:w-96"} />
+                <img src={car?.imageCover} alt={car?.brand} className={"w-72 lg:w-96 lg:max-w-96 h-max"} />
               ) : (
-                <img src={ImgDefault} alt={car?.brand} className={"w-72"} />
+                <img src={ImgDefault} alt={car?.brand} className={"w-72 h-max"} />
               )}
             </div>
             <div>
@@ -162,10 +161,10 @@ export const DetailCar = () => {
               <div className="hidden lg:block lg:h-[900px]"></div>
             </div>
           </section>
-          <section>
+          <section className={'flex flex-wrap gap-5 justify-center lg:block'}>
             <div
               className={
-                "h-[350px] max-w-[382px] flex-col bg-colorColorsFixedWhiteFixed rounded mt-10 p-5 shadow-md"
+                "h-[350px] min-w-[382px] max-w-[382px] flex-col bg-colorColorsFixedWhiteFixed rounded mt-10 p-5 shadow-md"
               }
             >
               <h2 className={"mt-4 mb-10 text-xl"}>
@@ -190,7 +189,7 @@ export const DetailCar = () => {
             </div>
             <div
               className={
-                "max-h-[350px] max-w-[382px] flex flex-col gap-5 items-center bg-colorColorsFixedWhiteFixed rounded mt-10 p-5 shadow-md"
+                "max-h-[350px] min-w-[382px] max-w-[382px] flex flex-col gap-5 items-center bg-colorColorsFixedWhiteFixed rounded mt-10 p-5 shadow-md"
               }
             >
               <div className={"name-profile w-[77px] h-[77px] rounded-full text-3xl"}>
@@ -208,17 +207,17 @@ export const DetailCar = () => {
               </button>
             </div>
           </section>
-          <section className="shadow-md p-4 bg-colorColorsFixedWhiteFixed lg:h-full lg:absolute lg:w-5/12 lg:top-[900px] mt-36">
+          <section className="shadow-lg p-4 bg-colorColorsFixedWhiteFixed lg:max-h-[800px] lg:absolute lg:w-[60%] lg:max-w-[750px] lg:top-[900px] mt-36">
             <h2 className={"text-colorGreyScaleGrey1 mb-5 text-2xl"}>Comentários</h2>
             <div>
               <ul>
                 {car?.comments.map((comment) => (
                   <li key={comment.id} className="flex flex-col gap-2 mb-10">
                     <div className="flex gap-3 items-center">
-                      <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
-                      <p>{profileTitleName(`${car?.user.name}`)}</p>
+                      <span className="name-profile">{profileName(`${comment.user.name}`)}</span>
+                      <p>{profileTitleName(`${comment.user.name}`)}</p>
                       <p className="text-colorGreyScaleGrey4">{moment(comment.createdAt).locale("pt-br").fromNow()}</p>
-                      {/* {isOwner(comment.user.id) &&  */}
+                      {isOwner(comment.user.id) && 
                         <>
                           <button type="button" onClick={() => {
                             setEditComment(comment)
@@ -234,17 +233,17 @@ export const DetailCar = () => {
                             </svg>
                           </button>
                         </>
-                      {/* } */}
+                      }
                     </div>
                     <p className="text-colorGreyScaleGrey2">{comment.comment}</p>
                   </li>
                 ))}
               </ul>
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5 items-baseline mt-36 relative">
-                <div className="flex gap-2 items-center">
-                  <span className="name-profile">{profileName(`${car?.user.name}`)}</span>
-                  <p>{car?.user.name}</p>
-                </div>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5 items-baseline mt-20 relative">
+                {user && <div className="flex gap-2 items-center">
+                  <span className="name-profile">{profileName(`${user.name}`)}</span>
+                  <p>{user.name}</p>
+                </div>}
                 <textarea className="outline-none h-32 w-full p-2 resize-none border rounded-sm border-colorGreyScaleGrey4 text-colorGreyScaleGrey2" 
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -253,9 +252,9 @@ export const DetailCar = () => {
                 {user ? <button type="submit" disabled={!text} className="bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed h-10 w-28 cursor-pointer border-none rounded-md lg:absolute lg:right-1 lg:bottom-12">Comentar</button> : 
                 <button className="bg-colorGreyScaleGrey5 text-colorColorsFixedWhiteFixed h-10 w-28 border-none rounded-md lg:absolute lg:right-1 lg:bottom-12" disabled>Comentar</button>}
                 <div className="flex flex-wrap gap-10 w-full">
-                  <button type="button" onClick={()=> addTextArea("Gostei muito!")} className="text-colorGreyScaleGrey4 cursor-pointer">Gostei muito!</button>
-                  <button type="button" onClick={()=> addTextArea("Incrível")} className="text-colorGreyScaleGrey4 cursor-pointer">Incrível</button>
-                  <button type="button" onClick={()=> addTextArea("Recomendarei para meus amigos!")} className="text-colorGreyScaleGrey4 cursor-pointer">Recomendarei para meus amigos!</button>
+                  <button type="button" onClick={()=> addTextArea("Gostei muito!")} className="text-colorGreyScaleGrey4 cursor-pointer rounded-lg px-2 bg-colorGreyScaleGrey6">Gostei muito!</button>
+                  <button type="button" onClick={()=> addTextArea("Incrível")} className="text-colorGreyScaleGrey4 cursor-pointer rounded-lg px-2 bg-colorGreyScaleGrey6">Incrível</button>
+                  <button type="button" onClick={()=> addTextArea("Recomendarei para meus amigos!")} className="text-colorGreyScaleGrey4 cursor-pointer rounded-lg px-2 bg-colorGreyScaleGrey6">Recomendarei para meus amigos!</button>
                 </div>
               </form>
             </div>
