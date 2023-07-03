@@ -9,7 +9,7 @@ import { useAds } from "../../hooks/useAds";
 import { api } from "../../services";
 import { IAnnoucement } from "../../providers/AdsProvider/interfaces";
 import { useAuth } from "../../hooks/useAuth";
-import Foto from "../../assets/images/7302438.jpg";
+import { NoContent } from "../../components/NoContent";
 
 export const Home = () => {
   const [open, setOpen] = useState(false);
@@ -51,7 +51,7 @@ export const Home = () => {
       <div className={"h-full min-w-screen box-border mb"}>
         <Navbar />
         <Header />
-        {allCars ? (
+        {carsFilter || allCars ? (
           <>
             <main
               className={`mt-12 min-h-full w-full container flex flex-col gap-4 relative box-border lg:flex-row`}
@@ -60,7 +60,7 @@ export const Home = () => {
               <section className={"w-full h-full lg:w-full lg:min-h-max box-border pb-5"}>
                 <ul
                   className={
-                    "flex lg:flex-wrap  w-full gap-3 lg:gap-10 lg:justify-around overflow-auto px-2 py-10 lg:py-0"
+                    "flex md:flex-wrap md:justify-center lg:flex-wrap  w-full gap-3 lg:gap-10 lg:justify-around overflow-auto px-2 py-10 lg:py-0"
                   }
                 >
                   {carsFilter.length > 0 && filtering ? (
@@ -142,33 +142,10 @@ export const Home = () => {
             <div className="m-48" />
           </>
         ) : (
-          <>
-            <div className="flex items-center justify-center w-full md:h-[700px] gap-5 mt-5 mb-5 relative">
-              <h2 className="font-bold text-colorBrandBrand1 bg-colorColorsFixedWhiteFixed p-3 rounded-md text-2xl text-center md:text-3xl lg:text-4xl absolute top-0">
-                Infelizmente não tem anúncios :(
-              </h2>
-              <img src={Foto} alt="img" className="md:w-[700px] md:h-[700px] rounded-md" />
-
-              {user?.isSeller && (
-                <button className="button-default absolute bottom-0 flex gap-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                  </svg>
-                  Novo anúncio
-                </button>
-              )}
-            </div>
-          </>
+          <NoContent isSeller={user?.isSeller} />
         )}
       </div>
-      {open && allCars && <SideBarMobile setOpen={setOpen} />}
+      {open && carsFilter && allCars && <SideBarMobile setOpen={setOpen} />}
       <Footer />
     </>
   );
