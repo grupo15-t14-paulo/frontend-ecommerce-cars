@@ -13,13 +13,17 @@ import { CreateAdsModal } from "../../components/CreateAdsModal";
 import { useAds } from "../../hooks/useAds";
 import { ExcludeAdsModal } from "../../components/ExcludeAdsModal";
 import { EditAdsModal } from "../../components/EditAdsModal";
+import { NoContent } from "../../components/NoContent";
+import Foto from "../../assets/images/7302438.jpg";
 
 export const Profile = () => {
   const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
 
   const { modalIsOpen, modalType } = useAuth();
-  const { modalIsOpen: modalAdsIsOpen, modalAdsType, page } = useAds();
+  const { modalIsOpen: modalAdsIsOpen, modalAdsType } = useAds();
+
+  const anuncios = user?.announcement;
 
   let modal;
 
@@ -65,48 +69,49 @@ export const Profile = () => {
           className={`mt-[150px] items-center min-h-full container flex-col gap-4 relative box-border flex `}
         >
           <section className={"  w-full h-full lg:w-full lg: box-border pb-5"}>
-            <ul
-              className={
-                "flex h-[510px] lg:flex-wrap w-full gap-10 overflow-auto lg:justify-center lg:py-0  scrollbar"
-              }
-            >
-              {user?.announcement &&
-                user?.announcement.map((car) => (
-                  <ProfileCard
-                    id={car.id}
-                    description={car.description}
-                    img={car.images}
-                    km={car.mileage}
-                    title={car.model}
-                    user={user}
-                    value={car.price}
-                    year={car.year}
-                    key={car.id}
-                    createdAt={car.createdAt}
-                    imgCover={car.imageCover}
-                    fipePrice={car.fipePrice}
-                    brand={car.brand}
-                    typeCar={car.typeCar}
-                    color={car.color}
-                  />
-                ))}
-            </ul>
+            {user?.isSeller ? (
+              <>
+                {anuncios ? (
+                  <ul
+                    className={
+                      "flex h-[510px] lg:flex-wrap w-full gap-10 overflow-auto lg:justify-center lg:py-0  scrollbar"
+                    }
+                  >
+                    {anuncios.map((car) => (
+                      <ProfileCard
+                        id={car.id}
+                        description={car.description}
+                        img={car.images}
+                        km={car.mileage}
+                        title={car.model}
+                        user={user}
+                        value={car.price}
+                        year={car.year}
+                        key={car.id}
+                        createdAt={car.createdAt}
+                        imgCover={car.imageCover}
+                        fipePrice={car.fipePrice}
+                        brand={car.brand}
+                        typeCar={car.typeCar}
+                        color={car.color}
+                      />
+                    ))}
+                  </ul>
+                ) : (
+                  <NoContent isSeller={user?.isSeller} />
+                )}
+              </>
+            ) : (
+              <>
+                <div className="flex items-center justify-center w-full md:h-[700px] gap-5 mb-5">
+                  <h2 className="font-bold text-colorBrandBrand1 p-3 rounded-md text-2xl text-center md:text-3xl lg:text-4xl absolute top-0">
+                    Não foi realizado nenhuma compra :(
+                  </h2>
+                  <img src={Foto} alt="img" className="md:w-[700px] md:h-[700px] rounded-md" />
+                </div>
+              </>
+            )}
           </section>
-
-          <div
-            className={"flex mb-10 sm:right-28 md:right-1/3 gap-4  font-bold"}
-          >
-            <span className={"text-2xl text-colorGreyScaleGrey3"}>
-            <span className={"text-colorGreyScaleGrey4"}>{page}</span>
-            </span>
-            <button
-              className={
-                "flex items-center text-2xl text-colorBrandBrand1 font-bold"
-              }
-            >
-              Seguinte &gt;
-            </button>
-          </div>
         </main>
       </div>
       {open && <SideBarMobile setOpen={setOpen} />}
