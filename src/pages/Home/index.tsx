@@ -10,6 +10,7 @@ import { api } from "../../services";
 import { IAnnoucement } from "../../providers/AdsProvider/interfaces";
 import { useAuth } from "../../hooks/useAuth";
 import { NoContent } from "../../components/NoContent";
+import { RenderIsSeller } from "../../components/RenderIsSeller";
 
 export const Home = () => {
   const [open, setOpen] = useState(false);
@@ -51,7 +52,9 @@ export const Home = () => {
       <div className={"h-full min-w-screen box-border mb"}>
         <Navbar />
         <Header />
-        {carsFilter || allCars ? (
+        {user?.isSeller && carsFilter.length > 0 ? (
+          <RenderIsSeller carsFilter={carsFilter} openMenu={OpenMenu} />
+        ) : !user?.isSeller ? (
           <>
             <main
               className={`mt-12 min-h-full w-full container flex flex-col gap-4 relative box-border lg:flex-row`}
@@ -63,49 +66,22 @@ export const Home = () => {
                     "flex md:flex-wrap md:justify-center lg:flex-wrap  w-full gap-3 lg:gap-10 lg:justify-around overflow-auto px-2 py-10 lg:py-0"
                   }
                 >
-                  {carsFilter.length > 0 && filtering ? (
-                    carsFilter?.map((car) => (
-                      <Card
-                        imgCover={car.imageCover}
-                        id={car.id}
-                        description={car.description}
-                        img={car.images}
-                        km={car.mileage}
-                        title={car.brand}
-                        user={car.user}
-                        value={car.price}
-                        year={car.year}
-                        key={car.id}
-                        createdAt={car.createdAt}
-                        fipePrice={+car.fipePrice}
-                      />
-                    ))
-                  ) : filtering ? (
-                    <div
-                      className={
-                        "w-full h-[150px] flex items-center justify-center bg-colorBrandBrand2 text-colorColorsFixedWhiteFixed text-3xl rounded-sm shadow-lg"
-                      }
-                    >
-                      Anúncios não encontrado :(
-                    </div>
-                  ) : (
-                    allCars?.map((car) => (
-                      <Card
-                        imgCover={car.imageCover}
-                        id={car.id}
-                        description={car.description}
-                        img={car.images}
-                        km={car.mileage}
-                        title={car.brand}
-                        user={car.user}
-                        value={car.price}
-                        year={car.year}
-                        key={car.id}
-                        createdAt={car.createdAt}
-                        fipePrice={+car.fipePrice}
-                      />
-                    ))
-                  )}
+                  {allCars?.map((car) => (
+                    <Card
+                      imgCover={car.imageCover}
+                      id={car.id}
+                      description={car.description}
+                      img={car.images}
+                      km={car.mileage}
+                      title={car.brand}
+                      user={car.user}
+                      value={car.price}
+                      year={car.year}
+                      key={car.id}
+                      createdAt={car.createdAt}
+                      fipePrice={+car.fipePrice}
+                    />
+                  ))}
                 </ul>
               </section>
               <button

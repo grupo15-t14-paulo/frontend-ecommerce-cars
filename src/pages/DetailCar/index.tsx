@@ -48,6 +48,8 @@ export const DetailCar = () => {
       break;
   }
 
+  const telAnnounciment = car?.user.tel.replace(/\D/g, "");
+
   const addTextArea = (value: string) => {
     setText((prevText) => prevText + value + " ");
   };
@@ -108,10 +110,13 @@ export const DetailCar = () => {
   return (
     <div className={"h-full min-w-screen box-border"}>
       <Navbar />
-      <div className={"absolute h-[515px] w-full bg-colorBrandBrand1"}>
+      <div className="bg-colorGreyScaleGrey9 relative z-50">
+        <div
+          className={"absolute h-[515px] w-full bg-colorBrandBrand1 -z-40"}
+        />
         <main
           className={
-            "flex flex-col lg:flex-row gap-10 container max-w-[1200px] min-h-full box-border"
+            "flex flex-col lg:flex-row gap-10 container max-w-[1200px] min-h-full box-border z-10"
           }
         >
           <section className={"w-full lg:w-3/4 mt-10 flex gap-10 flex-col"}>
@@ -161,13 +166,15 @@ export const DetailCar = () => {
                   </span>
                 </div>
                 {user ? (
-                  <button
+                  <Link
+                    target="_blank"
+                    to={`https://wa.me/${telAnnounciment}`}
                     className={
                       "border w-max bg-colorBrandBrand1 text-colorColorsFixedWhiteFixed hover:bg-colorColorsFixedWhiteFixed hover:text-colorBrandBrand1 px-4 py-2 text-sm rounded"
                     }
                   >
                     Comprar
-                  </button>
+                  </Link>
                 ) : (
                   <Link
                     to={"/login"}
@@ -384,9 +391,8 @@ export const DetailCar = () => {
           </section>
           {modalIsOpen && modal}
         </main>
-        <div className={"mb-32"}></div>
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };
