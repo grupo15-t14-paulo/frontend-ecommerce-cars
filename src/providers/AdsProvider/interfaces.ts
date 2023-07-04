@@ -23,9 +23,7 @@ export interface adsContextValues {
   imageCount: number;
   setImageCount: React.Dispatch<React.SetStateAction<number>>;
   allCars: IAnnoucement[] | [] | undefined;
-  setCarFilter: React.Dispatch<
-    React.SetStateAction<ICarFiltter | null | undefined>
-  >;
+  setCarFilter: React.Dispatch<React.SetStateAction<ICarFiltter | null | undefined>>;
   carFilter: ICarFiltter | null | undefined;
   filtering: boolean;
   setFiltering: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,6 +34,8 @@ export interface adsContextValues {
   getAllAnnouncement: () => void;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   page: number;
+  setInfoPage: React.Dispatch<React.SetStateAction<InfoPage | undefined>>;
+  infoPage: InfoPage | undefined;
 }
 
 export interface modelsRequest {
@@ -49,6 +49,12 @@ export interface modelsRequest {
 
 export interface Brand {
   [key: string]: { name: string };
+}
+
+export interface InfoPage {
+  nextPage: number | null;
+  prevPage: number | null;
+  totalPages: number | null;
 }
 
 export interface IAnnoucement {

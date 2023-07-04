@@ -14,7 +14,7 @@ import { RenderIsSeller } from "../../components/RenderIsSeller";
 
 export const Home = () => {
   const [open, setOpen] = useState(false);
-  const { allCars, carFilter, filtering, page, setPage } = useAds();
+  const { allCars, carFilter, page, setPage, infoPage } = useAds();
   const { user } = useAuth();
   const [carsFilter, setCarsFilter] = useState<IAnnoucement[] | []>([]);
 
@@ -104,15 +104,19 @@ export const Home = () => {
                     &lt; Anterior
                   </button>
                 )}
+
                 <span className={"text-2xl text-colorGreyScaleGrey3"}>
-                  <span className={"text-colorGreyScaleGrey4"}>{page}</span>
+                  {page} de{" "}
+                  <span className={"text-colorGreyScaleGrey4"}>{infoPage?.totalPages}</span>
                 </span>
-                <button
-                  className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}
-                  onClick={() => setPage(page + 1)}
-                >
-                  Seguinte &gt;
-                </button>
+                {infoPage?.nextPage && (
+                  <button
+                    className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}
+                    onClick={() => setPage(page + 1)}
+                  >
+                    Seguinte &gt;
+                  </button>
+                )}
               </div>
             </main>
             <div className="m-48" />

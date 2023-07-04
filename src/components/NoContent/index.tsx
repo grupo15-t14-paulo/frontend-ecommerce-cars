@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Foto from "../../assets/images/7302438.jpg";
 
 interface ComponentProps {
@@ -14,7 +15,7 @@ export const NoContent = (props: ComponentProps) => {
         <img src={Foto} alt="img" className="md:w-[700px] md:h-[700px] rounded-md" />
 
         {props.isSeller && (
-          <button className="button-default absolute bottom-0 flex gap-3">
+          <Link to={"/profile"} className="button-default absolute bottom-0 flex gap-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -26,7 +27,7 @@ export const NoContent = (props: ComponentProps) => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
             Novo anúncio
-          </button>
+          </Link>
         )}
       </div>
     </>
