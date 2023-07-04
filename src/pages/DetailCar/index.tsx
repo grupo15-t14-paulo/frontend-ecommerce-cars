@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAds } from "../../hooks/useAds";
 import EditCommentModal from "../../components/EditComentModal";
+import { ViewImageModal } from "../../components/ViewImageModal";
 
 export type Comment = {
   id: number;
@@ -21,13 +22,31 @@ export type Comment = {
 };
 
 export const DetailCar = () => {
-  const [car, setCar] = useState<ICarUserReturn>();
-  const { carId } = useParams();
-  const { user, loading, setLoading } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [text, setText] = useState("");
-  const [editComment, setEditComment] = useState<IComments>({} as IComments);
+
+  const { carId } = useParams();
+  const { user, loading, setLoading, modalType, setModalType } =
+    useContext(AuthContext);
   const { modalIsOpen, handleOpenModal } = useAds();
+
+  const [text, setText] = useState("");
+  const [car, setCar] = useState<ICarUserReturn>();
+  const [editComment, setEditComment] = useState<IComments>({} as IComments);
+  const [currentImg, setCurrentImg] = useState<string>("");
+
+  let modal;
+
+  switch (modalType) {
+    case "":
+      modal = null;
+      break;
+    case "edit-comment":
+      modal = <EditCommentModal commentInfo={editComment} />;
+      break;
+    case "view-image":
+      modal = <ViewImageModal imgURL={currentImg} />;
+      break;
+  }
 
   const addTextArea = (value: string) => {
     setText((prevText) => prevText + value + " ");
@@ -108,7 +127,11 @@ export const DetailCar = () => {
                   className={"w-72 lg:w-96 lg:max-w-96 h-max"}
                 />
               ) : (
-                <img src={ImgDefault} alt={car?.brand} className={"w-72 h-max"} />
+                <img
+                  src={ImgDefault}
+                  alt={car?.brand}
+                  className={"w-72 h-max"}
+                />
               )}
             </div>
             <div>
@@ -117,7 +140,9 @@ export const DetailCar = () => {
                   "max-h-[326px] lg:h-[240px] min-w-full flex flex-col bg-colorColorsFixedWhiteFixed rounded p-8 gap-5 shadow-md"
                 }
               >
-                <h2 className={"text-ellipsis text-xl font-bold h-10"}>{car?.model}</h2>
+                <h2 className={"text-ellipsis text-xl font-bold h-10"}>
+                  {car?.model}
+                </h2>
                 <div
                   className={
                     "flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center lg:mb-3 lg:mt-3"
@@ -129,7 +154,10 @@ export const DetailCar = () => {
                   </div>
 
                   <span>
-                    {car?.price?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+                    {car?.price?.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
                   </span>
                 </div>
                 {user ? (
@@ -176,9 +204,14 @@ export const DetailCar = () => {
                   car?.images.map((img, id) => (
                     <div
                       className={
-                        "bg-colorGreyScaleGrey7 h-[90px] w-[90px] flex items-center justify-center"
+                        "bg-colorGreyScaleGrey7 h-[90px] w-[90px] flex items-center justify-center hover:cursor-pointer"
                       }
                       key={id}
+                      onClick={() => {
+                        setModalType("view-image");
+                        setCurrentImg(img.urlImage);
+                        handleOpenModal();
+                      }}
                     >
                       <img src={img.urlImage} alt="" className={"w-[70px]"} />
                     </div>
@@ -193,7 +226,11 @@ export const DetailCar = () => {
                 "max-h-[350px] min-w-[382px] max-w-[382px] flex flex-col gap-5 items-center bg-colorColorsFixedWhiteFixed rounded mt-10 p-5 shadow-md"
               }
             >
-              <div className={"name-profile w-[77px] h-[77px] rounded-full text-3xl"}>
+              <div
+                className={
+                  "name-profile w-[77px] h-[77px] rounded-full text-3xl"
+                }
+              >
                 {profileName(`${car?.user.name}`)}
               </div>
               <h2 className={"font-bold"}>{car?.user.name}</h2>
@@ -209,14 +246,18 @@ export const DetailCar = () => {
             </div>
           </section>
           <section className="shadow-lg p-4 bg-colorColorsFixedWhiteFixed lg:max-h-[800px] lg:absolute lg:w-[60%] lg:max-w-[750px] lg:top-[900px] mt-36">
-            <h2 className={"text-colorGreyScaleGrey1 mb-5 text-2xl"}>Comentários</h2>
+            <h2 className={"text-colorGreyScaleGrey1 mb-5 text-2xl"}>
+              Comentários
+            </h2>
             <div>
               {car?.comments && car?.comments.length > 0 ? (
                 <ul>
                   {car?.comments.map((comment) => (
                     <li key={comment.id} className="flex flex-col gap-2 mb-10">
                       <div className="flex gap-3 items-center">
-                        <span className="name-profile">{profileName(`${comment.user.name}`)}</span>
+                        <span className="name-profile">
+                          {profileName(`${comment.user.name}`)}
+                        </span>
                         <p>{profileTitleName(`${comment.user.name}`)}</p>
                         <p className="text-colorGreyScaleGrey4">
                           {moment(comment.createdAt).locale("pt-br").fromNow()}
@@ -227,6 +268,7 @@ export const DetailCar = () => {
                               type="button"
                               onClick={() => {
                                 setEditComment(comment);
+                                setModalType("edit-comment");
                                 handleOpenModal();
                               }}
                             >
@@ -245,7 +287,10 @@ export const DetailCar = () => {
                                 />
                               </svg>
                             </button>
-                            <button onClick={() => deleteComment(comment.id)} type="button">
+                            <button
+                              onClick={() => deleteComment(comment.id)}
+                              type="button"
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -264,7 +309,9 @@ export const DetailCar = () => {
                           </>
                         )}
                       </div>
-                      <p className="text-colorGreyScaleGrey2">{comment.comment}</p>
+                      <p className="text-colorGreyScaleGrey2">
+                        {comment.comment}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -279,7 +326,9 @@ export const DetailCar = () => {
               >
                 {user && (
                   <div className="flex gap-2 items-center">
-                    <span className="name-profile">{profileName(`${user.name}`)}</span>
+                    <span className="name-profile">
+                      {profileName(`${user.name}`)}
+                    </span>
                     <p>{user.name}</p>
                   </div>
                 )}
@@ -322,7 +371,9 @@ export const DetailCar = () => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => addTextArea("Recomendarei para meus amigos!")}
+                    onClick={() =>
+                      addTextArea("Recomendarei para meus amigos!")
+                    }
                     className="text-colorGreyScaleGrey4 cursor-pointer rounded-lg px-2 bg-colorGreyScaleGrey6"
                   >
                     Recomendarei para meus amigos!
@@ -331,7 +382,7 @@ export const DetailCar = () => {
               </form>
             </div>
           </section>
-          {modalIsOpen && <EditCommentModal commentInfo={editComment} />}
+          {modalIsOpen && modal}
         </main>
         <div className={"mb-32"}></div>
         <Footer />
