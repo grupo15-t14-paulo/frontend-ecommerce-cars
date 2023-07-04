@@ -4,9 +4,9 @@ export interface ICardValueProps {
   img: Images[];
   imgCover: string;
   description: string | null | undefined;
-  km: number;
+  mileage: number;
   year: string;
-  value: number;
+  price: number;
   fipePrice: number;
   createdAt: string;
   user: IUser;

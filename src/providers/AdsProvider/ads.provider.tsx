@@ -28,6 +28,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const [modalAdsType, setModalAdsType] = useState("");
   const [page, setPage] = useState(1);
   const [infoPage, setInfoPage] = useState<InfoPage>();
+  const [allCarsFilter, setallCarsFilter] = useState<IAnnoucement[] | []>([]);
 
   const { user } = useAuth();
 
@@ -112,6 +113,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         page,
         infoPage,
         setInfoPage,
+        allCarsFilter,
+        setallCarsFilter,
       }}
     >
       {children}

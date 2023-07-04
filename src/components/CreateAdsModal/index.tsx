@@ -10,6 +10,7 @@ import { carCreateSchema } from "../../providers/AdsProvider/ads.schemas";
 import { modelsRequest } from "../../providers/AdsProvider/interfaces";
 import { AuthContext } from "../../providers/AuthProvider";
 import { colorDefault } from "../../styles/utility";
+import { toast } from "react-toastify";
 
 export const CreateAdsModal = () => {
   const {
@@ -69,7 +70,12 @@ export const CreateAdsModal = () => {
     return fuelType;
   };
 
-  const { register, handleSubmit, setValue, formState:{errors} } = useForm<TRegisterAnnoucementForm>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<TRegisterAnnoucementForm>({
     resolver: zodResolver(carCreateSchema),
   });
 
@@ -97,8 +103,10 @@ export const CreateAdsModal = () => {
       const response = api.post<TRegisterAnnoucementForm>("/cars", newCar);
       await response;
       setIsOpen(false);
+      toast.success("Anúncio criado com sucesso!");
     } catch (error) {
       console.log(error);
+      toast.error("Algo deu errado na criação do anúncio!");
     } finally {
       setLoading(false);
     }
@@ -148,7 +156,6 @@ export const CreateAdsModal = () => {
                   </option>
                 ))}
               </select>
-             
             </fieldset>
             <fieldset className="fieldset-default">
               <label className="label-default" htmlFor="modelo">
@@ -169,7 +176,6 @@ export const CreateAdsModal = () => {
                   </option>
                 ))}
               </select>
-             
             </fieldset>
             <div className="  w-full flex gap-5">
               <fieldset className="fieldset-default">
@@ -185,7 +191,6 @@ export const CreateAdsModal = () => {
                   value={modelSelected?.year}
                   {...register("year")}
                 />
-               
               </fieldset>
               <fieldset className="fieldset-default">
                 <label className="label-default" htmlFor="combustivel">
@@ -232,10 +237,8 @@ export const CreateAdsModal = () => {
                   ))}
                 </select>
                 {errors.color && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.color.message}
-                </span>
-              )}
+                  <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.color.message}</span>
+                )}
               </fieldset>
             </div>
             <div className="w-full flex gap-5">
@@ -270,9 +273,7 @@ export const CreateAdsModal = () => {
                 />
               </fieldset>
               {errors.mileage && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.mileage.message}
-                </span>
+                <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.mileage.message}</span>
               )}
             </div>
             <fieldset className="fieldset-default">
@@ -287,15 +288,15 @@ export const CreateAdsModal = () => {
               />
             </fieldset>
             {errors.description && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.description.message}
-                </span>
-              )}
+              <span className={"text-colorFeedbackAlert1 text-sm"}>
+                {errors.description.message}
+              </span>
+            )}
             <fieldset className="fieldset-default">
               <label className=" label-default" htmlFor="imagem capa">
                 Imagem da capa
               </label>
-              
+
               <input
                 placeholder="Carregar imagem"
                 className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
@@ -305,10 +306,10 @@ export const CreateAdsModal = () => {
               />
             </fieldset>
             {errors.imageCover && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.imageCover.message}
-                </span>
-              )}
+              <span className={"text-colorFeedbackAlert1 text-sm"}>
+                {errors.imageCover.message}
+              </span>
+            )}
             <fieldset className="fieldset-default">
               <label className="label-default" htmlFor="imagem 1">
                 1° Imagem da galeria
@@ -321,7 +322,7 @@ export const CreateAdsModal = () => {
                 {...register(`images.${0}.urlImage`)}
               />
             </fieldset>
-           
+
             <fieldset className="fieldset-default">
               <label className="label-default" htmlFor="imagem 2">
                 2° imagem da galeria

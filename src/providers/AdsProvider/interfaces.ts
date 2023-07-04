@@ -36,6 +36,8 @@ export interface adsContextValues {
   page: number;
   setInfoPage: React.Dispatch<React.SetStateAction<InfoPage | undefined>>;
   infoPage: InfoPage | undefined;
+  setallCarsFilter: React.Dispatch<React.SetStateAction<[] | IAnnoucement[]>>;
+  allCarsFilter: IAnnoucement[];
 }
 
 export interface modelsRequest {
