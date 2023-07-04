@@ -8,7 +8,7 @@ export interface ICardValueProps {
   year: string;
   value: number;
   fipePrice: number;
-  createdAt: string | Date;
+  createdAt: string;
   user: IUser;
 }
 
@@ -45,15 +45,15 @@ export interface Images {
 }
 
 interface userIdComments {
-  id:string
-  name:string
-} 
+  id: string;
+  name: string;
+}
 
 export interface IComments {
   id: string;
   comment: string;
-  createdAt:string
-  user: userIdComments
+  createdAt: string;
+  user: userIdComments;
 }
 
 export interface ICarUserReturn {
