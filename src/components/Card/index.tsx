@@ -7,9 +7,9 @@ export const Card = ({
   img,
   title,
   description,
-  km,
+  mileage,
   user,
-  value,
+  price,
   year,
   id,
   fipePrice,
@@ -31,7 +31,7 @@ export const Card = ({
   };
 
   const isPriceLow = (): boolean => {
-    if (fipePrice < value) {
+    if (fipePrice < price) {
       return true;
     }
     return false;
@@ -74,13 +74,13 @@ export const Card = ({
       </section>
       <div className={"flex w-full relative gap-1"}>
         <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
-          {km} Km
+          {mileage} Km
         </span>
         <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
           {year}
         </span>
         <span className={"absolute right-0 bottom-1"}>
-          {value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+          {price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
         </span>
       </div>
       {verfyDataIsNew(createdAt) && (
