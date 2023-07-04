@@ -66,7 +66,7 @@ export interface IAnnoucement {
   typeCar: string;
   year: string;
   user: IUser;
-  createdAt: string | Date;
+  createdAt: string;
 }
 
 export type tReturnCar = z.infer<typeof returnCarSchema>;

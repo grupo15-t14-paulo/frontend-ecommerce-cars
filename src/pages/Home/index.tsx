@@ -26,7 +26,10 @@ export const Home = () => {
         }
         const queryParams = Object.entries(carFilter || {})
           .filter(([, value]) => value !== undefined)
-          .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+          .map(
+            ([key, value]) =>
+              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+          )
           .join("&");
 
         const response = await api.get(`/cars?${queryParams}&${page}`);
@@ -60,7 +63,11 @@ export const Home = () => {
               className={`mt-12 min-h-full w-full container flex flex-col gap-4 relative box-border lg:flex-row`}
             >
               <SideBar />
-              <section className={"w-full h-full lg:w-full lg:min-h-max box-border pb-5"}>
+              <section
+                className={
+                  "w-full h-full lg:w-full lg:min-h-max box-border pb-5"
+                }
+              >
                 <ul
                   className={
                     "flex md:flex-wrap md:justify-center lg:flex-wrap  w-full gap-3 lg:gap-10 lg:justify-around overflow-auto px-2 py-10 lg:py-0"
@@ -98,7 +105,9 @@ export const Home = () => {
               >
                 {page > 1 && (
                   <button
-                    className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}
+                    className={
+                      "flex items-center text-2xl text-colorBrandBrand1 font-bold"
+                    }
                     onClick={() => setPage(page - 1)}
                   >
                     &lt; Anterior
@@ -108,7 +117,9 @@ export const Home = () => {
                   <span className={"text-colorGreyScaleGrey4"}>{page}</span>
                 </span>
                 <button
-                  className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}
+                  className={
+                    "flex items-center text-2xl text-colorBrandBrand1 font-bold"
+                  }
                   onClick={() => setPage(page + 1)}
                 >
                   Seguinte &gt;
