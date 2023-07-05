@@ -4,11 +4,11 @@ import { Card } from "../Card";
 import { SideBar } from "../sideBar";
 
 export interface PropsIsSeller {
-  carsFilter: IAnnoucement[] | [];
+  allCarsFilter: IAnnoucement[] | [];
   openMenu: () => void;
 }
 
-export const RenderIsSeller = ({ carsFilter, openMenu }: PropsIsSeller) => {
+export const RenderIsSeller = ({ allCarsFilter, openMenu }: PropsIsSeller) => {
   const { allCars, filtering, page, setPage } = useAds();
 
   return (
@@ -23,17 +23,17 @@ export const RenderIsSeller = ({ carsFilter, openMenu }: PropsIsSeller) => {
               "flex md:flex-wrap md:justify-center lg:flex-wrap  w-full gap-3 lg:gap-10 lg:justify-around overflow-auto px-2 py-10 lg:py-0"
             }
           >
-            {carsFilter.length > 0 && filtering ? (
-              carsFilter?.map((car) => (
+            {allCarsFilter.length > 0 && filtering ? (
+              allCarsFilter?.map((car) => (
                 <Card
                   imgCover={car.imageCover}
                   id={car.id}
                   description={car.description}
                   img={car.images}
-                  km={car.mileage}
+                  mileage={car.mileage}
                   title={car.brand}
                   user={car.user}
-                  value={car.price}
+                  price={car.price}
                   year={car.year}
                   key={car.id}
                   createdAt={car.createdAt}
@@ -55,10 +55,10 @@ export const RenderIsSeller = ({ carsFilter, openMenu }: PropsIsSeller) => {
                   id={car.id}
                   description={car.description}
                   img={car.images}
-                  km={car.mileage}
+                  mileage={car.mileage}
                   title={car.brand}
                   user={car.user}
-                  value={car.price}
+                  price={car.price}
                   year={car.year}
                   key={car.id}
                   createdAt={car.createdAt}

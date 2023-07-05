@@ -22,10 +22,7 @@ export const EditAddressModal = () => {
     resolver: zodResolver(updateAddressSchema),
   });
 
-  const submit: SubmitHandler<tUpdateAddress> = async (
-    data: tUpdateAddress
-  ) => {
-    console.log(data);
+  const submit: SubmitHandler<tUpdateAddress> = async (data: tUpdateAddress) => {
     updateUserAddress(data);
 
     handleCloseModal();
@@ -69,16 +66,11 @@ export const EditAddressModal = () => {
           className="bg-black bg-opacity-50 data-[state=open]:animate-overlayShow fixed inset-0"
         />
         <Dialog.Content className="overflow-auto flex-col items-center data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-colorGreyScaleGrey10 p-[25px] z-50 overflow-y-scroll scrollbar box-border">
-          <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">
-            Editar endereço
-          </Dialog.Title>
+          <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">Editar endereço</Dialog.Title>
           <Dialog.Description className="mt-[10px] mb-5 text-[15px] leading-normal">
             Informações de endereço
           </Dialog.Description>
-          <form
-            onSubmit={handleSubmit(submit)}
-            className={"flex flex-col gap-6"}
-          >
+          <form onSubmit={handleSubmit(submit)} className={"flex flex-col gap-6"}>
             <div className={"flex flex-col gap-2"}>
               <label htmlFor={"CEP"} className={"text-sm"}>
                 CEP
@@ -96,9 +88,7 @@ export const EditAddressModal = () => {
               />
             </div>
             {errors.cep && (
-              <span className={"text-colorFeedbackAlert1 text-sm"}>
-                {errors.cep.message}
-              </span>
+              <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.cep.message}</span>
             )}
 
             <div className={"flex justify-between"}>
@@ -110,9 +100,7 @@ export const EditAddressModal = () => {
                   register={register("state")}
                 />
                 {errors.state && (
-                  <span className={"text-colorFeedbackAlert1 text-sm"}>
-                    {errors.state.message}
-                  </span>
+                  <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.state.message}</span>
                 )}
               </div>
 
@@ -124,9 +112,7 @@ export const EditAddressModal = () => {
                   register={register("city")}
                 />
                 {errors.city && (
-                  <span className={"text-colorFeedbackAlert1 text-sm"}>
-                    {errors.city.message}
-                  </span>
+                  <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.city.message}</span>
                 )}
               </div>
             </div>
@@ -138,9 +124,7 @@ export const EditAddressModal = () => {
               register={register("street")}
             />
             {errors.street && (
-              <span className={"text-colorFeedbackAlert1 text-sm"}>
-                {errors.street.message}
-              </span>
+              <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.street.message}</span>
             )}
 
             <div className={"flex justify-between"}>

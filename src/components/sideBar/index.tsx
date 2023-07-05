@@ -2,19 +2,49 @@ import { useAds } from "../../hooks/useAds";
 import { ICarFiltter } from "./sideBar.interface";
 
 export const SideBar = () => {
-  const {
-    setBrandSelectedFilter,
-    carFilter,
-    setCarFilter,
-    allCars,
-    setFiltering,
-  } = useAds();
+  const { setBrandSelectedFilter, carFilter, setCarFilter, allCars, setFiltering, allCarsFilter } =
+    useAds();
 
-  const marcas = [...new Set(allCars?.map((obj) => obj.brand))];
-  const models = [...new Set(allCars?.map((obj) => obj.model))];
-  const colors = [...new Set(allCars?.map((obj) => obj.color))];
-  const years = [...new Set(allCars?.map((obj) => obj.year))];
-  const fuels = [...new Set(allCars?.map((obj) => obj.typeCar))];
+  const marcas = [
+    ...new Set(
+      allCarsFilter.length > 0
+        ? allCarsFilter.map((obj) => obj.brand)
+        : allCars?.map((obj) => obj.brand)
+    ),
+  ];
+  // const models = [...new Set(allCars?.map((obj) => obj.model))];
+  // const colors = [...new Set(allCars?.map((obj) => obj.color))];
+  // const years = [...new Set(allCars?.map((obj) => obj.year))];
+  // const fuels = [...new Set(allCars?.map((obj) => obj.typeCar))];
+
+  const models = [
+    ...new Set(
+      allCarsFilter.length > 0
+        ? allCarsFilter.map((obj) => obj.model)
+        : allCars?.map((obj) => obj.model)
+    ),
+  ];
+  const colors = [
+    ...new Set(
+      allCarsFilter.length > 0
+        ? allCarsFilter.map((obj) => obj.color)
+        : allCars?.map((obj) => obj.color)
+    ),
+  ];
+  const years = [
+    ...new Set(
+      allCarsFilter.length > 0
+        ? allCarsFilter.map((obj) => obj.year)
+        : allCars?.map((obj) => obj.year)
+    ),
+  ];
+  const fuels = [
+    ...new Set(
+      allCarsFilter.length > 0
+        ? allCarsFilter.map((obj) => obj.typeCar)
+        : allCars?.map((obj) => obj.typeCar)
+    ),
+  ];
 
   const handleCarFilter = (type: string, content: string) => {
     const newCar: ICarFiltter = { ...carFilter };
