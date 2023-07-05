@@ -14,7 +14,7 @@ import { RenderIsSeller } from "../../components/RenderIsSeller";
 
 export const Home = () => {
   const [open, setOpen] = useState(false);
-  const { allCars, carFilter, filtering, page, setPage } = useAds();
+  const { allCars, carFilter, page, setPage } = useAds();
   const { user } = useAuth();
   const [carsFilter, setCarsFilter] = useState<IAnnoucement[] | []>([]);
 
