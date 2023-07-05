@@ -147,18 +147,17 @@ export const MenuDefault = () => {
 
 export const MenuUser = () => {
   const { setModalIsOpen, setModalType, setLoading } = useAuth();
-  const navigate = useNavigate()
-  
-  const LogOut = async () => {
-    setLoading(true)
-    localStorage.clear();
-    await navigate('/login')
-    setLoading(false)
-  }
+  const navigate = useNavigate();
 
+  const LogOut = async () => {
+    setLoading(true);
+    localStorage.clear();
+    await navigate("/login");
+    setLoading(false);
+  };
 
   return (
-    <main className={"menu-user lg:right-0 animate-fadeIn shadow-lg border rounded"}>
+    <main className={"menu-user lg:right-0 animate-fadeIn shadow-lg border rounded z-50"}>
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <Link
@@ -193,17 +192,16 @@ export const MenuUser = () => {
 export const MenuSeller = () => {
   const { setModalIsOpen, setModalType, setLoading } = useAuth();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const LogOut = async () => {
-    setLoading(true)
+    setLoading(true);
     localStorage.clear();
-    await navigate('/login')
-    setLoading(false)
-  }
-
+    await navigate("/login");
+    setLoading(false);
+  };
 
   return (
-    <main className={"menu-user rounded animate-fadeIn border shadow-lg lg:right-0 "}>
+    <main className={"menu-user rounded animate-fadeIn border shadow-lg lg:right-0 z-50"}>
       <ul className={"p-1"}>
         <li className={"h-10 flex items-center p-2 my-2"}>
           <Link

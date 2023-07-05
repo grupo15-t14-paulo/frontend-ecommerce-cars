@@ -69,7 +69,7 @@ export const Home = () => {
         <Header />
         {user?.isSeller && allCarsFilter.length > 0 ? (
           <RenderIsSeller allCarsFilter={allCarsFilter} openMenu={OpenMenu} />
-        ) : !user?.isSeller ? (
+        ) : !user?.isSeller && allCars && allCars.length > 0 ? (
           <>
             <main
               className={`mt-12 min-h-full w-full container flex flex-col gap-4 relative box-border lg:flex-row`}
@@ -151,6 +151,7 @@ export const Home = () => {
                 )}
               </div>
             </main>
+
             <div className="m-48" />
           </>
         ) : (
