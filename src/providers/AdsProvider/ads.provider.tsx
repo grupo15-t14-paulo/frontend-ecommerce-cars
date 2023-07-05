@@ -33,6 +33,7 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const { user } = useAuth();
 
   const handleOpenModal = () => {
+    setImageCount(2);
     setIsOpen(true);
   };
 
