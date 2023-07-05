@@ -71,12 +71,12 @@ export const ProfileCard = ({
       className={
         "flex mb-10 mt-10 flex-col gap-2 w-312 h-[400px] min-h-card min-w-card rounded-sm drop-shadow-sm box-border cursor-pointer"
       }
-      onClick={() => navigate(`/dashboard/${id}`)}
     >
       <section
         className={
           "h-[152px] w-full flex justify-center items-center bg-colorGreyScaleGrey7 rounded-t-sm"
         }
+        onClick={() => navigate(`/dashboard/${id}`)}
       >
         {imgCover ? (
           <img

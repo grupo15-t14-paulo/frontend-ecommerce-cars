@@ -61,15 +61,6 @@ export const UserAnnouncements = () => {
               ))}
             </ul>
           </section>
-
-          <div className={"flex mb-10 sm:right-28 md:right-1/3 gap-4  font-bold"}>
-            <span className={"text-2xl text-colorGreyScaleGrey3"}>
-              1<span className={"text-colorGreyScaleGrey4"}> de 2</span>
-            </span>
-            <button className={"flex items-center text-2xl text-colorBrandBrand1 font-bold"}>
-              Seguinte &gt;
-            </button>
-          </div>
         </main>
       </div>
 
