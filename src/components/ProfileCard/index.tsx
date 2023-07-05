@@ -22,8 +22,7 @@ export const ProfileCard = ({
 }: ICardProps) => {
   const navigate = useNavigate();
 
-  const { handleOpenModal, setCar, setBrandSelected, setModalAdsType } =
-    useAds();
+  const { handleOpenModal, setCar, setBrandSelected, setModalAdsType } = useAds();
 
   const setCarInfo = () => {
     const car = {
@@ -77,28 +76,21 @@ export const ProfileCard = ({
         className={
           "h-[152px] w-full flex justify-center items-center bg-colorGreyScaleGrey7 rounded-t-sm"
         }
+        onClick={() => navigate(`/dashboard/${id}`)}
       >
         {imgCover ? (
           <img
             src={imgCover}
             alt="imagem do carro"
-            className={
-              "w-full h-full object-contain hover:border-2 hover:border-colorBrandBrand1"
-            }
+            className={"w-full h-full object-contain hover:border-2 hover:border-colorBrandBrand1"}
           />
         ) : (
-          <img
-            src={ImgDefault}
-            alt="imagem do carro"
-            className={"w-full h-full object-contain"}
-          />
+          <img src={ImgDefault} alt="imagem do carro" className={"w-full h-full object-contain"} />
         )}
       </section>
       <section className={"mt-1 mb-2 flex flex-col gap-4 p-1"}>
         <div className={"pr-1"}>
-          <h2 className={"mb-1 text-base font-semibold line-clamp-1 h-5"}>
-            {title}
-          </h2>
+          <h2 className={"mb-1 text-base font-semibold line-clamp-1 h-5"}>{title}</h2>
         </div>
         <div className={"h-10 w-[280px]"}>
           <p className={"text-sm h-full line-clamp-2"}>{description}</p>
@@ -109,18 +101,10 @@ export const ProfileCard = ({
         </div>
       </section>
       <div className={"flex w-full relative gap-1"}>
-        <span
-          className={
-            "flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"
-          }
-        >
+        <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
           {km} Km
         </span>
-        <span
-          className={
-            "flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"
-          }
-        >
+        <span className={"flex bg-colorBrandBrand4 py-1 px-2 rounded-md text-colorBrandBrand1"}>
           {year}
         </span>
         <span className={"absolute right-0 bottom-1"}>

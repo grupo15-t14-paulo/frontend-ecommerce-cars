@@ -1,19 +1,18 @@
-import { createContext,  useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { api, apiHerokuApp } from "../../services";
 import {
   adsContextValues,
   adsProviderProps,
   Brand,
   IAnnoucement,
+  InfoPage,
   modelsRequest,
   tReturnCar,
 } from "./interfaces";
 import { ICarFiltter } from "../../components/sideBar/sideBar.interface";
 import { useAuth } from "../../hooks/useAuth";
 
-export const AdsContext = createContext<adsContextValues>(
-  {} as adsContextValues
-);
+export const AdsContext = createContext<adsContextValues>({} as adsContextValues);
 
 export const AdsProvider = ({ children }: adsProviderProps) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -27,9 +26,11 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const [filtering, setFiltering] = useState(false);
   const [car, setCar] = useState<tReturnCar | null>(null);
   const [modalAdsType, setModalAdsType] = useState("");
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
+  const [infoPage, setInfoPage] = useState<InfoPage>();
+  const [allCarsFilter, setallCarsFilter] = useState<IAnnoucement[] | []>([]);
 
-  const {user} = useAuth()
+  const { user } = useAuth();
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -42,10 +43,17 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
   const getAllAnnouncement = async () => {
     try {
       const response = await api.get(`/cars?page=${page}`);
-     
-      const cars: IAnnoucement[] = response.data;
-      const filterCars = cars.filter((car) => car.user.id !== user?.id);
-      
+
+      const cars = response.data;
+      const onlyPage = {
+        nextPage: cars.nextPage,
+        prevPage: cars.prevPage,
+        totalPages: cars.totalPages,
+      };
+
+      const filterCars = cars.cars.filter((car: IAnnoucement) => car.user.id !== user?.id);
+
+      setInfoPage(onlyPage);
       setAllCars(filterCars);
     } catch (error) {
       console.log(error);
@@ -57,10 +65,8 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
       try {
         const response = await apiHerokuApp.get("/cars");
         setBrand(response.data);
-        
-        const responseBrand = await apiHerokuApp.get(
-          `/cars?brand=${brandSelected}`
-        );
+
+        const responseBrand = await apiHerokuApp.get(`/cars?brand=${brandSelected}`);
 
         if (Array.isArray(await responseBrand.data)) {
           setModels(responseBrand.data);
@@ -105,6 +111,10 @@ export const AdsProvider = ({ children }: adsProviderProps) => {
         getAllAnnouncement,
         setPage,
         page,
+        infoPage,
+        setInfoPage,
+        allCarsFilter,
+        setallCarsFilter,
       }}
     >
       {children}
