@@ -10,10 +10,7 @@ import {
 } from "./interfaces";
 import { api } from "../../services";
 import { useNavigate } from "react-router-dom";
-import {
-  ResetPasswordData,
-  SendEmailResetPasswordData,
-} from "../../schemas/userResetPassword";
+import { ResetPasswordData, SendEmailResetPasswordData } from "../../schemas/userResetPassword";
 import { toast } from "react-toastify";
 
 export const AuthContext = createContext({} as IAuthContextValues);
@@ -45,7 +42,6 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
         const response = await api.get("users");
         setUser(response.data);
-        
       } catch (error) {
         console.log(error);
       }
@@ -61,7 +57,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       await api.post("users", data);
 
       toast.success("Usuário registrado com sucesso!");
-      navigate('/login')
+      navigate("/login");
     } catch (error) {
       toast.error("Ops, algo deu errado!");
     } finally {
@@ -71,16 +67,15 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const updateUser = async (data: tUpdateUserWithoutAddress) => {
     try {
-      setLoading(true)
+      setLoading(true);
       await api.patch("users", data);
 
       toast.success("Perfil editado com sucesso!");
     } catch (error) {
       toast.error("Ops, algo deu errado!");
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
-    
   };
 
   const updateUserAddress = async (data: tUpdateAddress) => {
@@ -122,12 +117,12 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       localStorage.setItem("user-ecommerce-cars:token", token);
 
       const userResponse = await api.get("users");
-      
+
       setUser(userResponse.data);
 
       toast.success("Usuário logado com sucesso!");
 
-      navigate("/")
+      navigate("/");
     } catch (error) {
       toast.error("Ops, algo deu errado!");
     } finally {
@@ -135,9 +130,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
-  const sendEmail = (
-    sendEmailResetPasswordData: SendEmailResetPasswordData
-  ) => {
+  const sendEmail = (sendEmailResetPasswordData: SendEmailResetPasswordData) => {
     api
       .post("/users/resetPassword", sendEmailResetPasswordData)
       .then(() => {
@@ -151,10 +144,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         );
       });
   };
-  const resetPassword = (
-    resetPasswordData: ResetPasswordData,
-    token: string
-  ) => {
+  const resetPassword = (resetPasswordData: ResetPasswordData, token: string) => {
     api
       .patch(`/users/resetPassword/${token}`, {
         password: resetPasswordData.password,

@@ -2,11 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Footer } from "../../components/footer";
 import { Input } from "../../components/Input";
 import { Navbar } from "../../components/Navbar";
-import {
-  tAddress,
-  tRegisterUserForm,
-  tUser,
-} from "../../providers/AuthProvider/interfaces";
+import { tAddress, tRegisterUserForm, tUser } from "../../providers/AuthProvider/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerUserFormSchema } from "../../providers/AuthProvider/schemas";
 import { useAuth } from "../../hooks/useAuth";
@@ -45,9 +41,7 @@ export const Register = () => {
     }
   };
 
-  const submit: SubmitHandler<tRegisterUserForm> = async (
-    data: tRegisterUserForm
-  ) => {
+  const submit: SubmitHandler<tRegisterUserForm> = async (data: tRegisterUserForm) => {
     data.isSeller = data.isSeller === "true" ? true : false;
 
     const address: tAddress = {
@@ -65,7 +59,7 @@ export const Register = () => {
       cpf: data.cpf,
       password: data.password,
       tel: data.tel,
-      dateBirth: data.dateBirth,
+      dateBirth: data.dateBirth.split("/").reverse().join("/"),
       description: data.description,
       isSeller: data.isSeller,
       address: address,
@@ -87,10 +81,7 @@ export const Register = () => {
           >
             <h2 className={"text-2xl font-medium mb-8"}>Cadastro</h2>
 
-            <form
-              onSubmit={handleSubmit(submit)}
-              className={"flex flex-col gap-6"}
-            >
+            <form onSubmit={handleSubmit(submit)} className={"flex flex-col gap-6"}>
               <h3 className={"text-sm font-medium"}>Informações pessoais</h3>
 
               <Input
@@ -100,9 +91,7 @@ export const Register = () => {
                 register={register("name")}
               />
               {errors.name && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.name.message}
-                </span>
+                <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.name.message}</span>
               )}
 
               <Input
@@ -112,9 +101,7 @@ export const Register = () => {
                 register={register("email")}
               />
               {errors.email && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.email.message}
-                </span>
+                <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.email.message}</span>
               )}
 
               <MaskedInput
@@ -124,9 +111,7 @@ export const Register = () => {
                 mask="999.999.999-99"
               />
               {errors.cpf && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.cpf.message}
-                </span>
+                <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.cpf.message}</span>
               )}
 
               <MaskedInput
@@ -136,9 +121,7 @@ export const Register = () => {
                 mask="(99) 99999-9999"
               />
               {errors.tel && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.tel.message}
-                </span>
+                <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.tel.message}</span>
               )}
 
               <MaskedInput
@@ -185,9 +168,7 @@ export const Register = () => {
                 />
               </div>
               {errors.cep && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.cep.message}
-                </span>
+                <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.cep.message}</span>
               )}
 
               <div className={"flex justify-between"}>
@@ -227,9 +208,7 @@ export const Register = () => {
                 register={register("street")}
               />
               {errors.street && (
-                <span className={"text-colorFeedbackAlert1 text-sm"}>
-                  {errors.street.message}
-                </span>
+                <span className={"text-colorFeedbackAlert1 text-sm"}>{errors.street.message}</span>
               )}
 
               <div className={"flex justify-between"}>
