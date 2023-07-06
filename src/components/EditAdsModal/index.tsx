@@ -13,12 +13,26 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
 
 export const EditAdsModal = () => {
-  const { modalIsOpen, handleCloseModal, car, setCar, modalAdsType, setModalAdsType } = useAds();
+  const {
+    modalIsOpen,
+    handleCloseModal,
+    car,
+    setCar,
+    modalAdsType,
+    setModalAdsType,
+  } = useAds();
 
   const { setUser } = useAuth();
   const [imageCount, setImageCount] = useState(car?.images.length || 3);
 
-  const fuelTypes = ["Diesel", "Etanol", "Gasolina", "Híbrido", "Flex", "Elétrico"];
+  const fuelTypes = [
+    "Diesel",
+    "Etanol",
+    "Gasolina",
+    "Híbrido",
+    "Flex",
+    "Elétrico",
+  ];
 
   const { register, handleSubmit, setValue } = useForm<tUpdateCar>({
     resolver: zodResolver(updateCarSchema),
@@ -107,17 +121,29 @@ export const EditAdsModal = () => {
           className="bg-black bg-opacity-50 data-[state=open]:animate-overlayShow fixed inset-0"
         />
         <Dialog.Content className="overflow-auto flex-col items-center data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-colorGreyScaleGrey10 p-[25px] z-50 overflow-y-scroll scrollbar box-border">
-          <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">Editar anúncio</Dialog.Title>
+          <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">
+            Editar anúncio
+          </Dialog.Title>
           <Dialog.Description className="mt-[10px] mb-5 text-[15px] leading-normal">
             Informações do veículo
           </Dialog.Description>
           <form onSubmit={handleSubmit(submit)}>
             <fieldset className="fieldset-default">
-              <Input type="text" label="Marca" register={register("brand")} isDisabled={true} />
+              <Input
+                type="text"
+                label="Marca"
+                register={register("brand")}
+                isDisabled={true}
+              />
             </fieldset>
 
             <fieldset className="fieldset-default">
-              <Input type="text" label="Modelo" register={register("model")} isDisabled={true} />
+              <Input
+                type="text"
+                label="Modelo"
+                register={register("model")}
+                isDisabled={true}
+              />
             </fieldset>
 
             <div className="  w-full flex gap-5">
@@ -231,10 +257,13 @@ export const EditAdsModal = () => {
               />
             </fieldset>
             {car!.images &&
-              car!.images.map((image, index) => (
+              car!.images.map((__, index) => (
                 <div className="flex flex-col" key={index}>
                   <fieldset className="fieldset-default">
-                    <label className="label-default" htmlFor={`imagem ${index}`}>
+                    <label
+                      className="label-default"
+                      htmlFor={`imagem ${index}`}
+                    >
                       {index + 1}º Imagem de galeria
                     </label>
                     <input

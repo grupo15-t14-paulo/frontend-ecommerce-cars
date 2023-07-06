@@ -16,8 +16,8 @@ export const RoutesMain = () => {
       <Route element={<ProtectedRoutes />}>
         <Route path="/login" element={<Login />} />
       </Route>
-      <Route path="/resetPassword" element={<SendEmailResetPassword />} />
-      <Route path="/resetPassword/:token" element={<ResetPassword />} />
+      <Route path="/users/resetPassword" element={<SendEmailResetPassword />} />
+      <Route path="/users/resetPassword/:token" element={<ResetPassword />} />
       <Route element={<ProtectedRoutes />}>
         <Route path="/register" element={<Register />} />
       </Route>

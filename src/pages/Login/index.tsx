@@ -69,7 +69,7 @@ export const Login = () => {
               )}
 
               <Link
-                to={"/resetPassword"}
+                to={"/users/resetPassword"}
                 className={
                   "text-sm font-medium text-right hover:cursor-pointer hover:underline"
                 }
@@ -86,16 +86,22 @@ export const Login = () => {
                 {requesting ? "Entrando..." : "Entrar"}
               </button>
 
-              <span 
-                className={"text-center text-sm text-colorGreyScaleGrey2 font-normal"}>
+              <span
+                className={
+                  "text-center text-sm text-colorGreyScaleGrey2 font-normal"
+                }
+              >
                 Ainda não possui conta?
               </span>
 
-                <Link
-                  to={"/register"}
-                  className={"h-12 rounded py-3 px-7 bg-transparent hover:bg-colorGreyScaleGrey1 border-2 border-colorGreyScaleGrey4 hover:border-colorGreyScaleGrey1 text-center  text-base text-colorGreyScaleGrey0 hover:text-colorGreyScaleGrey10 font-semibold"}>
-                  Cadastrar
-                </Link>
+              <Link
+                to={"/register"}
+                className={
+                  "h-12 rounded py-3 px-7 bg-transparent hover:bg-colorGreyScaleGrey1 border-2 border-colorGreyScaleGrey4 hover:border-colorGreyScaleGrey1 text-center  text-base text-colorGreyScaleGrey0 hover:text-colorGreyScaleGrey10 font-semibold"
+                }
+              >
+                Cadastrar
+              </Link>
             </form>
           </div>
         </div>
