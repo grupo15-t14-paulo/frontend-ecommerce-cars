@@ -44,6 +44,7 @@ export const Menu = () => {
 
   return (
     <div className={"relative flex min-w-full shadow z-10 container"}>
+      {open && content}
       <div className={"container flex justify-between  items-center relative"}>
         <div className={"flex w-40 h-6 cursor-pointer"} onClick={() => navigate("/")}>
           <img src={LogoImg} alt="logo" />
@@ -89,9 +90,9 @@ export const Menu = () => {
             )}
           </button>
         )}
-        {open && content}
+
         {!user && (
-          <div className={"hidden md:flex gap-4 border-l-2 h-full items-center pl-4"}>
+          <div className={"hidden md:flex gap-4 border-l-2 h-full items-center pl-4 "}>
             <Link
               to={"/login"}
               className={
