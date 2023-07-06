@@ -71,13 +71,13 @@ export const Profile = () => {
           <section className={"  w-full h-full lg:w-full lg: box-border pb-5"}>
             {user?.isSeller ? (
               <>
-                {anuncios ? (
+                {anuncios && anuncios?.length > 0 ? (
                   <ul
                     className={
                       "flex h-[510px] lg:flex-wrap w-full gap-10 overflow-auto lg:justify-center lg:py-0  scrollbar"
                     }
                   >
-                    {anuncios.map((car) => (
+                    {anuncios?.map((car) => (
                       <ProfileCard
                         id={car.id}
                         description={car.description}
