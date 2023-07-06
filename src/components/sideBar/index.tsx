@@ -12,10 +12,6 @@ export const SideBar = () => {
         : allCars?.map((obj) => obj.brand)
     ),
   ];
-  // const models = [...new Set(allCars?.map((obj) => obj.model))];
-  // const colors = [...new Set(allCars?.map((obj) => obj.color))];
-  // const years = [...new Set(allCars?.map((obj) => obj.year))];
-  // const fuels = [...new Set(allCars?.map((obj) => obj.typeCar))];
 
   const models = [
     ...new Set(
