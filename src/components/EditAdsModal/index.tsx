@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useAds } from "../../hooks/useAds";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "../../services";
@@ -13,27 +13,12 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
 
 export const EditAdsModal = () => {
-  const {
-    modalIsOpen,
-    handleCloseModal,
-    imageCount,
-    setImageCount,
-    car,
-    setCar,
-    modalAdsType,
-    setModalAdsType,
-  } = useAds();
+  const { modalIsOpen, handleCloseModal, car, setCar, modalAdsType, setModalAdsType } = useAds();
 
   const { setUser } = useAuth();
+  const [imageCount, setImageCount] = useState(car?.images.length || 3);
 
-  const fuelTypes = [
-    "Diesel",
-    "Etanol",
-    "Gasolina",
-    "Híbrido",
-    "Flex",
-    "Elétrico",
-  ];
+  const fuelTypes = ["Diesel", "Etanol", "Gasolina", "Híbrido", "Flex", "Elétrico"];
 
   const { register, handleSubmit, setValue } = useForm<tUpdateCar>({
     resolver: zodResolver(updateCarSchema),
@@ -60,7 +45,7 @@ export const EditAdsModal = () => {
 
   const renderImage = () => {
     const inputs = [];
-    for (let i = 3; i <= imageCount; i++) {
+    for (let i = car!.images.length + 1; i <= imageCount!; i++) {
       inputs.push(
         <div className="flex flex-col" key={i}>
           <fieldset className="fieldset-default">
@@ -69,8 +54,8 @@ export const EditAdsModal = () => {
             </label>
             <input
               type="url"
-              name={`image${i}`}
               id={`image${i}`}
+              {...register(`images.${i - 1}.urlImage`)}
               className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none"
             />
           </fieldset>
@@ -114,10 +99,6 @@ export const EditAdsModal = () => {
     }
   };
 
-  const handleAddImage = () => {
-    setImageCount((prevCount) => prevCount + 1);
-  };
-
   return (
     <Dialog.Root open={modalIsOpen}>
       <Dialog.Portal>
@@ -126,29 +107,17 @@ export const EditAdsModal = () => {
           className="bg-black bg-opacity-50 data-[state=open]:animate-overlayShow fixed inset-0"
         />
         <Dialog.Content className="overflow-auto flex-col items-center data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-colorGreyScaleGrey10 p-[25px] z-50 overflow-y-scroll scrollbar box-border">
-          <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">
-            Editar anúncio
-          </Dialog.Title>
+          <Dialog.Title className=" m-0 text-[17px] font-medium mb-8">Editar anúncio</Dialog.Title>
           <Dialog.Description className="mt-[10px] mb-5 text-[15px] leading-normal">
             Informações do veículo
           </Dialog.Description>
           <form onSubmit={handleSubmit(submit)}>
             <fieldset className="fieldset-default">
-              <Input
-                type="text"
-                label="Marca"
-                register={register("brand")}
-                isDisabled={true}
-              />
+              <Input type="text" label="Marca" register={register("brand")} isDisabled={true} />
             </fieldset>
 
             <fieldset className="fieldset-default">
-              <Input
-                type="text"
-                label="Modelo"
-                register={register("model")}
-                isDisabled={true}
-              />
+              <Input type="text" label="Modelo" register={register("model")} isDisabled={true} />
             </fieldset>
 
             <div className="  w-full flex gap-5">
@@ -219,11 +188,11 @@ export const EditAdsModal = () => {
             <div className="w-full flex gap-5">
               <fieldset className="fieldset-default">
                 <Input
-                type="text"
-                label="Preço tabela FIPE"
-                register={register("fipePrice")}
-                isDisabled={true}
-              />
+                  type="text"
+                  label="Preço tabela FIPE"
+                  register={register("fipePrice")}
+                  isDisabled={true}
+                />
               </fieldset>
               <fieldset className="fieldset-default">
                 <label className=" label-default" htmlFor="preço">
@@ -261,35 +230,29 @@ export const EditAdsModal = () => {
                 {...register("imageCover")}
               />
             </fieldset>
-            <fieldset className="fieldset-default">
-              <label className="label-default" htmlFor="imagem 1">
-                1° Imagem da galeria
-              </label>
-              <input
-                placeholder="Carregar imagem"
-                className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none"
-                id="imagem 1"
-                type="url"
-                {...register(`images.${0}.urlImage`)}
-              />
-            </fieldset>
-            <fieldset className="fieldset-default">
-              <label className="label-default" htmlFor="imagem 2">
-                2° imagem da galeria
-              </label>
-              <input
-                placeholder="Carregar imagem"
-                className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none "
-                id="imagem 2"
-                {...register(`images.${1}.urlImage`)}
-                type="url"
-              />
-            </fieldset>
+            {car!.images &&
+              car!.images.map((image, index) => (
+                <div className="flex flex-col" key={index}>
+                  <fieldset className="fieldset-default">
+                    <label className="label-default" htmlFor={`imagem ${index}`}>
+                      {index + 1}º Imagem de galeria
+                    </label>
+                    <input
+                      type="url"
+                      id={`image${index}`}
+                      {...register(`images.${index}.urlImage`)}
+                      className="focus:inline-flex mt-2 h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none border-colorGreyScaleGrey1 border outline-none"
+                    />
+                  </fieldset>
+                </div>
+              ))}
+
             {renderImage()}
             {imageCount < 6 && (
               <button
-                onClick={handleAddImage}
+                onClick={() => setImageCount((previous) => previous + 1)}
                 className="inline-flex border bg-colorBrandBrand4 border-colorBrandBrand2 text-colorBrandBrand2  p-2 rounded-[4px] mt-4 mb-6"
+                type="button"
               >
                 Adicionar campo para imagem da galeria
               </button>
